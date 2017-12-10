@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<style>
+.margin-bottom {
+    margin-bottom:5px;
+}
+</style>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+
+<div class="normalheader">
+    <div class="hpanel">
+        <div class="panel-body">
+
+            <h2 class="font-light m-b-xs">
+                FAQ
+            </h2>
+            <small>FAQ page - FAQ & Support for AccelerList</small>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel-body">
+                    <h4 class="m-t-none m-b-none">General questions</h4>
+                    <small class="text-muted">All general questions about AccelerList.</small>
+                </div>
+                <div class="panel-body">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#q1" aria-expanded="true">
+                        <i class="fa fa-chevron-down pull-right text-muted"></i>
+                        What re-pricing program do you recommend?
+                    </a>
+                    <div id="q1" class="panel-collapse collapse">
+                        <hr>Repriceit.com is a really great program.  It is what we use on our personal accounts. It starts at $9.99/month. You can also leverage the “Match Low Price” feature directly on your Amazon Seller Central account, however that is usually matching against MF sellers so it’s best to use a re-pricing software. You can select up to 200 items at a time and automatically match the lowest priced seller. You can match the lowest FBA or Merchant Fulfilled seller.
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#q2" aria-expanded="true">
+                        <i class="fa fa-chevron-down pull-right text-muted"></i>
+                        Can I label the items myself?
+                    </a>
+                    <div id="q2" class="panel-collapse collapse">
+                        <hr>Sure thing. You can print the labels from your Amazon Seller Central account with the Avery 5160 labels, 30 at a time. They will print out in the same order that you listed the books.  We recommend using Amazon to label your books or any product you’re listing with AccelerList as it is another way to improve your work flows.  </div>
+                </div>
+                <div class="panel-body">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#q3" aria-expanded="true">
+                        <i class="fa fa-chevron-down pull-right text-muted"></i>
+                        What are the requirements/costs of the Amazon Label Service?
+                    </a>
+                    <div id="q3" class="panel-collapse collapse">
+                        <hr>All items or products must have a barcode, and it costs 20 cents each for Amazon to label them.</div>
+                </div>
+                <div class="panel-body">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#q4" aria-expanded="true">
+                        <i class="fa fa-chevron-down pull-right text-muted"></i>
+                        Can I use AccelerList on more than one computer or any browser?
+                    </a>
+                    <div id="q4" class="panel-collapse collapse">
+                        <hr>Yes and no.  We will be supporting “employee accounts” very soon.  However, you can share your login information with other owners of your business and AccelerList will work in ANY browser that’s connected to the internet. </div>
+                </div>
+                <div class="panel-body">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#q5" aria-expanded="true">
+                        <i class="fa fa-chevron-down pull-right text-muted"></i>
+                        Can I change the information after it is scanned into AccelerList?
+                    </a>
+                    <div id="q5" class="panel-collapse collapse">
+                        <hr>Yes, you can edit the individual comments, price, SKU number, and condition.</div>
+                </div>
+                <div class="panel-body">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#q6" aria-expanded="true">
+                        <i class="fa fa-chevron-down pull-right text-muted"></i>
+                        I am a Merchant-Fulfilled seller. Can I still use AccelerList?
+                    </a>
+                    <div id="q6" class="panel-collapse collapse">
+                        <hr>You betcha! As a matter of fact, AccelerList works very well for listing merchant-fulfilled items. </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- Vendor scripts -->
+<script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/static/vendor/jquery-ui/jquery-ui.min.js"></script>
+<script src="/static/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/vendor/metisMenu/dist/metisMenu.min.js"></script>
+<script src="/static/vendor/iCheck/icheck.min.js"></script>
+<script src="/static/vendor/sparkline/index.js"></script>
+
+<!-- App scripts -->
+<script src="/static/scripts/homer.js"></script>
+
+</body>
+</html>
+
+{% endblock %}

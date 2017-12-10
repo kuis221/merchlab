@@ -1,0 +1,364 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<link rel="stylesheet" href="/static/vendor/sweetalert/lib/sweet-alert.css" />
+
+
+<div class="modal fade" id="replace-card-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-left">
+                <h4 class="modal-title">Replace Card</h4>
+                <small class="font-bold">Want to update your card information? Enter your new details below.</small>
+            </div>
+            <form id="updateCardForm">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="form-group"><label class="col-sm-3 control-label" style="margin-top:5px">Card Number</label>
+
+                            <div class="col-sm-9"><input type="text" class="form-control input-sm cc-num" type="text" autocomplete=off id="" placeholder="Card Number" data-stripe="number"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="margin-top:5px">CVC</label>
+
+                            <div class="col-sm-9"><input type="text" class="form-control input-sm cc-cvc" type="text" autocomplete=off id="" placeholder="CVC" data-stripe="cvc" style="width:50px"></div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                      <div class="form-group">
+                            <label class="col-sm-3 control-label" style="margin-top:-5px">Expiration (MM/YYYY)</label>
+                            <div class="col-sm-9">
+
+                                <input type="text" style="width:50px" class="form-control input-sm col-sm-3" placeholder="MM" data-stripe="exp-month"/>
+                                <span class="col-sm-2" style="margin-top:5px">/</span>
+                                <input type="text" style="width:50px" class="form-control input-sm" placeholder="YYYY" data-stripe="exp-year"/>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onClick="confirmCardReplacement(); return false;" id="confirmCardReplacementButton">Confirm Card Replacement</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add-card-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-left">
+                <h4 class="modal-title">Add Card & Start Membership</h4>
+                <small class="font-bold">Want to start a subscription with AccelerList? Enter your details here to sign up!</small>
+            </div>
+            <form id="addCardForm">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="form-group"><label class="col-sm-3 control-label" style="margin-top:5px">Card Number</label>
+
+                            <div class="col-sm-9"><input type="text" class="form-control input-sm cc-num" type="text" autocomplete=off id="" placeholder="Card Number" data-stripe="number"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="margin-top:5px">CVC</label>
+
+                            <div class="col-sm-9"><input type="text" class="form-control input-sm cc-cvc" type="text" autocomplete=off id="" placeholder="CVC" data-stripe="cvc" style="width:50px"></div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                      <div class="form-group">
+                            <label class="col-sm-3 control-label" style="margin-top:-5px">Expiration (MM/YYYY)</label>
+                            <div class="col-sm-9">
+
+                                <input type="text" style="width:50px" class="form-control input-sm col-sm-3" placeholder="MM" data-stripe="exp-month"/>
+                                <span class="col-sm-2" style="margin-top:5px">/</span>
+                                <input type="text" style="width:50px" class="form-control input-sm" placeholder="YYYY" data-stripe="exp-year"/>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" onClick="confirmStartMembership(); return false;" id="confirmStartMembershipButton">Start Membership</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body float-e-margins">
+                    <h2>Membership</h2>
+                    <hr>
+
+
+                    <div class="row">
+
+                        <div class="col-lg-6 border-right">
+                            <h3 class='text-center'>Plan</h3>
+                            <hr>
+
+                            {% if not subscription %}
+                            <p class="text-center"><strong>Current plan</strong>: Inactive</p>  
+                            <hr>
+                                {% if source %}
+                                <div class="text-center">   
+                                    <a href="/restart_membership/"><button class="btn btn-success">Restart Subscription</button></a>
+                                </div>
+                                {% endif %}
+
+                            {% else %}
+                            <p class="text-center"><strong>Current Plan</strong>: {{subscription.plan.name}} <br>(${{subscription.plan.amount|format_stripe_amount}}/mo)
+                                {% if subscription.status == "trialing" %}
+                                <span class="label label-primary text-uppercase">Free Trial</span>
+                                {% endif %}
+                            </p>
+                            <p class="text-center"><strong>Ends</strong>: {{subscription.current_period_end|ts_to_s}}</p>  
+                            <br>
+                            <p><small><strong>Note</strong>: 
+
+                            {% if subscription.status == "trialing" %}
+                            Your are currently in your trial period, and your card will not be charged until the end time above.<br>
+                            {% endif %}
+                            Your subscription will be automatically renewed when the current subscription ends.
+
+                            </small></p>
+
+                            <hr>
+                            <div class="text-center">   
+                                <button class="btn btn-danger" onClick="cancelMembership()">Cancel Membership</button></a>
+                            </div>
+
+                            {% endif %}
+
+
+                        </div>
+                        <div class="col-lg-6">
+                            <h3 class="text-center">Billing</h3>
+                            {% if source %}
+                            <hr>
+                            <p class="text-center"><strong>Method</strong>: Your {{source.brand}} ending in {{source.last4}}</p>
+                            <p class="text-center"><strong>Card Expiration</strong>: {{source.exp_month}}/{{source.exp_year}}</p>
+
+                            <hr>                 
+                            <div class="text-center">     
+                                <button class="btn btn-info" data-toggle="modal" data-target="#replace-card-modal">Replace Card</button>
+
+                            </div>
+                            {% else %}
+                            <hr>               
+
+                                {% if userDetails.wasCoreBetaTester %}
+                                <p><strong>Congratulations, {{current_user.id}}</strong>! Our records show that you were a core beta tester! We really appreciate all that you've done for us, and we want to keep you a happy customer of our product.</p>
+                                <p>We'd like you to enjoy <strong>six months</strong> of AccelerList for free, as long as you add your card details below.</p>
+                                {% endif %}  
+                            <br>
+                            <div class="text-center">     
+                                <button class="btn btn-info" data-toggle="modal" data-target="#add-card-modal">Add Card & Start Membership</button>
+                            </div> 
+
+                            {% endif %}            
+                                                       
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Vendor scripts -->
+<script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/static/vendor/jquery-ui/jquery-ui.min.js"></script>
+<script src="/static/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/vendor/metisMenu/dist/metisMenu.min.js"></script>
+<script src="/static/vendor/iCheck/icheck.min.js"></script>
+<script src="/static/vendor/sparkline/index.js"></script>
+<script src="/static/vendor/jquery-payments/jquery.payment.min.js"></script>
+<script src="/static/vendor/sweetalert/lib/sweet-alert.min.js"></script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+<!-- App scripts -->
+<script src="/static/scripts/homer.js"></script>
+
+<script type="text/javascript">
+    function cancelMembership() {
+        swal({   
+                title: "Are you sure?",   
+                text: "Your access to AccelerList will be immediately terminated upon cancellation.",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "Yes, cancel my membership!",   
+                closeOnConfirm: false 
+            }, 
+            function(){   
+
+                swal("Subscription Cancelled!", "Your subscription will be canceled. Thanks for using AccelerList, and we hope you come back!", "success"); 
+                window.location = "/cancel_membership/"
+
+
+            })
+    }
+
+    $('input.cc-num').payment('formatCardNumber');
+    $('input.cc-exp').payment('formatCardExpiry');
+    $('input.cc-cvc').payment('formatCardCVC');    
+    // This identifies your website in the createToken call below
+    Stripe.setPublishableKey('pk_live_X7oiEfIKSOgrcFxqldQ5aOY6');
+    // ...
+
+    function stripReplacementHandler(status, response) {
+        toastr.options = {
+          "positionClass": "toast-top-center",
+        } 
+        var $form = $('#updateCardForm');
+        console.log("here, supposed to log...")
+        if (response.error) {
+            // Show the errors on the form
+
+            toastr.error(response.error.message);
+            $form.find('#confirmCardReplacementButton').prop('disabled', true);
+        } else {
+            // response contains id and card, which contains additional card details
+            var token = response.id;
+            // Insert the token into the form so it gets submitted to the server
+            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+            // and submit
+            console.log("this is token: " + token)
+            toastr.success("Sweet, the card looks good to us! We will automatically refresh this page soon and your info will be updated.");
+
+            $.ajax({
+                url: "/update_billing/",
+                method: "POST",
+                data: {
+                    stripeToken: token
+                },
+                success: function(msg) {
+                    console.log(msg)
+                    if (msg == "failure") {
+                        // Show the errors on the form
+                        toastr.options = {
+                          "positionClass": "toast-top-center",
+                        } 
+                        toastr.error("An unexpected problem occurred. Please send an email to our customer support!");  
+                        $form.find('#confirmCardReplacementButton').prop('disabled', false);
+
+                    } else if (msg == "card_data_error") {
+                         toastr.error("There's a problem with adding your card. Please check your CVC and Expiration date again.")
+                        $form.find('#confirmCardReplacementButton').prop('disabled', false);
+
+                    } else {
+                        location.reload()
+                    }
+
+                }
+            })
+        }
+    };
+
+    function stripeAddMembershipHandler(status, response) {
+        toastr.options = {
+          "positionClass": "toast-top-center",
+        } 
+        var $form = $('#addCardForm');
+        console.log("here, supposed to log...")
+        if (response.error) {
+            // Show the errors on the form
+
+            toastr.error(response.error.message);
+            $form.find('#confirmStartMembershipButton').prop('disabled', false);
+        } else {
+            // response contains id and card, which contains additional card details
+            var token = response.id;
+            // Insert the token into the form so it gets submitted to the server
+            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+            // and submit
+            console.log("this is token: " + token)
+            toastr.success("Sweet, the card looks good to us! We will automatically refresh this page soon and your info will be updated.");
+
+            $.ajax({
+                url: "/update_billing/",
+                method: "POST",
+                data: {
+                    stripeToken: token
+                },
+                success: function(msg) {
+                    console.log(msg)
+                    if (msg == "failure") {
+                        // Show the errors on the form
+                        toastr.options = {
+                          "positionClass": "toast-top-center",
+                        } 
+                        toastr.error("An unexpected problem occurred. Please send an email to our customer support!");  
+                        $form.find('#confirmStartMembershipButton').prop('disabled', false);
+
+                    } else if (msg == "card_data_error") {
+                         toastr.error("There's a problem with adding your card. Please check your CVC and Expiration date again.")
+                        $form.find('#confirmStartMembershipButton').prop('disabled', false);
+
+                    } else {
+                        location.reload()
+                    }
+                }
+            })
+        }
+    };
+
+    function confirmCardReplacement() {
+        var $form = $('#updateCardForm');
+
+        // Disable the submit button to prevent repeated clicks
+        $form.find('#confirmCardReplacementButton').prop('disabled', true);
+
+        Stripe.card.createToken($form, stripReplacementHandler);
+        console.log("ok here")
+        // Prevent the form from submitting with the default action
+        return false;
+    };
+ 
+    function confirmStartMembership() {
+        var $form = $('#addCardForm');
+
+        // Disable the submit button to prevent repeated clicks
+        $form.find('#confirmStartMembershipButton').prop('disabled', true);
+
+        Stripe.card.createToken($form, stripeAddMembershipHandler);
+        console.log("ok here")
+        // Prevent the form from submitting with the default action
+        return false;
+    };
+
+
+
+</script>
+
+
+</body>
+</html>
+
+{% endblock %}

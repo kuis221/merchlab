@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="/static/vendor/lazyYT/lazyYT.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+<script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+
+<style>
+.modal-header {
+	padding:10px;
+	padding-left:10px;	
+}
+
+.modal-title {
+	font-size:24px;
+}
+
+
+.react-bs-container-body tr td {
+	font-size:12px;
+}
+
+
+.modal-dialog {
+	margin-top:50px;
+}
+
+</style>
+<!-- Main Wrapper -->
+<div id="wrapper">
+    
+</div>
+
+<!-- Vendor scripts -->
+<script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/static/vendor/jquery-ui/jquery-ui.min.js"></script>
+<script src="/static/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/vendor/metisMenu/dist/metisMenu.min.js"></script>
+<script src="/static/vendor/iCheck/icheck.min.js"></script>
+<script src="/static/vendor/sparkline/index.js"></script>
+<script type="text/javascript" src="/static/js/lazyYT.js"></script>
+<script type="text/javascript" src="/static/bundle/favorites.js"></script>
+
+
+<!-- App scripts -->
+<script src="/static/scripts/homer.js"></script>
+
+</body>
+</html>
+
+{% endblock %}

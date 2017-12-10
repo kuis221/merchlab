@@ -1,0 +1,7 @@
+venv/*
+-*_data.csv
+-*_keywords.csv
+frontend/node_modules/*
+*.pyc
+*.DS_Store
+*.rdb

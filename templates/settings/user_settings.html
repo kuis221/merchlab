@@ -1,0 +1,420 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+<link rel="stylesheet" href="/static/vendor/xeditable/bootstrap3-editable/css/bootstrap-editable.css">
+
+<link rel="stylesheet" href="/static/vendor/sweetalert/lib/sweet-alert.css" />
+
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+
+    <div class="normalheader transition animated fadeIn">
+        <div class="hpanel">
+            <div class="panel-body">
+
+                <h2 class="font-light m-b-xs">
+                    Settings
+                </h2>
+                <small>Check here to see and modify your global InstaPrice settings. </small>
+                <!--
+                <div id="hbreadcrumb" class="pull-right">
+                    <ol class="hbreadcrumb breadcrumb">
+                        {% if request.path == "/settings/user_settings/" %}
+                            <li class="active">User Settings</li>
+                        {% else %}
+                            <li><a href="/settings/user_settings/">User Settings</a></li>
+                        {% endif %}
+
+                        {% if request.path == "/settings/printer_settings/" %}
+                            <li class="active">Printer Settings</li>
+                        {% else %}
+                            <li><a href="/settings/printer_settings/">Printer Settings</a></li>
+                        {% endif %}
+
+                        {% if request.path == "/settings/listing_preset_settings/" %}
+                            <li class="active">Global Listing Presets</li>
+                        {% else %}
+                            <li><a href="/settings/listing_preset_settings/">Global Listing Presets</a></li>
+                        {% endif %}                       
+
+                        {% if request.path == "/settings/address_settings/" %}
+                            <li class="active">Address Settings</li>
+                        {% else %}
+                            <li><a href="/settings/address_settings/">Address Settings</a></li>
+                        {% endif %}                       
+
+                        {% if request.path == "/settings/condition_note_settings/" %}
+                            <li class="active">Condition Note Settings</li>
+                        {% else %}
+                            <li><a href="/settings/condition_note_settings/">Condition Note Settings</a></li>
+                        {% endif %}   
+
+                    </ol>
+                </div>
+                -->
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                            <a class="closebox"><i class="fa fa-times"></i></a>
+                        </div>
+                        User Settings
+                    </div>
+                    <div class="panel-body">
+                        <div>
+
+                            <table id="user" class="table table-bordered table-striped" style="clear: both">
+                                <tbody>
+                                <tr>
+                                    <td width="35%">Username</td>
+                                    <td width="65%">{{current_user.username}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{current_user.email}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--
+                            <div class="text-center">
+                                <a href="/membership/"><button class="btn btn-sm btn-primary">Update Membership Settings</button></a>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                            <a class="closebox"><i class="fa fa-times"></i></a>
+                        </div>
+                        Update Password
+                    </div>
+                    <div class="panel-body float-e-margins">
+
+                        <div class="form-group">
+                            <label class="control-label" for="password">Old Password</label>
+                            <input type="password" id="old"  title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control input-sm">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="password">New Password</label>
+                            <input type="password" id="new" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control input-sm">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label"for="password">Confirm Password</label>
+                            <input type="password" id="confirm" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control input-sm">
+                        </div>
+
+                        <div class="text-center">            
+                            <button class="btn btn-primary btn-sm" onClick="updatePassword()">
+                                Update Password
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <br>
+</div>
+
+
+
+
+    <!-- Right sidebar -->
+    <div id="right-sidebar" class="animated fadeInRight">
+
+        <div class="p-m">
+            <button id="sidebar-close" class="right-sidebar-toggle sidebar-button btn btn-default m-b-md"><i class="pe pe-7s-close"></i>
+            </button>
+            <div>
+                <span class="font-bold no-margins"> Analytics </span>
+                <br>
+                <small> Lorem Ipsum is simply dummy text of the printing simply all dummy text.</small>
+            </div>
+            <div class="row m-t-sm m-b-sm">
+                <div class="col-lg-6">
+                    <h3 class="no-margins font-extra-bold text-success">300,102</h3>
+
+                    <div class="font-bold">98% <i class="fa fa-level-up text-success"></i></div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="no-margins font-extra-bold text-success">280,200</h3>
+
+                    <div class="font-bold">98% <i class="fa fa-level-up text-success"></i></div>
+                </div>
+            </div>
+            <div class="progress m-t-xs full progress-small">
+                <div style="width: 25%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="25" role="progressbar"
+                     class=" progress-bar progress-bar-success">
+                    <span class="sr-only">35% Complete (success)</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-m bg-light border-bottom border-top">
+            <span class="font-bold no-margins"> Social talks </span>
+            <br>
+            <small> Lorem Ipsum is simply dummy text of the printing simply all dummy text.</small>
+            <div class="m-t-md">
+                <div class="social-talk">
+                    <div class="media social-profile clearfix">
+                        <a class="pull-left">
+                            <img src="images/a1.jpg" alt="profile-picture">
+                        </a>
+
+                        <div class="media-body">
+                            <span class="font-bold">John Novak</span>
+                            <small class="text-muted">21.03.2015</small>
+                            <div class="social-content small">
+                                Injected humour, or randomised words which don't look even slightly believable.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-talk">
+                    <div class="media social-profile clearfix">
+                        <a class="pull-left">
+                            <img src="images/a3.jpg" alt="profile-picture">
+                        </a>
+
+                        <div class="media-body">
+                            <span class="font-bold">Mark Smith</span>
+                            <small class="text-muted">14.04.2015</small>
+                            <div class="social-content">
+                                Many desktop publishing packages and web page editors.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-talk">
+                    <div class="media social-profile clearfix">
+                        <a class="pull-left">
+                            <img src="images/a4.jpg" alt="profile-picture">
+                        </a>
+
+                        <div class="media-body">
+                            <span class="font-bold">Marica Morgan</span>
+                            <small class="text-muted">21.03.2015</small>
+
+                            <div class="social-content">
+                                There are many variations of passages of Lorem Ipsum available, but the majority have
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-m">
+            <span class="font-bold no-margins"> Sales in last week </span>
+            <div class="m-t-xs">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <small>Today</small>
+                        <h4 class="m-t-xs">$170,20 <i class="fa fa-level-up text-success"></i></h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <small>Last week</small>
+                        <h4 class="m-t-xs">$580,90 <i class="fa fa-level-up text-success"></i></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <small>Today</small>
+                        <h4 class="m-t-xs">$620,20 <i class="fa fa-level-up text-success"></i></h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <small>Last week</small>
+                        <h4 class="m-t-xs">$140,70 <i class="fa fa-level-up text-success"></i></h4>
+                    </div>
+                </div>
+            </div>
+            <small> Lorem Ipsum is simply dummy text of the printing simply all dummy text.
+                Many desktop publishing packages and web page editors.
+            </small>
+        </div>
+
+    </div>
+
+<!-- Vendor scripts -->
+<script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/static/vendor/jquery-ui/jquery-ui.min.js"></script>
+<script src="/static/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/vendor/metisMenu/dist/metisMenu.min.js"></script>
+<script src="/static/vendor/iCheck/icheck.min.js"></script>
+<script src="/static/vendor/sparkline/index.js"></script>
+
+<!-- App scripts -->
+<script src="/static/scripts/homer.js"></script>
+<script src="/static/vendor/xeditable/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<script src="/static/vendor/sweetalert/lib/sweet-alert.min.js"></script>
+
+<script>
+//turn to inline mode
+$.fn.editable.defaults.mode = 'inline';
+$(document).ready(function() {
+
+    $('.editable-float').editable({
+        type : 'number',
+        step: 'any', // <-- added this line
+        title : 'Enter New Value',
+        url: '/settings/defaults/update/',  
+        validate: function(value) {
+            if (isNaN(value)) {
+                return 'Must be a valid number!';
+            }
+        },
+        success : function(response, newValue) {
+            console.log(response, newValue);
+            toastr.success("Updated setting!");
+
+        }
+    });
+
+
+    
+    $('#awsAccessKey').editable({
+        title : 'Enter New Value',
+        url: '/settings/update/',
+
+        success : function(response, newValue) {
+            console.log(response, newValue);
+            toastr.success("Updated Access Key!");
+        }
+    });
+
+    
+    $('#awsSecretKey').editable({
+        title : 'Enter New Value',
+        url: '/settings/update/',
+
+        success : function(response, newValue) {
+            console.log(response, newValue);
+            toastr.success("Updated Secret Key!");
+
+        }
+    });
+
+    
+    $('#awsAssociatesTag').editable({
+        title : 'Enter New Value',
+        url: '/settings/update/',
+
+        success : function(response, newValue) {
+            console.log(response, newValue);
+            toastr.success("Updated Associates Tag!");
+
+        }
+    });
+
+
+    $('#sellerId').editable({
+        title : 'Enter New Value',
+        url: '/settings/update/',
+
+        success : function(response, newValue) {
+            console.log(response, newValue);
+            toastr.success("Updated Seller ID!");
+        }
+    });
+
+    
+    $('#authToken').editable({
+        title : 'Enter New Value',
+        url: '/settings/update/',
+
+        success : function(response, newValue) {
+            console.log(response, newValue);
+            toastr.success("Updated authorization token!");
+
+        }
+    });
+
+    
+    $('.editable-number').editable({
+        type : 'number',
+        title : 'Enter New Value',
+        url: '/settings/defaults/update/',
+        validate: function(value) {
+
+            var regexp = new RegExp("^\d{0,2}(\.\d{0,2}){0,1}$");
+            if (!regexp.test(value)) {
+                return 'Must be an integer!';
+            }
+
+        },
+        success : function(response, newValue) {
+            console.log(response, newValue);
+            toastr.success("Edited setting!")
+        }
+    });
+
+
+});
+
+</script>
+
+
+<script type="text/javascript">
+    function updatePassword() {
+
+        if ($("#new").val() != $("#confirm").val()) {
+            toastr.error("The passwords don't match!");
+            return;
+        }
+        
+        if ($("#new").val() == "") {
+            toastr.error("Password cannot be empty!");
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/settings/update_password/",
+            data: {
+                oldPassword: $("#old").val(),
+                newPassword: $("#new").val()
+            },
+            success: function(result) {
+                console.log(result);
+                result = JSON.parse(result);
+                console.log(result.status);
+                if (result.status == "failure") {
+                    swal({
+                        title: "Error!",
+                        text: result.error,
+                        type: "error"
+                    });   
+                    return;                  
+                }
+                swal({
+                    title: "Password Updated!",
+                    text: "",
+                    type: "success"
+                }); 
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>
+
+{% endblock %}
