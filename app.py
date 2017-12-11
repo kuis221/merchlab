@@ -1032,7 +1032,6 @@ def keyword_search():
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	
-	WHERE salesrank > 0
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
 	and asin_analytics.last_indexed_date > '{}'
 
