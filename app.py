@@ -425,6 +425,7 @@ def register():
 	# HACK - PLEASE DO NOT DO THIS LATER ONCE YOU HAVE A LOT OF CUSTOMERS.
 	users = firebase_api.get_users()
 	num_seats_left = max(10, round_to_nearest_fifty(500 - len(users)))
+	num_seats_left = min(50, num_seats_left)
 
 	if request.method == 'GET':
 		return render_template('register.html', num_seats_left=num_seats_left)
