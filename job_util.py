@@ -64,8 +64,8 @@ def snapshot_asins(asins):
 		data = reliable_grab_asin_data(rotating_data_collector, asin)
 
 		if not data:
-			print("couldn't grab data for asin", asin)
-			compute_analytics_data_for_asins([asin])
+			print("Couldn't grab data for asin (most likely removed, but may be rate-limited as well). \
+				Don't compute asin analytics and don't snapshot it either.", asin)
 			continue
 
 		list_price = data.get("ListPrice", {}).get("Amount", None)
