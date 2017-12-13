@@ -548,7 +548,7 @@ def favorites_data():
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	WHERE asin_analytics.id IN ({})
-	ORDER BY asin_analytics.salesrank ASC
+	ORDER BY coalesce(asin_analytics.salesrank, asin_analytics.unthrottled_salesrank) ASC
 	LIMIT 1000;
 	""".format(', '.join(["'" + asin + "'" for asin in asins]))
 
@@ -622,11 +622,11 @@ def get_bestsellers(query=None):
 
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
-	and asin_analytics.salesrank > 0 and asin_analytics.list_price > 0
-	and asin_analytics.salesrank < 10000000
+	and coalesce(asin_analytics.salesrank, asin_analytics.unthrottled_salesrank) > 0 and asin_analytics.list_price > 0
+	and coalesce(asin_analytics.salesrank, asin_analytics.unthrottled_salesrank) < 10000000
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
 	{}	
-	ORDER BY salesrank ASC 
+	ORDER BY coalesce(salesrank, unthrottled_salesrank) ASC 
 	LIMIT 100;
 	""".format(query_sql)
 
@@ -670,8 +670,8 @@ def get_trending_tshirts_by_metric(metric, query=None, asc=False):
 
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
-	and asin_analytics.salesrank > 0 and asin_analytics.list_price > 0
-	and asin_analytics.salesrank < 10000000
+	and coalesce(asin_analytics.salesrank, asin_analytics.unthrottled_salesrank) > 0 and asin_analytics.list_price > 0
+	and coalesce(asin_analytics.salesrank, asin_analytics.unthrottled_salesrank) < 10000000
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
 	and asin_analytics.{} > 0
 	and asin_analytics.last_indexed_date > '{}'
@@ -1052,7 +1052,7 @@ def execute_query_search(query):
 	{}
 	{}
 
-	ORDER BY salesrank ASC 
+	ORDER BY coalesce(salesrank, unthrottled_salesrank) ASC 
 	LIMIT 1000;
 	""".format(query_sql, negative_queries_sql)
 	print(sql)	
@@ -1113,7 +1113,7 @@ def execute_backup_query_search(query):
 	{}
 	{}
 
-	ORDER BY salesrank ASC 
+	ORDER BY coalesce(salesrank, unthrottled_salesrank) ASC 
 	LIMIT 10000;
 	""".format(backup_searches_sql, negative_queries_sql)
 	print(sql)	
