@@ -191,6 +191,9 @@ def login():
 		else:
 			user = firebase_api.find_user_by_username(username)
 
+		if not user:
+			return render_template("login.html", error="credentials_error")    
+
 		object_id = user.get("objectId")
 		# NOTE: Users are now allowed to sign in through their email
 		# User.get method automatically figures out if it's an email or username,
@@ -199,7 +202,6 @@ def login():
 		if user and hash_pass(request.form['password']) == user.password:
 			login_user(user, remember=True)
 			return redirect(request.args.get("next") or url_for("index"))
-		return render_template("login.html", error="credentials_error")    
 	return render_template("login.html")
 
 
