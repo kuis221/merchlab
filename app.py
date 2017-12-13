@@ -1048,7 +1048,6 @@ def execute_query_search(query):
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
-	and asin_analytics.last_indexed_date > '{}'
 
 	{}
 	{}
@@ -1110,7 +1109,6 @@ def execute_backup_query_search(query):
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
-	and asin_analytics.last_indexed_date > '{}'
 
 	{}
 	{}
