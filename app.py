@@ -1054,7 +1054,7 @@ def execute_query_search(query):
 
 	ORDER BY salesrank ASC 
 	LIMIT 10000;
-	""".format(min_last_indexed_date, query_sql, negative_queries_sql)
+	""".format(query_sql, negative_queries_sql)
 	print(sql)	
 
 	raw_result = db.engine.execute(sql);
@@ -1115,7 +1115,7 @@ def execute_backup_query_search(query):
 
 	ORDER BY salesrank ASC 
 	LIMIT 10000;
-	""".format(min_last_indexed_date, backup_searches_sql, negative_queries_sql)
+	""".format(backup_searches_sql, negative_queries_sql)
 	print(sql)	
 	raw_result = db.engine.execute(sql);
 	result = []
