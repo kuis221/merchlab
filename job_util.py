@@ -204,7 +204,7 @@ def scrape_from_homepage(search_index="Apparel", browse_node="9056987011"):
 		db.session.add(item)
 		try:
 			db.session.commit()
-			data_writer.writerow(final_data)
+			#data_writer.writerow(final_data)
 		except Exception as e:
 			db.session.rollback()
 			if "duplicate key value violates unique constraint" in str(e).lower():
@@ -230,7 +230,9 @@ def scrape_from_homepage(search_index="Apparel", browse_node="9056987011"):
 		except Exception as e:
 			print(e, response)
 
-	scrape_merch_asins_task(today_str, further_keywords, search_index=search_index, browse_node=browse_node)
+	# The first argument is supposed to be today_str, but this is deprecated and unused
+	# so temporarily hacking through this code by adding None
+	scrape_merch_asins_task(None, further_keywords, search_index=search_index, browse_node=browse_node)
 
 
 def update_keyword_metadata(keyword):
@@ -422,6 +424,9 @@ def scrape_merch_asins_task(datestr, keywords_to_use, search_index="Apparel", br
 				response = write_snapshot_to_dynamodb(snapshot)
 			except Exception as e:
 				print(e, response)
+
+			compute_analytics_data_for_asins([asin])
+
 	
 
 	#datafile.close()

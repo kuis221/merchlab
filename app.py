@@ -12,7 +12,7 @@ from flask_login import (LoginManager, login_required, login_user,
 import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
-
+from scrapers.keyword_generator import generate_bigrams, generate_trigrams, turn_ngrams_into_searches
 
 from itsdangerous import URLSafeTimedSerializer
 import firebase_api
@@ -1015,16 +1015,28 @@ def get_recent_searches():
 	return json.dumps(entries)
 
 
-# Endpoint for searching Merch Researcher.
-@app.route('/keyword_search/', methods=["POST"])
-def keyword_search():
-	userId = current_user.username
-	query = request.form.get("query")
 
+def scrub_negative_queries(query):
+	query_split = query.split(' ')
+	query_split = [q for q in query_split if len(q) == 0 or q[0] != "-"]
+	new_query = " ".join(query_split)
+	return new_query
+
+def construct_negative_queries(query):
+	query_split = query.split(" ")
+	negative_queries = [q[1:] for q in query_split if len(q) > 0 and q[0] == "-"]
+	negative_queries_sql = " \n".join(["and lower(asin_metadata.title) not like '%%{}%%'".format(q) for q in negative_queries])
+	return negative_queries_sql
+
+def execute_query_search(query):
 	query_sql = ""
+	negative_queries_sql = ""
+	scrubbed_query = ""
 
 	if query:
-		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(query.lower())
+		scrubbed_query = scrub_negative_queries(query)
+		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(scrubbed_query.lower())
+		negative_queries_sql = construct_negative_queries(query)
 
 	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=5)).isoformat()
 
@@ -1039,11 +1051,12 @@ def keyword_search():
 	and asin_analytics.last_indexed_date > '{}'
 
 	{}
+	{}
 
 	ORDER BY salesrank ASC 
 	LIMIT 10000;
-	""".format(min_last_indexed_date, query_sql)
-	print(sql)
+	""".format(min_last_indexed_date, query_sql, negative_queries_sql)
+	print(sql)	
 
 	raw_result = db.engine.execute(sql);
 	result = []
@@ -1062,6 +1075,82 @@ def keyword_search():
 			"brand": row[5],
 			"image": image
 		})
+
+	return result
+
+def execute_backup_query_search(query):
+	query_sql = ""
+	negative_queries_sql = ""
+	scrubbed_query = ""
+
+	if query:
+		scrubbed_query = scrub_negative_queries(query)
+		bigrams = generate_bigrams(scrubbed_query.split(' '))
+		trigrams = generate_trigrams(scrubbed_query.split(' '))
+		#print("after", input_list)
+		backup_searches = turn_ngrams_into_searches(bigrams + trigrams)
+		backup_searches_sql = ["lower(asin_metadata.title) like '%%{}%%'".format(search.lower()) for search in backup_searches]
+		
+		if len(backup_searches_sql) == 0:
+			return []
+		if len(backup_searches_sql) == 1:
+			backup_searches_sql = "and " + backup_searches_sql[0]
+		else:
+			backup_searches_sql = "and " + backup_searches_sql[0] + " or " + "or \n".join(backup_searches_sql[1:])
+		negative_queries_sql = construct_negative_queries(query)
+
+
+	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=5)).isoformat()
+
+	sql = """
+	SELECT asin_analytics.id, asin_analytics.salesrank, asin_analytics.last_7d_salesrank, asin_analytics.list_price,
+	asin_metadata.title, asin_metadata.brand, asin_metadata.image
+	
+	FROM asin_analytics 
+	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
+	
+	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
+	and asin_analytics.last_indexed_date > '{}'
+
+	{}
+	{}
+
+	ORDER BY salesrank ASC 
+	LIMIT 10000;
+	""".format(min_last_indexed_date, backup_searches_sql, negative_queries_sql)
+	print(sql)	
+	raw_result = db.engine.execute(sql);
+	result = []
+	for row in raw_result:
+		print(row)
+		image = row[6]
+		if "no-img-sm" in image:
+			continue
+		image = image.replace("._SL75", "._SL200")
+		result.append({
+			"asin": row[0],
+			"salesrank": row[1],
+			"last_7d_salesrank": row[2],
+			"list_price": row[3],
+			"title": row[4],
+			"brand": row[5],
+			"image": image
+		})
+
+	return result
+
+
+
+# Endpoint for searching Merch Researcher.
+@app.route('/keyword_search/', methods=["POST"])
+def keyword_search():
+	userId = current_user.username
+	query = request.form.get("query")
+	result = execute_query_search(query)
+
+	if len(result) == 0:
+		print("hit this part")
+		result = execute_backup_query_search(query)
 
 	titles = [r.get("title") for r in result if r.get("title")]
 	keywords = get_keywords_from_titles(500, titles)

@@ -73,9 +73,6 @@ def compute_analytics_data_for_asins(asins):
 	today = datetime.datetime.utcnow()
 
 	for i, asin in enumerate(asins):
-		if i%10 == 0:
-			print(str(float(i) / float(len(asins))) + "% done.")
-
 		curr_snapshots_json = query_table("asin_snapshot", filter_key='asin', filter_value=asin).get("Items")
 		curr_snapshots = [models.AsinSnapshot(data) for data in curr_snapshots_json]
 
