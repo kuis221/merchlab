@@ -162,10 +162,10 @@ def get_newest_snapshot(snapshots):
 	for snapshot in snapshots:
 		if not latest_ts:
 			newest_snapshot = snapshot
-			latest_ts = newest_snapshot.timetamp
+			latest_ts = newest_snapshot.timestamp
 		elif snapshot.timestamp > latest_ts:
 			newest_snapshot = snapshot
-			latest_ts = newest_snapshot.timetamp
+			latest_ts = newest_snapshot.timestamp
 
 	return newest_snapshot
 
@@ -177,11 +177,11 @@ def get_newest_unthrottled_snapshot(snapshots):
 		if not latest_ts:
 			if snapshot.salesrank > 0:
 				newest_snapshot = snapshot
-				latest_ts = newest_snapshot.timetamp
+				latest_ts = newest_snapshot.timestamp
 
 		elif snapshot.timestamp > latest_ts and snapshot.salesrank > 0:
 			newest_snapshot = snapshot
-			latest_ts = newest_snapshot.timetamp
+			latest_ts = newest_snapshot.timestamp
 
 	return newest_snapshot
 
