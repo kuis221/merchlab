@@ -77,11 +77,14 @@ def compute_analytics_data_for_asins(asins):
 		curr_snapshots = [models.AsinSnapshot(data) for data in curr_snapshots_json]
 
 		newest_snapshot = get_newest_snapshot(curr_snapshots)
+		newest_unthrottled_snapshot = get_newest_unthrottled_snapshot(curr_snapshots)
+
 		if not newest_snapshot:
 			newest_salesrank = None
 			newest_list_price = None
 		else:
 			newest_salesrank = newest_snapshot.salesrank
+			newest_unthrottled_salesrank = newest_unthrottled_snapshot.salesrank
 			newest_list_price = newest_snapshot.list_price
 		#print("got newest salesrank", newest_salesrank, newest_list_price)
 		#curr_snapshots = models.AsinSnapshot.query.filter_by(asin=asin).all()
@@ -111,6 +114,7 @@ def compute_analytics_data_for_asins(asins):
 			"last_indexed_date": datetime.datetime.utcnow(),
 			"asin": asin,
 			"salesrank": newest_salesrank,
+			"unthrottled_salesrank": newest_unthrottled_salesrank,
 			"list_price": newest_list_price,
 			"last_7d_salesrank": seven_days_avg_salesrank,
 			"last_1mo_salesrank": one_month_avg_salesrank,
@@ -156,6 +160,18 @@ def get_newest_snapshot(snapshots):
 		elif snapshot.timestamp > latest_ts:
 			newest_snapshot = snapshot
 	return newest_snapshot
+
+
+def get_newest_unthrottled_snapshot(snapshots):
+	latest_ts = None
+	newest_snapshot = None
+	for snapshot in snapshots:
+		if not latest_ts and snapshot.salesrank > 0:
+			newest_snapshot = snapshot
+		elif snapshot.timestamp > latest_ts and snapshot.salesrank > 0:
+			newest_snapshot = snapshot
+	return newest_snapshot
+
 
 
 
