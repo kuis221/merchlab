@@ -549,7 +549,7 @@ def favorites_data():
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	WHERE asin_analytics.id IN ({})
 	ORDER BY asin_analytics.salesrank ASC
-	LIMIT 10000;
+	LIMIT 1000;
 	""".format(', '.join(["'" + asin + "'" for asin in asins]))
 
 	raw_result = db.engine.execute(sql);
@@ -1053,7 +1053,7 @@ def execute_query_search(query):
 	{}
 
 	ORDER BY salesrank ASC 
-	LIMIT 10000;
+	LIMIT 1000;
 	""".format(query_sql, negative_queries_sql)
 	print(sql)	
 
