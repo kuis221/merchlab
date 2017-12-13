@@ -92,7 +92,7 @@ export default class WhatsHotThisWeekView extends React.Component {
                             <img src={image} style={{height: "130px", "maxWidth": "150px"}} />
                         </div></a>
                         <div className="text-center">
-                            <p><label className="label label-primary" style={{fontWeight: 300, paddingBottom: "0px", fontSize: "12px"}}>BSR: {tshirt.salesrank} ({dropTag})</label>
+                            <p><label className="label label-primary" style={{fontWeight: 300, paddingBottom: "0px", fontSize: "12px"}}>BSR: {tshirt.salesrank || "THROTTLED"} ({dropTag})</label>
                                 <a href="#a" onClick={this.props.toggleAsin.bind(null, tshirt.asin)}>
                                     <i className="fa fa-heart" aria-hidden="true" style={heartStyle}></i>
                                 </a>

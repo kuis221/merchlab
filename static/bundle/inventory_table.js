@@ -93216,7 +93216,7 @@ var InventoryTable = function (_React$Component) {
 																row.list_price,
 																_react2.default.createElement('br', null),
 																'Salesrank: ',
-																row.salesrank,
+																row.salesrank || "THROTTLED",
 																_react2.default.createElement('br', null),
 																_react2.default.createElement('br', null),
 																_react2.default.createElement(

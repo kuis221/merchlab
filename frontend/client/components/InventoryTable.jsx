@@ -63,7 +63,7 @@ export default class InventoryTable extends React.Component {
 			<p>
 				List Price: ${row.list_price}
 				<br />
-				Salesrank: {row.salesrank}
+				Salesrank: {row.salesrank || "THROTTLED"}
 				<br /><br />
 	            <a href="#a" onClick={this.toggleAsin.bind(this, row.asin)}>
 	                <i className="fa fa-heart" aria-hidden="true" style={heartStyle}></i>

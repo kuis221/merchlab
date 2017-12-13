@@ -93810,7 +93810,7 @@ var WhatsHotThisWeekView = function (_React$Component) {
                                     'label',
                                     { className: 'label label-primary', style: { fontWeight: 300, paddingBottom: "0px", fontSize: "12px" } },
                                     'BSR: ',
-                                    tshirt.salesrank,
+                                    tshirt.salesrank || "THROTTLED",
                                     ' (',
                                     dropTag,
                                     ')'
