@@ -84,8 +84,13 @@ def compute_analytics_data_for_asins(asins):
 			newest_list_price = None
 		else:
 			newest_salesrank = newest_snapshot.salesrank
-			newest_unthrottled_salesrank = newest_unthrottled_snapshot.salesrank
 			newest_list_price = newest_snapshot.list_price
+
+		if not newest_unthrottled_snapshot:
+			newest_unthrottled_salesrank = None
+		else:
+			newest_unthrottled_salesrank = newest_unthrottled_snapshot.salesrank
+
 		#print("got newest salesrank", newest_salesrank, newest_list_price)
 		#curr_snapshots = models.AsinSnapshot.query.filter_by(asin=asin).all()
 		seven_days_ago = today - relativedelta.relativedelta(days=7)
@@ -157,8 +162,11 @@ def get_newest_snapshot(snapshots):
 	for snapshot in snapshots:
 		if not latest_ts:
 			newest_snapshot = snapshot
+			latest_ts = newest_snapshot.timetamp
 		elif snapshot.timestamp > latest_ts:
 			newest_snapshot = snapshot
+			latest_ts = newest_snapshot.timetamp
+
 	return newest_snapshot
 
 
@@ -166,10 +174,15 @@ def get_newest_unthrottled_snapshot(snapshots):
 	latest_ts = None
 	newest_snapshot = None
 	for snapshot in snapshots:
-		if not latest_ts and snapshot.salesrank > 0:
-			newest_snapshot = snapshot
+		if not latest_ts:
+			if snapshot.salesrank > 0:
+				newest_snapshot = snapshot
+				latest_ts = newest_snapshot.timetamp
+
 		elif snapshot.timestamp > latest_ts and snapshot.salesrank > 0:
 			newest_snapshot = snapshot
+			latest_ts = newest_snapshot.timetamp
+
 	return newest_snapshot
 
 
