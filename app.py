@@ -1048,13 +1048,14 @@ def execute_query_search(query):
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
+	and asin_analytics.last_indexed_date > '{}'
 
 	{}
 	{}
 
 	ORDER BY unthrottled_salesrank ASC 
 	LIMIT 1000;
-	""".format(query_sql, negative_queries_sql)
+	""".format(min_last_indexed_date, query_sql, negative_queries_sql)
 	print(sql)	
 
 	raw_result = db.engine.execute(sql);
