@@ -675,7 +675,7 @@ def get_trending_tshirts_by_metric(metric, query=None, asc=False, filter_zeroes=
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	and asin_analytics.unthrottled_salesrank > 0 and asin_analytics.list_price > 0
-	and asin_analytics.unthrottled_salesrank < 10000000
+	and asin_analytics.unthrottled_salesrank < 20000000
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
 	{}
 	and asin_analytics.last_indexed_date > '{}'
