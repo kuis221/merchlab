@@ -666,14 +666,15 @@ def get_trending_tshirts_by_metric(metric, query=None, asc=False):
 	asin_analytics.escore, asin_analytics.weighted_escore_v1, 
 	asin_analytics.weighted_escore_v2, asin_analytics.streak_score_v1, 
 	asin_analytics.streak_score_v2, 
-	asin_analytics.list_price, asin_metadata.title, asin_metadata.brand, asin_metadata.image
+	asin_analytics.list_price, asin_metadata.title, asin_metadata.brand, asin_metadata.image,
+	asin_metadata.discovery_timestamp
 
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	and asin_analytics.unthrottled_salesrank > 0 and asin_analytics.list_price > 0
 	and asin_analytics.unthrottled_salesrank < 10000000
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
-	and asin_analytics.{} > 0
+	and {} > 0
 	and asin_analytics.last_indexed_date > '{}'
 	{}	
 	ORDER BY {} {} 
@@ -699,7 +700,8 @@ def get_trending_tshirts_by_metric(metric, query=None, asc=False):
 			"list_price": row[8],
 			"title": row[9],
 			"brand": row[10],
-			"image": row[11]
+			"image": row[11],
+			"discovery_timestamp": row[12]
 		})
 	return result
 
@@ -879,6 +881,8 @@ def generate_dashboard_data(query):
 	#trending_tshirts_weighted_escore_v2 = get_trending_tshirts_by_metric("weighted_escore_v2", query, asc=False)
 	#trending_tshirts_streak_score_v1 = get_trending_tshirts_by_metric("streak_score_v1/(salesrank/1000000.0)", query, asc=False)
 	trending_tshirts_streak_score_v2 = get_trending_tshirts_by_metric("streak_score_v2/(salesrank/1000000.0)", query, asc=False)
+	recently_discovered_shirts = get_trending_tshirts_by_metric("discovery_timestamp", query, asc=False)
+
 
 	favorites_by_asin = get_favorite_asins(current_user.username) or {}
 
@@ -894,6 +898,7 @@ def generate_dashboard_data(query):
 		#"whats_hot_weighted_escore_v2": trending_tshirts_weighted_escore_v2,
 		#"whats_hot_streak_score_v1": trending_tshirts_streak_score_v1,
 		"whats_hot_streak_score_v2": trending_tshirts_streak_score_v2,
+		"recently_discovered_shirts": recently_discovered_shirts,
 		#"best_sellers": best_sellers
 		"best_sellers": [],
 		"favorites_by_asin": favorites_by_asin

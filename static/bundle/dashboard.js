@@ -93223,6 +93223,8 @@ var Dashboard = function (_React$Component) {
                 return "What's Hot - Streak Score V2";
             } else if (dashboardView === "consistent_winners") {
                 return "Consistent Winners";
+            } else if (dashboardView === "recently_discovered_shirts") {
+                return "Recently Discovered Shirts";
             }
         }
     }, {
@@ -93365,6 +93367,14 @@ var Dashboard = function (_React$Component) {
                     loaded: this.state.loaded,
                     data: this.state.data,
                     dataKey: 'whats_hot_streak_score_v2',
+                    toggleAsin: this.toggleAsin.bind(this),
+                    showBestSellers: this.showBestSellers.bind(this)
+                });
+            } else if (this.state.dashboardView === "recently_discovered_shirts") {
+                dashboardToDisplay = _react2.default.createElement(_WhatsHotThisWeekView2.default, {
+                    loaded: this.state.loaded,
+                    data: this.state.data,
+                    dataKey: 'recently_discovered_shirts',
                     toggleAsin: this.toggleAsin.bind(this),
                     showBestSellers: this.showBestSellers.bind(this)
                 });

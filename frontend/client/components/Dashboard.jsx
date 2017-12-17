@@ -76,6 +76,8 @@ export default class Dashboard extends React.Component {
             return "What's Hot - Streak Score V2"
         } else if (dashboardView === "consistent_winners") {
             return "Consistent Winners"
+        } else if (dashboardView === "recently_discovered_shirts") {
+            return "Recently Discovered Shirts"
         }
     }
 
@@ -248,6 +250,16 @@ export default class Dashboard extends React.Component {
                     showBestSellers={this.showBestSellers.bind(this)}
                 />
             )                  
+        } else if (this.state.dashboardView === "recently_discovered_shirts") {
+            dashboardToDisplay = (
+                <WhatsHotThisWeekView 
+                    loaded={this.state.loaded} 
+                    data={this.state.data} 
+                    dataKey="recently_discovered_shirts"
+                    toggleAsin={this.toggleAsin.bind(this)}
+                    showBestSellers={this.showBestSellers.bind(this)}
+                />
+            )          
         }
 
         return (
