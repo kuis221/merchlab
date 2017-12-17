@@ -87,7 +87,7 @@ export default class ProductVisualizer extends React.Component {
             keywordTrackerTable = (
                 <BootstrapTable 
                         data={cleanedKeywords} 
-                        exportCSV={false} 
+                        exportCSV={true} 
                         striped={true} 
                         bordered={false} 
                         hover={true} 

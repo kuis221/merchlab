@@ -56506,7 +56506,7 @@ var ProductVisualizer = function (_React$Component) {
                     _reactBootstrapTable.BootstrapTable,
                     {
                         data: cleanedKeywords,
-                        exportCSV: false,
+                        exportCSV: true,
                         striped: true,
                         bordered: false,
                         hover: true,
@@ -93394,7 +93394,7 @@ var InventoryTable = function (_React$Component) {
 																				_reactBootstrapTable.BootstrapTable,
 																				{
 																								data: this.state.items,
-																								exportCSV: true,
+																								exportCSV: false,
 																								striped: false,
 																								bordered: false,
 																								hover: true,
