@@ -93394,7 +93394,7 @@ var InventoryTable = function (_React$Component) {
 																				_reactBootstrapTable.BootstrapTable,
 																				{
 																								data: this.state.items,
-																								exportCSV: false,
+																								exportCSV: true,
 																								striped: false,
 																								bordered: false,
 																								hover: true,

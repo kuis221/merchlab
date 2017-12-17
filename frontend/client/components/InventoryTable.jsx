@@ -232,7 +232,7 @@ export default class InventoryTable extends React.Component {
 			table = (
 			  	<BootstrapTable 
 			  		data={this.state.items} 
-			  		exportCSV={false} 
+			  		exportCSV={true} 
 			  		striped={false} 
 			  		bordered={false} 
 			  		hover={true} 
