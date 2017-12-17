@@ -93465,6 +93465,15 @@ var Dashboard = function (_React$Component) {
                                                         { href: '#a', onClick: this.setDashboard.bind(this, "consistent_winners") },
                                                         'Consistent Winners'
                                                     )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        'a',
+                                                        { href: '#a', onClick: this.setDashboard.bind(this, "recently_discovered_shirts") },
+                                                        'Recently Discoverd Shirts'
+                                                    )
                                                 )
                                             )
                                         ),

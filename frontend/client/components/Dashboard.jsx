@@ -289,6 +289,7 @@ export default class Dashboard extends React.Component {
                                                 <li><a href="#a" onClick={this.setDashboard.bind(this, "whats_hot_24_hrs")}>What's Hot - Last 24 Hrs</a></li>
                                                 <li><a href="#a" onClick={this.setDashboard.bind(this, "whats_hot_last_7d")}>What's Hot - Last 7 Days</a></li>
                                                 <li><a href="#a" onClick={this.setDashboard.bind(this, "consistent_winners")}>Consistent Winners</a></li>
+                                                <li><a href="#a" onClick={this.setDashboard.bind(this, "recently_discovered_shirts")}>Recently Discoverd Shirts</a></li>
                                             </ul>
                                         </div>
                                         <input type="text" id="search" className="form-control" placeholder="Search a keyword..."/>
