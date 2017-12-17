@@ -649,12 +649,15 @@ def get_bestsellers(query=None):
 	return result
 
 
-def get_trending_tshirts_by_metric(metric, query=None, asc=False):
+def get_trending_tshirts_by_metric(metric, query=None, asc=False, filter_zeroes=False):
 	query_sql = ""
 	if query:
 		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(query.lower())
 
 
+	filter_zeros_sql = ""
+	if filter_zeroes:
+		filter_zeros_sql = "and {} > 0".format(metric)
 	order_sql = "DESC"
 	if asc:
 		order_sql = "ASC"
@@ -674,12 +677,12 @@ def get_trending_tshirts_by_metric(metric, query=None, asc=False):
 	and asin_analytics.unthrottled_salesrank > 0 and asin_analytics.list_price > 0
 	and asin_analytics.unthrottled_salesrank < 10000000
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
-	and {} > 0
+	{}
 	and asin_analytics.last_indexed_date > '{}'
 	{}	
 	ORDER BY {} {} 
 	LIMIT 500;
-	""".format(metric, min_last_indexed_date, query_sql, metric, order_sql)
+	""".format(filter_zeros_sql, min_last_indexed_date, query_sql, metric, order_sql)
 
 	raw_result = db.engine.execute(sql);
 	result = []
@@ -880,7 +883,7 @@ def generate_dashboard_data(query):
 	#trending_tshirts_weighted_escore_v1 = get_trending_tshirts_by_metric("weighted_escore_v1", query, asc=False)
 	#trending_tshirts_weighted_escore_v2 = get_trending_tshirts_by_metric("weighted_escore_v2", query, asc=False)
 	#trending_tshirts_streak_score_v1 = get_trending_tshirts_by_metric("streak_score_v1/(salesrank/1000000.0)", query, asc=False)
-	trending_tshirts_streak_score_v2 = get_trending_tshirts_by_metric("streak_score_v2/(salesrank/1000000.0)", query, asc=False)
+	trending_tshirts_streak_score_v2 = get_trending_tshirts_by_metric("streak_score_v2/(salesrank/1000000.0)", query, asc=False, filter_zeroes=True)
 	recently_discovered_shirts = get_trending_tshirts_by_metric("discovery_timestamp", query, asc=False)
 
 
