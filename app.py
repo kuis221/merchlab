@@ -884,7 +884,7 @@ def generate_dashboard_data(query):
 	#trending_tshirts_weighted_escore_v2 = get_trending_tshirts_by_metric("weighted_escore_v2", query, asc=False)
 	#trending_tshirts_streak_score_v1 = get_trending_tshirts_by_metric("streak_score_v1/(salesrank/1000000.0)", query, asc=False)
 	trending_tshirts_streak_score_v2 = get_trending_tshirts_by_metric("streak_score_v2/(salesrank/1000000.0)", query, asc=False, filter_zeroes=True)
-	recently_discovered_shirts = get_trending_tshirts_by_metric("discovery_timestamp", query, asc=False)
+	#recently_discovered_shirts = get_trending_tshirts_by_metric("discovery_timestamp", query, asc=False)
 
 
 	favorites_by_asin = get_favorite_asins(current_user.username) or {}
@@ -901,7 +901,7 @@ def generate_dashboard_data(query):
 		#"whats_hot_weighted_escore_v2": trending_tshirts_weighted_escore_v2,
 		#"whats_hot_streak_score_v1": trending_tshirts_streak_score_v1,
 		"whats_hot_streak_score_v2": trending_tshirts_streak_score_v2,
-		"recently_discovered_shirts": recently_discovered_shirts,
+		"recently_discovered_shirts": [],
 		#"best_sellers": best_sellers
 		"best_sellers": [],
 		"favorites_by_asin": favorites_by_asin
