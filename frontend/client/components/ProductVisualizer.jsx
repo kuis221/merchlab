@@ -84,10 +84,13 @@ export default class ProductVisualizer extends React.Component {
                 index = index+1;
             }
 
+            var currDate = (new Date()).toISOString().slice(0,10);
+            var csvFilename = currDate + "-" + tshirt.asin + "-keywords.csv";
             keywordTrackerTable = (
                 <BootstrapTable 
                         data={cleanedKeywords} 
                         exportCSV={true} 
+                        csvFileName={csvFilename}
                         striped={true} 
                         bordered={false} 
                         hover={true} 
