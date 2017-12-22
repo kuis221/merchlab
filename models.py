@@ -102,6 +102,7 @@ class AsinMetadata(db.Model):
     search_index = db.Column(db.String())
     browse_node = db.Column(db.String())
     discovery_timestamp = db.Column(db.String())
+    removed = db.Column(db.Boolean())
 
     def __init__(self, data):
         self.title = data.get('title', '')
@@ -125,6 +126,7 @@ class AsinMetadata(db.Model):
         self.search_index = data.get('search_index', '')
         self.browse_node = data.get('browse_node', '')
         self.discovery_timestamp = data.get('discovery_timestamp', None)
+        self.removed = data.get('removed', False)
 
 Index('product_title_case_insensitive', func.lower(AsinMetadata.title))
 

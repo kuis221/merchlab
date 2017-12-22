@@ -66,7 +66,14 @@ def snapshot_asins(asins):
 		if not data:
 			print("Couldn't grab data for asin (most likely removed, but may be rate-limited as well). \
 				Don't compute asin analytics and don't snapshot it either.", asin)
-			continue
+			asin_metadata = AsinMetadata.query.filter_by(id=asin).first()
+			if asin_metadata:
+				asin_metadata.throttled = True
+				try:
+					db.session.commit()
+				except Exception as e:
+					db.session.rollback()
+
 
 		list_price = data.get("ListPrice", {}).get("Amount", None)
 		currency_code = data.get("ListPrice", {}).get("CurrencyCode", None)
@@ -394,7 +401,8 @@ def scrape_merch_asins_task(datestr, keywords_to_use, search_index="Apparel", br
 				"discovery_keyword": keyword.encode('ascii', 'ignore'),
 				"search_index": search_index.encode('ascii', 'ignore'),
 				"browse_node": browse_node.encode('ascii', 'ignore'),
-				"discovery_timestamp": timestamp
+				"discovery_timestamp": timestamp,
+				"removed": False
 			}
 
 			item = AsinMetadata(data=final_data)
