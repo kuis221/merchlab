@@ -68,11 +68,12 @@ def snapshot_asins(asins):
 				Don't compute asin analytics and don't snapshot it either.", asin)
 			asin_metadata = AsinMetadata.query.filter_by(id=asin).first()
 			if asin_metadata:
-				asin_metadata.throttled = True
+				asin_metadata.removed = True
 				try:
 					db.session.commit()
 				except Exception as e:
 					db.session.rollback()
+			continue
 
 
 		list_price = data.get("ListPrice", {}).get("Amount", None)
