@@ -1066,7 +1066,6 @@ def execute_query_search(query):
 	
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
 	and (asin_metadata.removed IS NULL or asin_metadata.removed = FALSE)
-	AND asin_analytics.unthrottled_salesrank < 1000000
 
 	{}
 	{}
