@@ -555,6 +555,7 @@ def favorites_data():
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	WHERE asin_analytics.id IN ({})
+	AND asin_analytics.unthrottled_salesrank < 1000000
 	ORDER BY asin_analytics.unthrottled_salesrank ASC
 	LIMIT 1000;
 	""".format(', '.join(["'" + asin + "'" for asin in asins]))
