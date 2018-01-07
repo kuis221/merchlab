@@ -476,10 +476,10 @@ def register():
 		)
 		customerId = customer["id"]
 
-		# Charge 699
+		# Charge 79
 		charge = stripe.Charge.create(
 			customer=customerId,
-			amount=6900,
+			amount=7900,
 			currency='usd',
 			description='MERCHLAB LIFETIME'
 		)
