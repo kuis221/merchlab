@@ -1076,7 +1076,7 @@ def execute_query_search(query):
 	{}
 	{}
 
-	and unthrottled_salesrank < 1000000;
+	and salesrank < 1000000;
 	""".format(query_sql, negative_queries_sql)
 	print(sql)	
 
@@ -1097,7 +1097,7 @@ def execute_query_search(query):
 			"image": image,
 			"unthrottled_salesrank": row[7]
 		})
-	result = sorted(result, key=lambda x: x["unthrottled_salesrank"], reverse=False)
+	result = sorted(result, key=lambda x: x["salesrank"], reverse=False)
 	print("processed {} search results".format(len(result)))
 	return result
 
@@ -1138,7 +1138,7 @@ def execute_backup_query_search(query):
 	{}
 	{}
 
-	and unthrottled_salesrank < 1000000;
+	and salesrank < 1000000;
 	""".format(backup_searches_sql, negative_queries_sql)
 	print(sql)	
 	raw_result = db.engine.execute(sql);
@@ -1156,9 +1156,9 @@ def execute_backup_query_search(query):
 			"title": row[4],
 			"brand": row[5],
 			"image": image,
-			"unthrottled_salesrank": row[7]
+			"salesrank": row[7]
 		})
-	result = sorted(result, key=lambda x: x["unthrottled_salesrank"], reverse=False)
+	result = sorted(result, key=lambda x: x["salesrank"], reverse=False)
 	print("processed {} search results".format(len(result)))
 	return result
 
