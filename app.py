@@ -1044,7 +1044,7 @@ def scrub_negative_queries(query):
 def construct_negative_queries(query):
 	query_split = query.split(" ")
 	negative_queries = [q[1:] for q in query_split if len(q) > 0 and q[0] == "-"]
-	negative_queries_sql = " \n".join(["and lower(asin_metadata.title) not like '%%{}%%'".format(q) for q in negative_queries])
+	negative_queries_sql = " \n".join(["and asin_metadata.title not like '%%{}%%'".format(q) for q in negative_queries])
 	return negative_queries_sql
 
 def execute_query_search(query):
@@ -1052,12 +1052,16 @@ def execute_query_search(query):
 	negative_queries_sql = ""
 	scrubbed_query = ""
 
-	if query:
+	if query and query.strip() != "" and len(query) > 1:
 		scrubbed_query = scrub_negative_queries(query)
-		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(scrubbed_query.lower())
+		query_sql = """
+		and (
+			asin_metadata.title like '%%{}%%'
+			or asin_metadata.title like '%%{}%%'
+			or asin_metadata.title like '%%{}%%'
+		)
+		""".format(scrubbed_query, scrubbed_query[0].upper() + scrubbed_query[1:].lower(), scrubbed_query.lower())
 		negative_queries_sql = construct_negative_queries(query)
-
-	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=2)).isoformat()
 
 	sql = """
 	SELECT asin_analytics.id, asin_analytics.salesrank, asin_analytics.last_7d_salesrank, asin_analytics.list_price,
@@ -1104,10 +1108,10 @@ def execute_backup_query_search(query):
 	if query:
 		scrubbed_query = scrub_negative_queries(query)
 		bigrams = generate_bigrams(scrubbed_query.split(' '))
-		trigrams = generate_trigrams(scrubbed_query.split(' '))
+		#trigrams = generate_trigrams(scrubbed_query.split(' '))
 		#print("after", input_list)
-		backup_searches = turn_ngrams_into_searches(bigrams + trigrams)
-		backup_searches_sql = ["lower(asin_metadata.title) like '%%{}%%'".format(search.lower()) for search in backup_searches]
+		backup_searches = turn_ngrams_into_searches(bigrams)
+		backup_searches_sql = ["asin_metadata.title like '%%{}%%'".format(search) for search in backup_searches]
 		
 		if len(backup_searches_sql) == 0:
 			return []
