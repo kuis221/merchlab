@@ -1065,7 +1065,7 @@ def execute_query_search(query):
 
 	sql = """
 	SELECT asin_analytics.id, asin_analytics.salesrank, asin_analytics.last_7d_salesrank, asin_analytics.list_price,
-	asin_metadata.title, asin_metadata.brand, asin_metadata.image
+	asin_metadata.title, asin_metadata.brand, asin_metadata.image, unthrottled_salesrank
 	
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
@@ -1076,8 +1076,7 @@ def execute_query_search(query):
 	{}
 	{}
 
-	and unthrottled_salesrank < 1000000 
-	LIMIT 10000;
+	and unthrottled_salesrank < 1000000;
 	""".format(query_sql, negative_queries_sql)
 	print(sql)	
 
@@ -1095,8 +1094,10 @@ def execute_query_search(query):
 			"list_price": row[3],
 			"title": row[4],
 			"brand": row[5],
-			"image": image
+			"image": image,
+			"unthrottled_salesrank": row[7]
 		})
+	result = sorted(result, key=lambda x: x["unthrottled_salesrank"], reverse=False)
 	print("processed {} search results".format(len(result)))
 	return result
 
@@ -1126,7 +1127,7 @@ def execute_backup_query_search(query):
 
 	sql = """
 	SELECT asin_analytics.id, asin_analytics.salesrank, asin_analytics.last_7d_salesrank, asin_analytics.list_price,
-	asin_metadata.title, asin_metadata.brand, asin_metadata.image
+	asin_metadata.title, asin_metadata.brand, asin_metadata.image, unthrottled_salesrank
 	
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
@@ -1137,8 +1138,7 @@ def execute_backup_query_search(query):
 	{}
 	{}
 
-	and unthrottled_salesrank < 1000000 
-	LIMIT 10000;
+	and unthrottled_salesrank < 1000000;
 	""".format(backup_searches_sql, negative_queries_sql)
 	print(sql)	
 	raw_result = db.engine.execute(sql);
@@ -1155,8 +1155,10 @@ def execute_backup_query_search(query):
 			"list_price": row[3],
 			"title": row[4],
 			"brand": row[5],
-			"image": image
+			"image": image,
+			"unthrottled_salesrank": row[7]
 		})
+	result = sorted(result, key=lambda x: x["unthrottled_salesrank"], reverse=False)
 	print("processed {} search results".format(len(result)))
 	return result
 
