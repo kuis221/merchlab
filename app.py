@@ -869,11 +869,11 @@ def product_data(asin):
 		snapshot["list_price"] = float(snapshot.get("list_price") or 0)
 		snapshot["timestamp"] = snapshot["timestamp"].split('T')[0].split('-')[1] + "/" + snapshot["timestamp"].split('T')[0].split('-')[2]
 
-	print("these r snapshots")
-	print(snapshots)
+	#print("these r snapshots")
+	#print(snapshots)
 	trademarks = get_trademarks_for_asin(asin)
-	print("these are trademarks")
-	print(trademarks)
+	#print("these are trademarks")
+	#print(trademarks)
 	return json.dumps({"snapshots": snapshots, "keywords": keywords, "trademarks": trademarks})
 
 def get_favorite_asins(username):
@@ -1163,17 +1163,23 @@ def execute_backup_query_search(query):
 def keyword_search():
 	userId = current_user.username
 	query = request.form.get("query")
+	print("executing main query")
 	result = execute_query_search(query)
-
+	print("finished main query")
 	if len(result) == 0:
-		print("hit this part")
+		print("executing backup query")
 		result = execute_backup_query_search(query)
+		print("finished backup query")
 
+	print("constructing keywords from titles")
 	titles = [r.get("title") for r in result if r.get("title")]
 	keywords = get_keywords_from_titles(500, titles)
+	print("finished constructing keywords from titles")
 
 	timestamp = datetime.datetime.utcnow().isoformat()
 	
+	print("storing user query results")
+
 	if query and query.strip() != "":
 		user_query_data = {
 			"query_type": "merch_researcher",
@@ -1210,9 +1216,14 @@ def keyword_search():
 			print("uh oh rollback")
 			db.session.rollback()
 
+	print("finished storing user query results")
+	print("getting favorites")
+
 	favorites_by_asin = get_favorite_asins(current_user.username) or {}
 
-	print({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin})
+	print("finished getting favorites")
+
+	#print({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin})
 	return json.dumps({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin}, default=alchemyencoder)
 
 if __name__ == "__main__":
