@@ -1076,8 +1076,8 @@ def execute_query_search(query):
 	{}
 	{}
 
-	ORDER BY unthrottled_salesrank ASC 
-	LIMIT 1000;
+	and unthrottled_salesrank < 1000000 
+	LIMIT 10000;
 	""".format(query_sql, negative_queries_sql)
 	print(sql)	
 
@@ -1137,8 +1137,8 @@ def execute_backup_query_search(query):
 	{}
 	{}
 
-	ORDER BY unthrottled_salesrank ASC 
-	LIMIT 1000;
+	and unthrottled_salesrank < 1000000 
+	LIMIT 10000;
 	""".format(backup_searches_sql, negative_queries_sql)
 	print(sql)	
 	raw_result = db.engine.execute(sql);
