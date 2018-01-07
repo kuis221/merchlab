@@ -33,9 +33,9 @@ def snapshot_asins_between_salesrank_range(min_salesrank=0, max_salesrank=300000
 	sql = """
 	SELECT asin_metadata.id FROM asin_metadata 
 	JOIN asin_analytics ON asin_metadata.id=asin_analytics.id 
-	WHERE asin_analytics.unthrottled_salesrank > {} and asin_analytics.unthrottled_salesrank < {}
+	WHERE asin_analytics.salesrank > {} and asin_analytics.salesrank < {}
 	AND asin_metadata.product_type_name='ORCA_SHIRT'
-	ORDER BY asin_analytics.unthrottled_salesrank ASC
+	ORDER BY asin_analytics.salesrank ASC
 	LIMIT {};
 	""".format(min_salesrank, max_salesrank, max_num_asins)
 
