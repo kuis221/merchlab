@@ -1078,7 +1078,7 @@ def execute_query_search(query):
 	raw_result = db.engine.execute(sql);
 	result = []
 	for row in raw_result:
-		print(row)
+		#print(row)
 		image = row[6]
 		if "no-img-sm" in image:
 			continue
@@ -1092,7 +1092,7 @@ def execute_query_search(query):
 			"brand": row[5],
 			"image": image
 		})
-
+	print("processed {} search results".format(len(result)))
 	return result
 
 def execute_backup_query_search(query):
@@ -1139,7 +1139,7 @@ def execute_backup_query_search(query):
 	raw_result = db.engine.execute(sql);
 	result = []
 	for row in raw_result:
-		print(row)
+		#print(row)
 		image = row[6]
 		if "no-img-sm" in image:
 			continue
@@ -1153,7 +1153,7 @@ def execute_backup_query_search(query):
 			"brand": row[5],
 			"image": image
 		})
-
+	print("processed {} search results".format(len(result)))
 	return result
 
 
