@@ -620,7 +620,7 @@ def add_asin_tags():
 def get_bestsellers(query=None):
 	query_sql = ""
 	if query:
-		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(query.lower())
+		query_sql = "and asin_metadata.title like '%%{}%%'".format(query)
 
 
 	sql = """
@@ -660,7 +660,7 @@ def get_bestsellers(query=None):
 def get_trending_tshirts_by_metric(metric, query=None, asc=False, filter_zeroes=False):
 	query_sql = ""
 	if query:
-		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(query.lower())
+		query_sql = "and asin_metadata.title like '%%{}%%'".format(query)
 
 
 	filter_zeros_sql = ""
@@ -725,7 +725,7 @@ def get_trending_tshirts_last_7d(query=None):
 	salesrank_threshold = 300000
 
 	if query:
-		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(query.lower())
+		query_sql = "and asin_metadata.title like '%%{}%%'".format(query)
 		salesrank_threshold = 1000000
 
 	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=2)).isoformat()
@@ -775,7 +775,7 @@ def get_trending_tshirts(query=None):
 	salesrank_threshold = 300000
 
 	if query:
-		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(query.lower())
+		query_sql = "and asin_metadata.title like '%%{}%%'".format(query)
 		salesrank_threshold = 1000000
 
 	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=2)).isoformat()
@@ -1042,7 +1042,7 @@ def scrub_negative_queries(query):
 def construct_negative_queries(query):
 	query_split = query.split(" ")
 	negative_queries = [q[1:] for q in query_split if len(q) > 0 and q[0] == "-"]
-	negative_queries_sql = " \n".join(["and lower(asin_metadata.title) not like '%%{}%%'".format(q) for q in negative_queries])
+	negative_queries_sql = " \n".join(["and asin_metadata.title not like '%%{}%%'".format(q) for q in negative_queries])
 	return negative_queries_sql
 
 def execute_query_search(query):
@@ -1052,7 +1052,7 @@ def execute_query_search(query):
 
 	if query:
 		scrubbed_query = scrub_negative_queries(query)
-		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(scrubbed_query.lower())
+		query_sql = "and asin_metadata.title like '%%{}%%'".format(scrubbed_query)
 		negative_queries_sql = construct_negative_queries(query)
 
 	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=2)).isoformat()
@@ -1106,7 +1106,7 @@ def execute_backup_query_search(query):
 		trigrams = generate_trigrams(scrubbed_query.split(' '))
 		#print("after", input_list)
 		backup_searches = turn_ngrams_into_searches(bigrams + trigrams)
-		backup_searches_sql = ["lower(asin_metadata.title) like '%%{}%%'".format(search.lower()) for search in backup_searches]
+		backup_searches_sql = ["asin_metadata.title like '%%{}%%'".format(search) for search in backup_searches]
 		
 		if len(backup_searches_sql) == 0:
 			return []
