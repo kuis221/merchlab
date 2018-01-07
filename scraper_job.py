@@ -91,8 +91,8 @@ def create_scraper_job(browse_node, method="random", num_keywords=200):
 #scrape_from_homepage(browse_node="9056923011")
 #q.enqueue_call(scrape_from_homepage, args=("9056987011",), timeout=7200)
 #q.enqueue_call(scrape_from_homepage, args=("9056923011",), timeout=7200)
-create_scraper_job("9056987011", method="random", num_keywords=40000)
-create_scraper_job("9056923011", method="random", num_keywords=40000)
+create_scraper_job("9056987011", method="random", num_keywords=30000)
+create_scraper_job("9056923011", method="random", num_keywords=30000)
 
 create_scraper_job("9056987011", method="hot_keywords", num_keywords=5000)
 create_scraper_job("9056923011", method="hot_keywords", num_keywords=5000)
