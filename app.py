@@ -1058,7 +1058,7 @@ def execute_query_search(query):
 		and lower(asin_metadata.title) like '%%{}%%'
 		""".format(scrubbed_query.lower())
 		negative_queries_sql = construct_negative_queries(query)
-		salesrank_threshold = 3000000
+		salesrank_threshold = 10000000
 	else:
 		salesrank_threshold = 1000000
 
