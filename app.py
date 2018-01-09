@@ -1062,7 +1062,7 @@ def execute_query_search(query):
 		)
 		""".format(scrubbed_query, scrubbed_query[0].upper() + scrubbed_query[1:].lower(), scrubbed_query.lower())
 		negative_queries_sql = construct_negative_queries(query)
-		salesrank_threshold = 2000000
+		salesrank_threshold = 10000000
 	else:
 		salesrank_threshold = 1000000
 
@@ -1126,7 +1126,7 @@ def execute_backup_query_search(query):
 			backup_searches_sql = "and " + backup_searches_sql[0] + " or " + "or \n".join(backup_searches_sql[1:])
 		negative_queries_sql = construct_negative_queries(query)
 		# let it be 10mil
-		salesrank_threshold = 2000000
+		salesrank_threshold = 10000000
 	else:
 		# let it be 1mil
 		salesrank_threshold = 1000000
