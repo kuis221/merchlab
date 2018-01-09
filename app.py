@@ -1180,11 +1180,14 @@ def keyword_search():
 	print("executing main query")
 	result = execute_query_search(query)
 	print("finished main query")
+
+	"""
 	if len(result) == 0:
 		print("executing backup query")
 		result = execute_backup_query_search(query)
 		print("finished backup query")
-
+	"""
+	
 	print("constructing keywords from titles")
 	titles = [r.get("title") for r in result if r.get("title")]
 	keywords = get_keywords_from_titles(500, titles)
