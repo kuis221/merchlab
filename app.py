@@ -1062,6 +1062,9 @@ def execute_query_search(query):
 		)
 		""".format(scrubbed_query, scrubbed_query[0].upper() + scrubbed_query[1:].lower(), scrubbed_query.lower())
 		negative_queries_sql = construct_negative_queries(query)
+		salesrank_threshold = 10000000
+	else:
+		salesrank_threshold = 1000000
 
 	sql = """
 	SELECT asin_analytics.id, asin_analytics.salesrank, asin_analytics.last_7d_salesrank, asin_analytics.list_price,
@@ -1076,8 +1079,8 @@ def execute_query_search(query):
 	{}
 	{}
 
-	and salesrank < 1000000;
-	""".format(query_sql, negative_queries_sql)
+	and salesrank < {};
+	""".format(query_sql, negative_queries_sql, salesrank_threshold)
 	print(sql)	
 
 	raw_result = db.engine.execute(sql);
@@ -1106,6 +1109,7 @@ def execute_backup_query_search(query):
 	negative_queries_sql = ""
 	scrubbed_query = ""
 
+
 	if query:
 		scrubbed_query = scrub_negative_queries(query)
 		bigrams = generate_bigrams(scrubbed_query.split(' '))
@@ -1121,7 +1125,11 @@ def execute_backup_query_search(query):
 		else:
 			backup_searches_sql = "and " + backup_searches_sql[0] + " or " + "or \n".join(backup_searches_sql[1:])
 		negative_queries_sql = construct_negative_queries(query)
-
+		# let it be 10mil
+		salesrank_threshold = 10000000
+	else:
+		# let it be 1mil
+		salesrank_threshold = 1000000
 
 	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=2)).isoformat()
 
@@ -1138,8 +1146,8 @@ def execute_backup_query_search(query):
 	{}
 	{}
 
-	and salesrank < 1000000;
-	""".format(backup_searches_sql, negative_queries_sql)
+	and salesrank < {};
+	""".format(backup_searches_sql, negative_queries_sql, salesrank_threshold)
 	print(sql)	
 	raw_result = db.engine.execute(sql);
 	result = []
