@@ -151,7 +151,8 @@ def compute_analytics_data_for_asins(asins):
 
 		new_data = {
 			"asin_salesrank": newest_salesrank,
-			"asin_unthrottled_salesrank": newest_unthrottled_salesrank
+			"asin_unthrottled_salesrank": newest_unthrottled_salesrank,
+			"asin_list_price": list_price
 		}
 		models.AsinMetadata.query.filter_by(id=asin).update(new_data)
 

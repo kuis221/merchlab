@@ -105,6 +105,7 @@ class AsinMetadata(db.Model):
     removed = db.Column(db.Boolean())
     asin_salesrank = db.Column(db.Integer())
     asin_unthrottled_salesrank = db.Column(db.Integer())
+    asin_list_price = db.Column(db.Float())
 
     def __init__(self, data):
         self.title = data.get('title', '')
@@ -131,6 +132,7 @@ class AsinMetadata(db.Model):
         self.removed = data.get('removed', False)
         self.asin_salesrank = data.get('asin_salesrank')
         self.asin_unthrottled_salesrank = data.get('asin_unthrottled_salesrank')
+        self.asin_list_price = data.get("asin_list_price")
 
 Index('product_title_case_insensitive', func.lower(AsinMetadata.title))
 
