@@ -28,16 +28,20 @@ def snapshot_asins_missing_data(max_num_asins=None):
 	enqueue_in_batches(asins_to_enqueue)
 
 
-def snapshot_asins_between_salesrank_range(min_salesrank=0, max_salesrank=3000000, max_num_asins=1000000):
+def snapshot_asins_between_salesrank_range(min_salesrank=0, max_salesrank=3000000, max_num_asins=1000000, use_unthrottled_salesrank=False):
 	
+	column_name = "salesrank"
+	if use_unthrottled_salesrank:
+		column_name = "unthrottled_salesrank"
+
 	sql = """
 	SELECT asin_metadata.id FROM asin_metadata 
 	JOIN asin_analytics ON asin_metadata.id=asin_analytics.id 
-	WHERE asin_analytics.salesrank > {} and asin_analytics.salesrank < {}
+	WHERE asin_analytics.{} > {} and asin_analytics.{} < {}
 	AND asin_metadata.product_type_name='ORCA_SHIRT'
-	ORDER BY asin_analytics.salesrank ASC
+	ORDER BY asin_analytics.{} ASC
 	LIMIT {};
-	""".format(min_salesrank, max_salesrank, max_num_asins)
+	""".format(column_name, min_salesrank, column_name, max_salesrank, column_name, max_num_asins)
 
 	raw_result = db.engine.execute(sql);
 	asins = []
@@ -47,7 +51,8 @@ def snapshot_asins_between_salesrank_range(min_salesrank=0, max_salesrank=300000
 	enqueue_in_batches(asins)
 
 
-snapshot_asins_between_salesrank_range(0, 10000000)
+snapshot_asins_between_salesrank_range(min_salesrank=0, max_salesrank=20000000, use_unthrottled_salesrank=False)
+snapshot_asins_between_salesrank_range(min_salesrank=0, max_salesrank=20000000, use_unthrottled_salesrank=True)
 
 
 
