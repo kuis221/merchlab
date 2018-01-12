@@ -148,6 +148,13 @@ def compute_analytics_data_for_asins(asins):
 		else:
 			asin_analytics_entry.update_item(data)
 
+
+		new_data = {
+			"asin_salesrank": newest_salesrank,
+			"asin_unthrottled_salesrank": newest_unthrottled_salesrank
+		}
+		models.AsinMetadata.query.filter_by(id=asin).update(new_data)
+
 		try:
 			db.session.commit()
 			print("success")

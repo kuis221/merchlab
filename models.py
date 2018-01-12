@@ -103,6 +103,8 @@ class AsinMetadata(db.Model):
     browse_node = db.Column(db.String())
     discovery_timestamp = db.Column(db.String())
     removed = db.Column(db.Boolean())
+    asin_salesrank = db.Column(db.Integer())
+    asin_unthrottled_salesrank = db.Column(db.Integer())
 
     def __init__(self, data):
         self.title = data.get('title', '')
@@ -127,6 +129,8 @@ class AsinMetadata(db.Model):
         self.browse_node = data.get('browse_node', '')
         self.discovery_timestamp = data.get('discovery_timestamp', None)
         self.removed = data.get('removed', False)
+        self.asin_salesrank = data.get('asin_salesrank')
+        self.asin_unthrottled_salesrank = data.get('asin_unthrottled_salesrank')
 
 Index('product_title_case_insensitive', func.lower(AsinMetadata.title))
 
