@@ -738,10 +738,10 @@ def get_trending_tshirts_last_7d(query=None):
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	
-	WHERE last_7d_salesrank < {} and salesrank < {} and last_1mo_salesrank < 1000000000 
+	WHERE asin_analytics.last_7d_salesrank < {} and asin_analytics.salesrank < {} and asin_analytics.last_1mo_salesrank < 1000000000 
 	and asin_analytics.list_price > 0
 	and asin_metadata.product_type_name='ORCA_SHIRT'
-	and last_1mo_salesrank/last_7d_salesrank >= 1.2
+	and asin_analytics.last_1mo_salesrank/asin_analytics.last_7d_salesrank >= 1.2
 	and asin_analytics.last_indexed_date > '{}'
 
 	{}
@@ -809,14 +809,14 @@ def get_trending_tshirts(query=None):
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	
-	WHERE salesrank < {} and last_7d_salesrank < 1000000000
+	WHERE asin_analytics.salesrank < {} and asin_analytics.last_7d_salesrank < 1000000000
 	and asin_analytics.list_price > 0
-	and last_7d_salesrank/salesrank >= 1.2
+	and asin_analytics.last_7d_salesrank/asin_analytics.salesrank >= 1.2
 	and asin_metadata.product_type_name='ORCA_SHIRT'
 	and asin_analytics.last_indexed_date > '{}'
 
 	{}
-	ORDER BY last_7d_salesrank/((1+(salesrank/100000))*salesrank) DESC 
+	ORDER BY asin_analytics.last_7d_salesrank/((1+(asin_analytics.salesrank/100000))*asin_analytics.salesrank) DESC 
 
 	LIMIT 500;
 	""".format(salesrank_threshold, min_last_indexed_date, query_sql)
@@ -893,7 +893,7 @@ def generate_dashboard_data(query):
 	#trending_tshirts_weighted_escore_v1 = get_trending_tshirts_by_metric("weighted_escore_v1", query, asc=False)
 	#trending_tshirts_weighted_escore_v2 = get_trending_tshirts_by_metric("weighted_escore_v2", query, asc=False)
 	#trending_tshirts_streak_score_v1 = get_trending_tshirts_by_metric("streak_score_v1/(salesrank/1000000.0)", query, asc=False)
-	trending_tshirts_streak_score_v2 = get_trending_tshirts_by_metric("streak_score_v2/(salesrank/1000000.0)", query, asc=False, filter_zeroes=True)
+	trending_tshirts_streak_score_v2 = get_trending_tshirts_by_metric("asin_analytics.streak_score_v2/(asin_analytics.salesrank/1000000.0)", query, asc=False, filter_zeroes=True)
 	#recently_discovered_shirts = get_trending_tshirts_by_metric("discovery_timestamp", query, asc=False)
 
 
