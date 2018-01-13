@@ -152,7 +152,7 @@ def compute_analytics_data_for_asins(asins):
 		new_data = {
 			"asin_salesrank": newest_salesrank,
 			"asin_unthrottled_salesrank": newest_unthrottled_salesrank,
-			"asin_list_price": newest_list_price
+			"asin_list_price": newest_list_price,
 			"last_7d_salesrank": seven_days_avg_salesrank,
 			"last_1mo_salesrank": one_month_avg_salesrank,
 			"last_3mo_salesrank": three_months_avg_salesrank,
