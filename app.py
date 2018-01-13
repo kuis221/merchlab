@@ -1100,6 +1100,57 @@ def execute_query_search(query):
 	print("processed {} search results".format(len(result)))
 	return result
 
+def execute_query_search_v2(query):
+	query_sql = ""
+	negative_queries_sql = ""
+	scrubbed_query = ""
+
+	if query and query.strip() != "" and len(query) > 1:
+		scrubbed_query = scrub_negative_queries(query)
+		query_sql = """
+		and lower(asin_metadata.title) like '%%{}%%'
+		""".format(scrubbed_query.lower())
+		negative_queries_sql = construct_negative_queries(query)
+		salesrank_threshold = 5000000
+	else:
+		salesrank_threshold = 1000000
+
+	sql = """
+	SELECT id, asin_salesrank, asin_list_price, title, brand, image, asin_unthrottled_salesrank
+	FROM asin_metadata
+	
+	WHERE product_type_name='ORCA_SHIRT'
+	and (removed IS NULL or removed = FALSE)
+
+	{}
+	{}
+
+	and asin_salesrank < {}
+	ORDER BY asin_salesrank ASC
+	LIMIT 5000;
+	""".format(query_sql, negative_queries_sql, salesrank_threshold)
+	print(sql)	
+
+	raw_result = db.engine.execute(sql);
+	result = []
+	for row in raw_result:
+		image = row[5]
+		if "no-img-sm" in image:
+			continue
+		image = image.replace("._SL75", "._SL200")
+		result.append({
+			"asin": row[0],
+			"salesrank": row[1],
+			"list_price": row[2],
+			"title": row[3],
+			"brand": row[4],
+			"image": image,
+			"unthrottled_salesrank": row[6]
+		})
+	result = sorted(result, key=lambda x: x["salesrank"], reverse=False)
+	print("processed {} search results".format(len(result)))
+	return result
+
 def execute_backup_query_search(query):
 	query_sql = ""
 	negative_queries_sql = ""
@@ -1174,7 +1225,7 @@ def keyword_search():
 	userId = current_user.username
 	query = request.form.get("query")
 	print("executing main query")
-	result = execute_query_search(query)
+	result = execute_query_search_v2(query)
 	print("finished main query")
 
 	"""
