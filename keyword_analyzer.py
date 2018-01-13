@@ -37,10 +37,10 @@ def get_trending_tshirts(query=None):
 	
 	WHERE salesrank < 1000000 and last_7d_salesrank < 1000000000
 	and asin_analytics.list_price > 0
-	and last_7d_salesrank/salesrank >= 1.2
+	and asin_analytics.last_7d_salesrank/asin_analytics.salesrank >= 1.2
 	and asin_metadata.product_type_name LIKE 'ORCA_SHIRT'
 	{}
-	ORDER BY last_7d_salesrank/salesrank DESC 
+	ORDER BY asin_analytics.last_7d_salesrank/asin_analytics.salesrank DESC 
 
 	LIMIT 10000;
 	""".format(query_sql)

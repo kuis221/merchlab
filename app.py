@@ -886,7 +886,7 @@ def generate_dashboard_data(query):
 	#best_sellers = get_bestsellers()
 	#best_sellers = []
 
-	trending_tshirt_keywords = get_trending_tshirt_keywords(300, query)
+	#trending_tshirt_keywords = get_trending_tshirt_keywords(300, query)
 	#best_seller_keywords = get_best_seller_keywords(100, query)
 	#best_seller_keywords = []
 
