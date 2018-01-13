@@ -901,7 +901,7 @@ def generate_dashboard_data(query):
 	favorites_by_asin = get_favorite_asins(current_user.username) or {}
 
 	return {
-		"trending_tshirt_keywords": trending_tshirt_keywords,
+		#"trending_tshirt_keywords": trending_tshirt_keywords,
 		#"best_seller_keywords": best_seller_keywords,
 		#"trending_tshirt_keywords": [],
 		"best_seller_keywords": [],
