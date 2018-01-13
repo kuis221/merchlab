@@ -153,6 +153,22 @@ def compute_analytics_data_for_asins(asins):
 			"asin_salesrank": newest_salesrank,
 			"asin_unthrottled_salesrank": newest_unthrottled_salesrank,
 			"asin_list_price": newest_list_price
+			"last_7d_salesrank": seven_days_avg_salesrank,
+			"last_1mo_salesrank": one_month_avg_salesrank,
+			"last_3mo_salesrank": three_months_avg_salesrank,
+			"escore": escore,
+			"weighted_escore_v1": weighted_escore_v1,
+			"weighted_escore_v2": weighted_escore_v2,
+			"weighted_escore_v3": weighted_escore_v3,
+			"streak_score_v1": streak_score_v1,
+			"streak_score_v2": streak_score_v2,
+
+			#"last_7d_list_price": last_7d_list_price,
+			#"last_1mo_list_price": last_1m_list_price,
+			#"last_3mo_list_price": last_3m_list_price,
+			#"last_7d_volatility": last_7d_volatility,
+			#"last_1mo_volatility": last_1m_volatility,
+			#"last_3mo_volatility": last_3m_volatility,
 		}
 		models.AsinMetadata.query.filter_by(id=asin).update(new_data)
 
