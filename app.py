@@ -1125,9 +1125,9 @@ def execute_query_search_v2(query):
 	{}
 	{}
 
-	and asin_salesrank < {}
+	and asin_salesrank > 0 and asin_salesrank < {}
 	ORDER BY asin_salesrank ASC
-	LIMIT 5000;
+	LIMIT 1000;
 	""".format(query_sql, negative_queries_sql, salesrank_threshold)
 	print(sql)	
 
