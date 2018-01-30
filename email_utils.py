@@ -12,22 +12,22 @@ import requests
 API_URL = "https://api.mailgun.net/v3/"
 DOMAIN_NAME = "domain.mailgun.com"
 PRIVATE_API_KEY = ""
-FROM_NAME = "Merchlab admin"
-FROM_USERNAME = "mailgun"
+FROM_NAME = "Admin"
+FROM_ADDRESS = "admin@merchlab.io"
 
 
 def send_email(to, subject, text, html=None, attachments=None, from_name=FROM_NAME,
-               from_username=FROM_USERNAME, domain_name=DOMAIN_NAME):
+               from_address=FROM_ADDRESS, domain_name=DOMAIN_NAME):
     """
     Send email message
 
-    :param to: array of recipients, i.e. ["john@mail.com", "jane@mail.com"];
+    :param to: array of recipients, i.e. ["john@mail.com", "jane@mail.com"] or single email, i.e. "john@mail.com";
     :param subject: email subject text;
     :param text: email body;
     :param html: HTML payload of the message;
     :param attachments: list of attachments;
-    :param from_name: name of sender. If not specified, defaults to FROM_NAME ("Merchlab admin")
-    :param from_username: username of sender. If not specified, defaults to FROM_USERNAME ("mailgun")
+    :param from_name: name to send mail from. If not specified, defaults to FROM_NAME ("Admin")
+    :param from_address: address to send mail from. If not specified, defaults to FROM_ADDRESS ("admin@merchlab.io")
     :param domain_name: sender domain name. If not specified, defaults to DOMAIN_NAME ("domain.mailgun.com")
     :return: requests' library Request class instance
 
@@ -42,7 +42,7 @@ def send_email(to, subject, text, html=None, attachments=None, from_name=FROM_NA
 
     # Create initial data
     data = {
-        "from": "{0} <{1}@{2}>".format(from_name, from_username, domain_name),
+        "from": "{0} <{1}>".format(from_name, from_address),
         "to": to,
         "subject": subject,
         "text": text,
@@ -220,5 +220,26 @@ def remove_mailing_list(list_name, domain_name=DOMAIN_NAME):
     return requests.delete(url, auth=('api', 'YOUR_API_KEY'))
 
 
-def send_bulk_emails():
-    pass
+def send_bulk_email(mailing_list_address, subject, text, html=None, attachments=None,
+                    from_name=FROM_NAME, from_address=FROM_ADDRESS, domain_name=DOMAIN_NAME):
+    """
+    Send email messages to mailing list. Uses `send_email` function
+
+    :param mailing_list_address: mailing list address you created earlier, i.e. "customers@merchlab.com";
+    :param subject: email subject text;
+    :param text: email body;
+    :param html: HTML payload of the message;
+    :param attachments: list of attachments;
+    :param from_name: name of sender. If not specified, defaults to FROM_NAME ("Merchlab admin")
+    :param from_address: address to send mail from. If not specified, defaults to FROM_ADDRESS ("admin@merchlab.io")
+    :param domain_name: sender domain name. If not specified, defaults to DOMAIN_NAME ("domain.mailgun.com")
+    :return: requests' library Request class instance
+
+    Example attachments list:
+
+    attachments = [
+        {"filename": "test.jpg", "path": "files/test.jpg"},
+        {"filename": "test.txt", "path": "files/test.txt"},
+    ]
+    """
+    return send_email(mailing_list_address, subject, text, html, attachments, from_name, from_address, domain_name)
