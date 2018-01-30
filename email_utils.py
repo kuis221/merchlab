@@ -167,5 +167,19 @@ def list_mailing_list_members(list_name, domain_name=DOMAIN_NAME):
     return requests.get(url, auth=('api', PRIVATE_API_KEY))
 
 
+def remove_mailing_list_member(list_name, member_email, domain_name=DOMAIN_NAME):
+    """
+    Remove member from mailing list
+
+    :param list_name: list name to remove member from
+    :param member_email: member's email
+    :param domain_name: your mailgun domain name
+    :return: requests' library Request class instance
+    """
+    url = "{0}lists/{1}@{2}/members/{3}".format(API_URL, list_name, domain_name, member_email)
+
+    return requests.delete(url, auth=('api', API_URL))
+
+
 def send_bulk_emails():
     pass
