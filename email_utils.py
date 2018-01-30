@@ -16,27 +16,53 @@ FROM_NAME = "Merchlab admin"
 FROM_USERNAME = "mailgun"
 
 
-def send_email(to, subject, text, from_name=FROM_NAME, from_username=FROM_USERNAME, domain_name=DOMAIN_NAME):
+def send_email(to, subject, text, html=None, attachments=None, from_name=FROM_NAME,
+               from_username=FROM_USERNAME, domain_name=DOMAIN_NAME):
     """
-    Send simple email
+    Send email message
 
     :param to: array of recipients, i.e. ["john@mail.com", "jane@mail.com"];
     :param subject: email subject text;
     :param text: email body;
+    :param html: HTML payload of the message;
+    :param attachments: list of attachments;
     :param from_name: name of sender. If not specified, defaults to FROM_NAME ("Merchlab admin")
     :param from_username: username of sender. If not specified, defaults to FROM_USERNAME ("mailgun")
     :param domain_name: sender domain name. If not specified, defaults to DOMAIN_NAME ("domain.mailgun.com")
     :return: requests' library Request class instance
+
+    Example attachments list:
+
+    attachments = [
+        {"filename": "test.jpg", "path": "files/test.jpg"},
+        {"filename": "test.txt", "path": "files/test.txt"},
+    ]
     """
     url = "{0}{1}/messages".format(API_URL, domain_name)
+
+    # Create initial data
     data = {
         "from": "{0} <{1}@{2}>".format(from_name, from_username, domain_name),
         "to": to,
         "subject": subject,
-        "text": text
+        "text": text,
     }
 
-    return requests.post(url, auth=("api", PRIVATE_API_KEY), data=data)
+    # Add HTML payload
+    if html:
+        data["html"] = html
+
+    # Process attachments files
+    files = list()
+    for attachment in attachments:
+        # Open each one with context manager
+        with open(attachment['path'], "rb") as attachment_file:
+            # And append its binary data to the list of attachments
+            files.append(
+                ("attachment", (attachment['filename'], attachment_file.read()))
+            )
+
+    return requests.post(url, auth=("api", PRIVATE_API_KEY), files=files, data=data)
 
 
 def create_mailing_list(list_name, description, domain_name=DOMAIN_NAME):
