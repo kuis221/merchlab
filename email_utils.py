@@ -93,5 +93,29 @@ def get_mailing_lists():
         auth=('api', PRIVATE_API_KEY))
 
 
+def add_members_to_mailing_list(list_name, members, domain_name=DOMAIN_NAME):
+    """
+    Add new members to mailing list
+    :param list_name: name of the list to add members to
+    :param members: list of dicts with data
+    :param domain_name: your mailgun domain name
+    :return: requests' library Request class instance
+
+    Example members list:
+    [
+        {"address": "Alice <alice@example.com>", "vars": {"age": 26}},
+        {"name": "Bob", "address": "bob@example.com", "vars": {"age": 34}}
+    ]
+    """
+
+    url = "{0}lists/{1}@{2}/members.json".format(API_URL, list_name, domain_name)
+
+    return requests.post(
+        url, auth=('api', PRIVATE_API_KEY), data={
+            'upsert': True,
+            'members': str(members)
+        })
+
+
 def send_bulk_emails():
     pass
