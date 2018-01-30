@@ -65,20 +65,18 @@ def send_email(to, subject, text, html=None, attachments=None, from_name=FROM_NA
     return requests.post(url, auth=("api", PRIVATE_API_KEY), files=files, data=data)
 
 
-def create_mailing_list(list_name, description, domain_name=DOMAIN_NAME):
+def create_mailing_list(list_address, description):
     """
     Create mailgun mailing list
 
-    :param list_name: new list's name
+    :param list_address: address of new list
     :param description: new list's description
-    :param domain_name: your mailgun domain name
     :return: requests' library Request class instance
     """
-    return requests.post(
-        "{0}lists".format(API_URL),
-        auth=('api', PRIVATE_API_KEY),
-        data={'address': '{0}@{1}'.format(list_name, domain_name),
-              'description': description})
+    url = "{0}lists".format(API_URL)
+    data = {'address': list_address, 'description': description}
+
+    return requests.post(url=url, auth=('api', PRIVATE_API_KEY), data=data)
 
 
 def get_mailing_lists():
@@ -119,12 +117,11 @@ def get_mailing_lists():
         auth=('api', PRIVATE_API_KEY))
 
 
-def add_members_to_mailing_list(list_name, members, domain_name=DOMAIN_NAME):
+def add_members_to_mailing_list(list_address, members):
     """
     Add new members to mailing list
-    :param list_name: name of the list to add members to
+    :param list_address: address of the list to add members to
     :param members: list of dicts with data
-    :param domain_name: your mailgun domain name
     :return: requests' library Request class instance
 
     Example members list:
@@ -134,7 +131,7 @@ def add_members_to_mailing_list(list_name, members, domain_name=DOMAIN_NAME):
     ]
     """
 
-    url = "{0}lists/{1}@{2}/members.json".format(API_URL, list_name, domain_name)
+    url = "{0}lists/{1}/members.json".format(API_URL, list_address)
 
     return requests.post(
         url, auth=('api', PRIVATE_API_KEY), data={
@@ -143,29 +140,27 @@ def add_members_to_mailing_list(list_name, members, domain_name=DOMAIN_NAME):
         })
 
 
-def update_mailing_list_member(list_name, member_email, data, domain_name=DOMAIN_NAME):
+def update_mailing_list_member(list_address, member_email, data):
     """
     Update data of the member of the mailing list
 
-    :param list_name: list name to update member into
+    :param list_address: address of the list to update members info
     :param member_email: member's email
     :param data: data to update
-    :param domain_name: your mailgun domain name
     :return: requests' library Request class instance
 
     Data example: {'subscribed': False, 'name': 'Foo Bar'}
     """
-    url = "{0}lists/{1}@{2}/members/{3}".format(API_URL, list_name, domain_name, member_email)
+    url = "{0}lists/{1}/members/{2}".format(API_URL, list_address, member_email)
 
     return requests.put(url=url, auth=('api', PRIVATE_API_KEY), data=data)
 
 
-def list_mailing_list_members(list_name, domain_name=DOMAIN_NAME):
+def list_mailing_list_members(list_address):
     """
     List members of mailing list
 
-    :param list_name: list name to get members info from
-    :param domain_name: your mailgun domain name
+    :param list_address: address of the list to get members info from
     :return: requests' library Request class instance
 
     Example response:
@@ -189,34 +184,32 @@ def list_mailing_list_members(list_name, domain_name=DOMAIN_NAME):
     }
     """
 
-    url = "{0}lists/{1}@{2}/members/pages".format(API_URL, list_name, domain_name)
+    url = "{0}lists/{1}/members/pages".format(API_URL, list_address)
     return requests.get(url, auth=('api', PRIVATE_API_KEY))
 
 
-def remove_mailing_list_member(list_name, member_email, domain_name=DOMAIN_NAME):
+def remove_mailing_list_member(list_address, member_email):
     """
     Remove member from mailing list
 
-    :param list_name: list name to remove member from
+    :param list_address: address of the list to remove member from
     :param member_email: member's email
-    :param domain_name: your mailgun domain name
     :return: requests' library Request class instance
     """
-    url = "{0}lists/{1}@{2}/members/{3}".format(API_URL, list_name, domain_name, member_email)
+    url = "{0}lists/{1}/members/{2}".format(API_URL, list_address, member_email)
 
     return requests.delete(url, auth=('api', API_URL))
 
 
-def remove_mailing_list(list_name, domain_name=DOMAIN_NAME):
+def remove_mailing_list(list_address):
     """
     Remove mailing list
 
-    :param list_name: list name to remove
-    :param domain_name: your mailgun domain name
+    :param list_address: address of the list to remove
     :return: requests' library Request class instance
     """
 
-    url = "{0}lists/{1}@{2}".format(API_URL, list_name, domain_name)
+    url = "{0}lists/{1}".format(API_URL, list_address)
     return requests.delete(url, auth=('api', 'YOUR_API_KEY'))
 
 
