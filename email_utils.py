@@ -117,5 +117,22 @@ def add_members_to_mailing_list(list_name, members, domain_name=DOMAIN_NAME):
         })
 
 
+def update_mailing_list_member(list_name, member_email, data, domain_name=DOMAIN_NAME):
+    """
+    Update data of the member of the mailing list
+
+    :param list_name: list name to update member into
+    :param member_email: member's email
+    :param data: data to update
+    :param domain_name: your mailgun domain name
+    :return: requests' library Request class instance
+
+    Data example: {'subscribed': False, 'name': 'Foo Bar'}
+    """
+    url = "{0}lists/{1}@{2}/members/{3}".format(API_URL, list_name, domain_name, member_email)
+
+    return requests.put(url=url, auth=('api', PRIVATE_API_KEY), data=data)
+
+
 def send_bulk_emails():
     pass
