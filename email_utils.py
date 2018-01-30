@@ -4,7 +4,7 @@
 #  To send simple message, use `send_email` function.
 #
 #  To send bulk email, you've got 2 options:
-#    1. use `send_bulk_emails` function;
+#    1. use `send_email` function with list of addresses as input;
 #    2. create mailgun "mailing list", add users to it (max. 1000 users per request) and
 #       send emails to them using that list with `send_emails_to_list` function;
 import requests
@@ -213,8 +213,8 @@ def remove_mailing_list(list_address):
     return requests.delete(url, auth=('api', 'YOUR_API_KEY'))
 
 
-def send_bulk_email(mailing_list_address, subject, text, html=None, attachments=None,
-                    from_name=FROM_NAME, from_address=FROM_ADDRESS, domain_name=DOMAIN_NAME):
+def send_emails_to_list(mailing_list_address, subject, text, html=None, attachments=None,
+                       from_name=FROM_NAME, from_address=FROM_ADDRESS, domain_name=DOMAIN_NAME):
     """
     Send email messages to mailing list. Uses `send_email` function
 
