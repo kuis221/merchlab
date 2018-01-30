@@ -55,5 +55,43 @@ def create_mailing_list(list_name, description, domain_name=DOMAIN_NAME):
               'description': description})
 
 
+def get_mailing_lists():
+    """
+    Get mailgun mailing lists
+    :return: requests' library Request class instance
+
+    Example response:
+    response.text == {
+      "items": [
+        {
+          "access_level": "everyone",
+          "address": "dev@samples.mailgun.org",
+          "created_at": "Tue, 06 Mar 2012 05:44:45 GMT",
+          "description": "Mailgun developers list",
+          "members_count": 1,
+          "name": ""
+        },
+        {
+          "access_level": "readonly",
+          "address": "bar@example.com",
+          "created_at": "Wed, 06 Mar 2013 11:39:51 GMT",
+          "description": "",
+          "members_count": 2,
+          "name": ""
+        }
+      ],
+      "paging": {
+        "first": "https://url_to_next_page",
+        "last": "https://url_to_last_page",
+        "next": "https://url_to_next_page",
+        "previous": "https://url_to_previous_page"
+      }
+    }
+    """
+    return requests.get(
+        "{0}lists/pages".format(API_URL),
+        auth=('api', PRIVATE_API_KEY))
+
+
 def send_bulk_emails():
     pass
