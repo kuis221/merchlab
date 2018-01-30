@@ -39,5 +39,21 @@ def send_email(to, subject, text, from_name=FROM_NAME, from_username=FROM_USERNA
     return requests.post(url, auth=("api", PRIVATE_API_KEY), data=data)
 
 
+def create_mailing_list(list_name, description, domain_name=DOMAIN_NAME):
+    """
+    Create mailgun mailing list
+
+    :param list_name: new list's name
+    :param description: new list's description
+    :param domain_name: your mailgun domain name
+    :return: requests' library Request class instance
+    """
+    return requests.post(
+        "{0}lists".format(API_URL),
+        auth=('api', PRIVATE_API_KEY),
+        data={'address': '{0}@{1}'.format(list_name, domain_name),
+              'description': description})
+
+
 def send_bulk_emails():
     pass
