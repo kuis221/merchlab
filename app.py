@@ -1361,15 +1361,16 @@ def send_email():
     Sends email to specified address. Accepts POST request, which should contain following keys:
 
     {
-        "to": "some@email.com",         # email recipient;
-        "subject": "Testing",           # email subject;
-        "text": "This is a test",       # email text;
-        "html": "test.html",            # template to render and attach to email (optional);
+        "to": "some@email.com",             # email recipient;
+        "subject": "Testing",               # email subject;
+        "text": "This is a test",           # email text;
+        "template_name": "test.html",       # template to render and attach to email (optional);
     }
 
     :return: Flask response with according status code
     """
     post_data = request.form
+    response_data = dict()
 
     to = post_data.get('to')
     subject = post_data.get('subject')
@@ -1377,11 +1378,15 @@ def send_email():
 
     # To send email, we need at least To, Subject and Text
     if not all((to, subject, text)):
-        return jsonify({"Status": "Failed", "Error": "Insufficient data"}), 400
+        response_data["Status"] = "Failed"
+        response_data["Error"] = "Insufficient data"
+        return jsonify(response_data), 400
 
     # If template name specified, render it and add to email
-    if post_data.get('template_name'):
-        html = render_template(post_data.get('template_name'))
+    template_name = post_data.get('template_name')
+    if template_name:
+        html = render_template(template_name)
+        response_data["HTML"] = "Rendered {0}".format(template_name)
     else:
         html = None
 
@@ -1389,7 +1394,8 @@ def send_email():
     if not app.testing:
         email_utils.send_email(to=to, subject=subject, text=text, html=html)
 
-    return jsonify({"status": "Email sent"})
+    response_data["Status"] = "Email sent"
+    return jsonify(response_data)
 
 
 if __name__ == "__main__":
