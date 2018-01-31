@@ -12,13 +12,19 @@ from datetime import timedelta
 import nltk
 import stripe
 from dateutil import relativedelta
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask_login import (LoginManager, login_required, login_user,
-                         current_user, logout_user)
+from flask_login import (
+    LoginManager,
+    login_required,
+    login_user,
+    current_user,
+    logout_user
+)
 from itsdangerous import URLSafeTimedSerializer
 from rq import Queue
 
+import email_utils
 import firebase_api
 from scrapers.keyword_generator import generate_bigrams, turn_ngrams_into_searches
 from worker import conn
@@ -1347,6 +1353,43 @@ def keyword_search():
     # print({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin})
     return json.dumps({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin},
                       default=alchemyencoder)
+
+
+@app.route('/mailing/send_email/', methods=["POST"])
+def send_email():
+    """
+    Sends email to specified address. Accepts POST request, which should contain following keys:
+
+    {
+        "to": "some@email.com",         # email recipient;
+        "subject": "Testing",           # email subject;
+        "text": "This is a test",       # email text;
+        "html": "test.html",            # template to render and attach to email (optional);
+    }
+
+    :return: Flask response with according status code
+    """
+    post_data = request.form
+
+    to = post_data.get('to')
+    subject = post_data.get('subject')
+    text = post_data.get('text')
+
+    # To send email, we need at least To, Subject and Text
+    if not all((to, subject, text)):
+        return jsonify({"Status": "Failed", "Error": "Insufficient data"}), 400
+
+    # If template name specified, render it and add to email
+    if post_data.get('template_name'):
+        html = render_template(post_data.get('template_name'))
+    else:
+        html = None
+
+    # Don't send emails if we're in testing env
+    if not app.testing:
+        email_utils.send_email(to=to, subject=subject, text=text, html=html)
+
+    return jsonify({"status": "Email sent"})
 
 
 if __name__ == "__main__":
