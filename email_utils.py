@@ -10,13 +10,13 @@
 import requests
 
 API_URL = "https://api.mailgun.net/v3/"
-DOMAIN_NAME = "domain.mailgun.com"
-PRIVATE_API_KEY = ""
+DOMAIN_NAME = "sandbox0a49d5be1b694fefb5a955ce4f1cae94.mailgun.org"
+PRIVATE_API_KEY = "key-b499f1d67458d49cb86237d8fdfa69dd"
 FROM_NAME = "Admin"
-FROM_ADDRESS = "admin@merchlab.io"
+FROM_ADDRESS = "admin@sandbox0a49d5be1b694fefb5a955ce4f1cae94.mailgun.org"
 
 
-def send_email(to, subject, text, html=None, attachments=None, from_name=FROM_NAME,
+def send_email(to, subject, text, html=None, attachments=tuple(), from_name=FROM_NAME,
                from_address=FROM_ADDRESS, domain_name=DOMAIN_NAME):
     """
     Send email message
@@ -25,7 +25,7 @@ def send_email(to, subject, text, html=None, attachments=None, from_name=FROM_NA
     :param subject: email subject text;
     :param text: email body;
     :param html: HTML payload of the message;
-    :param attachments: list of attachments;
+    :param attachments: tuple of attachments;
     :param from_name: name to send mail from. If not specified, defaults to FROM_NAME ("Admin")
     :param from_address: address to send mail from. If not specified, defaults to FROM_ADDRESS ("admin@merchlab.io")
     :param domain_name: sender domain name. If not specified, defaults to DOMAIN_NAME ("domain.mailgun.com")
@@ -33,10 +33,10 @@ def send_email(to, subject, text, html=None, attachments=None, from_name=FROM_NA
 
     Example attachments list:
 
-    attachments = [
+    attachments = (
         {"filename": "test.jpg", "path": "files/test.jpg"},
         {"filename": "test.txt", "path": "files/test.txt"},
-    ]
+    )
     """
     url = "{0}{1}/messages".format(API_URL, domain_name)
 
