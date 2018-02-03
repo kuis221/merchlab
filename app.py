@@ -8,11 +8,7 @@ import sys
 from flask_login import (LoginManager, login_required, login_user, 
 						 current_user, logout_user)
 
-
-import nltk
-nltk.download('stopwords')
-from nltk.corpus import stopwords
-from scrapers.keyword_generator import generate_bigrams, generate_trigrams, turn_ngrams_into_searches
+#from scrapers.keyword_generator import generate_bigrams, generate_trigrams, turn_ngrams_into_searches
 
 from itsdangerous import URLSafeTimedSerializer
 import firebase_api
@@ -27,8 +23,13 @@ import datetime
 import util
 from scrapers import mws_search
 import json
+import assignments_util
 #from sync.sync_util import sync_constants, generic_util
 #import strategy_util
+from werkzeug import secure_filename
+
+import boto
+from boto.s3.key import Key
 
 q = Queue(connection=conn)
 
@@ -50,6 +51,43 @@ login_manager.init_app(app)
 
 stripe.api_key = "sk_live_troL1NlysCarz4MUW1Myyjw8"
 #sk_live_gRlcBUp9pY6NqJcZpbeVLU7f
+
+
+###### @TODO: GET THIS SHIT THE FUK OUT OF HERE AND INTO A UTIL FILE
+app.config['ALLOWED_EXTENSIONS'] = set(['png', 'jpg', 'jpeg', 'tiff', 'bmp'])
+
+
+def allowed_file(filename):
+	return '.' in filename and \
+		   filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
+
+
+def save_file_in_s3(bucket_name, filename, canned_acl=None):
+	try:
+		AWS_ACCESS_KEY_ID = 'AKIAJNXO62C54H2EOFUA'
+		AWS_SECRET_ACCESS_KEY = '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'
+
+		conn = boto.connect_s3(AWS_ACCESS_KEY_ID,
+		        AWS_SECRET_ACCESS_KEY)
+
+		print 'Uploading %s to Amazon S3 bucket %s' % \
+		   (filename, bucket_name)
+
+		bucket = conn.get_bucket(bucket_name)
+		k = Key(bucket)
+		k.key = filename
+		k.set_contents_from_filename("uploads/" + filename)
+		if canned_acl:
+			k.set_canned_acl(canned_acl)
+		print('Upload to S3 succeeded.')
+		return True
+	except Exception as e:
+		print("S3 file upload didn't work")
+		print(e)
+		return False
+
+###### END UTIL STUFF THAT NEEDS TO BE MOVED OUT
+
 
 db = SQLAlchemy(app)
 import models
@@ -213,137 +251,6 @@ def logout_page():
 	"""
 	logout_user()
 	return redirect("/")
-
-
-@app.route("/membership/")
-@login_required
-def membership():
-	userId = current_user.username
-	userDetails = firebase_api.find_user_by_username(userId)
-
-	if "customerId" in userDetails:
-		customerId = userDetails["customerId"]
-		customer = stripe.Customer.retrieve(customerId)
-
-		if len(customer["sources"]["data"]) == 0:
-			source = None
-		else:
-			source = customer["sources"]["data"][0]
-
-		subscription = None
-		if len(customer["subscriptions"]["data"]) == 0:
-			print("fuck its empty!!!")
-		else:
-			subscription = customer["subscriptions"]["data"][0]
-
-	else:
-		customer = None
-		source = None
-		subscription = None
-	return render_template("membership.html", source=source, subscription=subscription, userDetails=userDetails)
-
-@app.route("/update_billing/", methods=["POST"])
-@login_required
-def update_billing():
-	userId = current_user.username
-	userDetails = firebase_api.find_user_by_username(userId)
-
-	stripeToken = request.form.get('stripeToken')
-
-	if "customerId" in userDetails:
-		customerId = userDetails["customerId"]
-		customer = stripe.Customer.retrieve(customerId)
-		
-		if len(customer["sources"]["data"]) != 0:
-			source = customer["sources"]["data"][0]
-			sourceId = source["id"]
-			try:
-				customer.sources.retrieve(sourceId).delete()
-			except Exception as e:
-				return "failure"
-		try:
-			result = customer.sources.create(source=stripeToken)
-		except Exception as e:
-			print("yeah it failed here")
-			print(e)
-			return "card_data_error"
-
-
-		return "success"
-
-	# Customer hasn't been created yet. We need to create a new customer ID
-	# Give them the 6 month beta trial, because this means that they were created
-	# using the old form.
-	try: 
-		# Create a Customer
-		if "wasCoreBetaTester" in userDetails and userDetails["wasCoreBetaTester"] == True:
-			trial_end = datetime.datetime.today()+ relativedelta(months=6)
-		else:
-			trial_end = datetime.datetime.today()+ relativedelta(weeks=2)	
-					
-		trial_end = trial_end.strftime("%s")
-
-
-		customer = stripe.Customer.create(
-		  source=stripeToken,
-		  plan="accelerlist_pro_plan",
-		  email=current_user.email,
-		  trial_end=trial_end
-		)
-
-		customerId = customer["id"]
-		firebase_api.update_object("users/" + userDetails["objectId"], "customerId", customerId)
-		firebase_api.update_object("users/" + userDetails["objectId"], "active", True)
-		firebase_api.update_object("users/" + userDetails["objectId"], "isTrialing", True)
-
-	except Exception as e:
-		print(e)
-		print("we are at the error")
-		return "card_data_error"
-
-	return "success"
-
-
-@app.route("/restart_membership/")
-@login_required
-def restart_membership():
-	userId = current_user.username
-	userDetails = firebase_api.find_user_by_username(userId)
-
-	if "customerId" in userDetails:
-		customerId = userDetails["customerId"]
-		customer = stripe.Customer.retrieve(customerId)
-
-		customer.subscriptions.create(plan="accelerlist_pro_plan", trial_end="now")
-		firebase_api.update_object("users/" + userDetails["objectId"], "active", True)
-		firebase_api.update_object("users/" + userDetails["objectId"], "isTrialing", False)
-
-	return redirect(url_for("membership"))	
-
-@app.route("/cancel_membership/")
-@login_required
-def cancel_membership():
-	userId = current_user.username
-	userDetails = firebase_api.find_user_by_username(userId)
-
-	if "customerId" in userDetails:
-		customerId = userDetails["customerId"]
-		customer = stripe.Customer.retrieve(customerId)
-
-		subscription = None
-		if len(customer["subscriptions"]["data"]) == 0:
-			print("fuck its empty!!!")
-		else:
-			subscription = customer["subscriptions"]["data"][0]
-			subscriptionId = subscription["id"]
-			# NOTE: Only temporarily use this for testing... eventually we want to
-			# cancel trial at period end
-			customer.subscriptions.retrieve(subscriptionId).delete()
-			#customer.subscriptions.retrieve(subscriptionId).delete(at_period_end=True)
-			firebase_api.update_object("users/" + userDetails["objectId"], "active", False)
-			firebase_api.update_object("users/" + userDetails["objectId"], "isTrialing", False)
-
-	return redirect(url_for("membership"))
 
 def hash_pass(password):
 	"""
@@ -603,60 +510,6 @@ def delete_favorites():
 	}
 	firebase_api.update_object("merchFavorites/{}".format(current_user.username), asin, data)
 	return json.dumps([])
-
-@app.route("/asin_tags/add/", methods=["POST"])
-@login_required
-def add_asin_tags():
-	asin = request.form.get("asin")
-	tag = request.form.get("tag")
-	curr_asin_tags = firebase_api.query_objects("asinTags/{}/{}".format(current_user.username, asin))
-	if not curr_asin_tags:
-		curr_asin_tags = []
-
-	curr_asin_tags.append(tag)
-	firebase_api.update_object("asinTags/{}".format(current_user.username), asin, data)
-	return json.dumps(curr_asin_tags)
-
-
-def get_bestsellers(query=None):
-	query_sql = ""
-	if query:
-		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(query.lower())
-
-
-	sql = """
-	SELECT asin_analytics.id, asin_analytics.salesrank, asin_analytics.last_7d_salesrank, asin_analytics.list_price,
-	asin_metadata.title, asin_metadata.brand, asin_metadata.image
-
-	FROM asin_analytics 
-	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
-	and asin_analytics.unthrottled_salesrank > 0 and asin_analytics.list_price > 0
-	and asin_analytics.unthrottled_salesrank < 10000000
-	and asin_metadata.product_type_name='ORCA_SHIRT'
-
-	{}	
-	ORDER BY unthrottled_salesrank ASC 
-	LIMIT 100;
-	""".format(query_sql)
-
-	raw_result = db.engine.execute(sql);
-	result = []
-	for row in raw_result:
-		image = row[6]
-		if "no-img-sm" in image:
-			continue
-		result.append({
-			"asin": row[0],
-			"salesrank": row[1],
-			"last_7d_salesrank": row[2],
-			"list_price": row[3],
-			"title": row[4],
-			"brand": row[5],
-			"image": row[6]
-		})
-	print("processed {} search results".format(len(result)))
-	return result
-
 
 def get_trending_tshirts_by_metric(metric, query=None, asc=False, filter_zeroes=False):
 	query_sql = ""
@@ -1048,59 +901,6 @@ def construct_negative_queries(query):
 	negative_queries_sql = " \n".join(["and lower(asin_metadata.title) not like '%%{}%%'".format(q.lower()) for q in negative_queries])
 	return negative_queries_sql
 
-def execute_query_search(query):
-	query_sql = ""
-	negative_queries_sql = ""
-	scrubbed_query = ""
-
-	if query and query.strip() != "" and len(query) > 1:
-		scrubbed_query = scrub_negative_queries(query)
-		query_sql = """
-		and lower(asin_metadata.title) like '%%{}%%'
-		""".format(scrubbed_query.lower())
-		negative_queries_sql = construct_negative_queries(query)
-		salesrank_threshold = 5000000
-	else:
-		salesrank_threshold = 1000000
-
-	sql = """
-	SELECT asin_analytics.id, asin_analytics.salesrank, asin_analytics.last_7d_salesrank, asin_analytics.list_price,
-	asin_metadata.title, asin_metadata.brand, asin_metadata.image, unthrottled_salesrank
-	
-	FROM asin_analytics 
-	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
-	
-	and asin_metadata.product_type_name='ORCA_SHIRT'
-	and (asin_metadata.removed IS NULL or asin_metadata.removed = FALSE)
-
-	{}
-	{}
-
-	and salesrank < {};
-	""".format(query_sql, negative_queries_sql, salesrank_threshold)
-	print(sql)	
-
-	raw_result = db.engine.execute(sql);
-	result = []
-	for row in raw_result:
-		image = row[6]
-		if "no-img-sm" in image:
-			continue
-		image = image.replace("._SL75", "._SL200")
-		result.append({
-			"asin": row[0],
-			"salesrank": row[1],
-			"last_7d_salesrank": row[2],
-			"list_price": row[3],
-			"title": row[4],
-			"brand": row[5],
-			"image": image,
-			"unthrottled_salesrank": row[7]
-		})
-	result = sorted(result, key=lambda x: x["salesrank"], reverse=False)
-	print("processed {} search results".format(len(result)))
-	return result
-
 def execute_query_search_v2(query):
 	query_sql = ""
 	negative_queries_sql = ""
@@ -1217,6 +1017,123 @@ def execute_backup_query_search(query):
 	result = sorted(result, key=lambda x: x["salesrank"], reverse=False)
 	print("processed {} search results".format(len(result)))
 	return result
+
+
+@app.route('/assignments/', methods=["GET"])
+def assignments():
+	return render_template("assignments.html")
+
+@app.route('/add_assignment/', methods=["POST"])
+def add_assignment():
+	assignment_json = request.form["assignment"]
+	assignment = json.loads(assignment_json)
+	# @TODO: Server side validation on assignment
+	result = assignments_util.create_assignment(current_user.username, assignment)
+	print(result, type(result))
+	return json.dumps(result)
+
+@app.route('/get_assignments/', methods=["GET"])
+def get_assignments():
+	assignments = assignments_util.get_assignments_for_user(current_user.username, status=None, designer_username=None)
+	asins = [a["asin"] for a in assignments if a.get("asin")]
+	thumbnails_raw = models.AsinMetadata.query.filter(
+		models.AsinMetadata.id.in_(asins)
+	).with_entities(
+		models.AsinMetadata.id, models.AsinMetadata.image
+	).all()
+	thumbnails = {}
+	for asin, image in thumbnails_raw:
+		thumbnails[asin] = image
+
+	for assignment in assignments:
+		asin = assignment.get("asin")
+		if asin:
+			assignment["thumbnail"] = thumbnails.get(asin, "").replace("._SL75", "._SL200")
+	print assignments
+	return json.dumps(assignments)
+
+@app.route('/assignment/<assignment_id>/', methods=["GET"])
+def assignment(assignment_id):
+	return render_template("assignment.html", assignment_id=assignment_id)
+
+@app.route('/assignment/<assignment_id>/data/', methods=["GET"])
+def assignment_data(assignment_id):
+	assignment = assignments_util.get_assignment(current_user.username, assignment_id)
+	asin = assignment.get("asin")
+	if asin:
+		thumbnails_raw = models.AsinMetadata.query.filter_by(
+			id=asin
+		).with_entities(
+			models.AsinMetadata.id, models.AsinMetadata.image
+		).first()
+		if thumbnails_raw:
+			asin, image = thumbnails_raw
+			image = image.replace("._SL75", "._SL600")
+			assignment["thumbnail"] = image
+
+	print(assignment)
+	return json.dumps(assignment)
+
+@app.route('/designers/', methods=["GET"])
+def designers():
+	return render_template("designers.html")
+
+
+@app.route('/assignment/<assignment_id>/upload/', methods=["POST"])
+def upload_design(assignment_id):
+	basedir = os.path.abspath(os.path.dirname(__file__))
+	if request.method == 'POST':
+		data = {}
+
+		files = request.files.getlist('file')
+		for name in request.files:
+			f = request.files.get(name)
+
+			if f and allowed_file(f.filename):
+
+				secured_filename = secure_filename(datetime.datetime.utcnow().isoformat() + "_" + f.filename)
+				if not os.path.exists("uploads/"):
+					os.mkdir("uploads/")
+				if not os.path.exists("uploads/" + current_user.username):
+					os.mkdir("uploads/" + current_user.username)
+				f.save(os.path.join("uploads/", current_user.username, secured_filename))
+				#file_size = os.path.getsize(os.path.join(updir, secured_filename))
+
+				bucket_name = "merchlab-design-upload"
+				
+				# s3 function returns boolean based on whether it was success or not
+				s3_filename = current_user.username + "/" + secured_filename
+				result = save_file_in_s3(bucket_name, s3_filename, canned_acl="public-read")
+				from process_uploads_util import create_upload_job_designer_upload
+
+				job = create_upload_job_designer_upload(current_user.username, s3_filename, status="uploaded")
+				meta = {
+					'upload_uuid': job.model.upload_uuid
+				}
+
+				fb_result = None
+				if result and job:
+					s3_url = "https://s3.amazonaws.com/" + job.model.s3_bucket_name + "/" + job.model.s3_filename
+					fb_result = assignments_util.add_completed_work_to_assignment(current_user.username, assignment_id, job.model.upload_uuid, s3_url)
+				print(fb_result)
+				if fb_result and result and job:
+					meta['job_status'] = job.model.job_status
+					meta['s3_bucket_name'] = job.model.s3_bucket_name
+					meta['s3_filename'] = job.model.s3_filename
+					meta['job_status'] = job.model.job_status
+
+				else:
+					meta['job_status'] = "error"
+					meta['error_message'] = "Failed to upload."
+			else:
+				meta = {
+					'job_status': 'error',
+					'error_message': "Invalid file extension."
+				}
+			data[f.filename] = meta
+
+		print(data)
+		return json.dumps(data)
 
 
 

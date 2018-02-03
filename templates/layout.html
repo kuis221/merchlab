@@ -366,6 +366,35 @@
             </li>
             {% endif %}
 
+            {% if '/assignments' in request.path  %}
+            <li class="sidebar-li active">
+                <a href="/assignments/" role="button" data-toggle="modal"> <span class="nav-label"><i class="pull-left pe-7s-user" style="margin-right:10px; margin-top:1px" ></i> Assignments</span></a>
+            </li>
+            {% else %}
+            <li class="sidebar-li">
+                <a href="/assignments/" role="button" data-toggle="modal"> <span class="nav-label"><i class="pull-left pe-7s-user" style="margin-right:10px; margin-top:1px" ></i> Assignments</span></a>
+            </li>
+            {% endif %}
+
+            {% if '/designers' in request.path  %}
+            <li class="sidebar-li active">
+                <a href="/designers/" role="button" data-toggle="modal"> <span class="nav-label"><i class="pull-left pe-7s-user" style="margin-right:10px; margin-top:1px" ></i> Designers</span></a>
+            </li>
+            {% else %}
+            <li class="sidebar-li">
+                <a href="/designers/" role="button" data-toggle="modal"> <span class="nav-label"><i class="pull-left pe-7s-user" style="margin-right:10px; margin-top:1px" ></i> Designers</span></a>
+            </li>
+            {% endif %}
+
+            {% if '/payouts' in request.path  %}
+            <li class="sidebar-li active">
+                <a href="/payouts/" role="button" data-toggle="modal"> <span class="nav-label"><i class="pull-left pe-7s-user" style="margin-right:10px; margin-top:1px" ></i> Payouts</span></a>
+            </li>
+            {% else %}
+            <li class="sidebar-li">
+                <a href="/payouts/" role="button" data-toggle="modal"> <span class="nav-label"><i class="pull-left pe-7s-user" style="margin-right:10px; margin-top:1px" ></i> Payouts</span></a>
+            </li>
+            {% endif %}
             <!--
             {% if '/sales_tracker' in request.path  %}
             <li class="sidebar-li active">

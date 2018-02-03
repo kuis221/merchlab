@@ -6,8 +6,9 @@ module.exports = {
     entry: {
         index: './client/index.js',
         dashboard: './client/dashboard.js',
-        inventory_table: './client/inventory_table.js',
         favorites: './client/favorites.js',
+        assignments: './client/assignments.js',
+        assignment: './client/assignment.js',
     },
     output: {
         path: path.resolve(__dirname, '../static/bundle'),
