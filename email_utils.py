@@ -237,7 +237,6 @@ def send_emails_to_list(mailing_list_address, subject, text, html=None, attachme
     """
     return send_email(mailing_list_address, subject, text, html, attachments, from_name, from_address, domain_name)
 
-
 def send_reset_password_email(address, token):
     """
     Send email message with a link to password reset form on Merchlab
@@ -251,3 +250,4 @@ def send_reset_password_email(address, token):
            'http://merchlab.herokuapp.com/reset_password/?token={0}'.format(token)
 
     send_email(address, subject, text)
+

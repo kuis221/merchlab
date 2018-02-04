@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+
+
+{% block body %}
+<link rel="stylesheet" href="/static/vendor/sweetalert/lib/sweet-alert.css" />
+<script src="/static/vendor/sweetalert/lib/sweet-alert.min.js"></script>
+
+<style>
+
+.control-label {
+    padding-left:0px; 
+    padding-right:0px;
+    font-size:12px;
+}
+
+.react-bs-container-body {
+    overflow-y: visible;
+    overflow-x: visible;
+}
+
+.react-bootstrap-table-page-btns-ul {
+    margin-top:0px;
+    float:right;
+}
+
+
+td {
+    overflow-y: visible;
+    overflow-x: visible;
+}
+
+.table-button {
+    width:100%;
+    margin-bottom:5px;
+    font-weight:300;
+    font-family:'Open Sans';
+}
+
+.btn {
+    font-weight:300;
+    font-family: 'Open Sans';
+}
+
+</style>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+    <div id="content">
+        <div class="normalheader transition animated fadeIn" style="padding-top: 20px;">
+            <div class="hpanel">
+                <div class="panel-body">
+
+                    <h2 class="font-light m-b-xs" style="font-family:Open Sans; font-weight:300">
+                        Assignments Portal
+                    </h2>
+                </div>
+            </div>
+            <br />
+            <div id='assignments-page'>
+            </div>
+        </div>
+        <br />
+    </div>
+
+</div>
+
+<!-- Vendor scripts -->
+<script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/static/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/vendor/metisMenu/dist/metisMenu.min.js"></script>
+<script src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
+<script src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
+<script src="/static/js/browser.min.js"></script>
+
+<!-- App scripts -->
+<script src="/static/scripts/homer.js"></script>
+<script src="/static/bundle/assignments.js"></script>
+
+
+
+</body>
+</html>
+
+{% endblock %}

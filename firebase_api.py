@@ -38,6 +38,18 @@ def signup(username, password, email, referrerId=None, customerId=None, plan=Non
     return user_result
 
 
+def va_signup(username, password, email):
+	data = {
+		"username": username,
+		"password": password,
+		"email": email,
+		"is_virtual_assistant": True,
+	}
+
+	user_result = save_object('users', data)
+	return user_result
+
+
 def login(username, password):
     usersDict = query_objects('users')
     for objectId in usersDict:

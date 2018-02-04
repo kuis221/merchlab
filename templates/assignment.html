@@ -1,0 +1,184 @@
+{% extends "layout.html" %}
+
+
+
+{% block body %}
+<link rel="stylesheet" href="/static/vendor/sweetalert/lib/sweet-alert.css" />
+<script src="/static/vendor/sweetalert/lib/sweet-alert.min.js"></script>
+
+<style>
+
+.design-image-div {
+    margin-bottom:40px;
+}
+
+.design-image {
+    border: 1px dashed #eeeeee;
+    padding:6%;
+}
+
+.control-label {
+    padding-left:0px; 
+    padding-right:0px;
+    font-size:12px;
+}
+
+.modal-header {
+  padding:10px;
+  padding-left:10px;  
+}
+
+.modal-title {
+  font-size:24px;
+}
+
+
+.react-bs-container-body tr td {
+  font-size:12px;
+}
+
+
+.modal-dialog {
+  margin-top:50px;
+}
+
+<style>
+
+.btn {
+    font-weight:300;
+    font-family: 'Open Sans';
+}
+
+
+.dropzone {
+    padding: 25px;
+    border: 1px dashed #eeeeee;
+    border-radius: 5px;
+}
+
+/* Progress Bar */
+.progress {
+  position: relative;
+  height: 4px;
+  display: block;
+  width: 100%;
+  background-color: #acece6;
+  border-radius: 2px;
+  background-clip: padding-box;
+  margin: 0.5rem 0 1rem 0;
+  overflow: hidden; }
+  .progress .determinate {
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    bottom: 0;
+    background-color: #26a69a;
+    transition: width .3s linear; }
+  .progress .indeterminate {
+    background-color: #26a69a; }
+    .progress .indeterminate:before {
+      content: '';
+      position: absolute;
+      background-color: inherit;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      will-change: left, right;
+      -webkit-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+              animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite; }
+    .progress .indeterminate:after {
+      content: '';
+      position: absolute;
+      background-color: inherit;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      will-change: left, right;
+      -webkit-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+              animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+      -webkit-animation-delay: 1.15s;
+              animation-delay: 1.15s; }
+
+@-webkit-keyframes indeterminate {
+  0% {
+    left: -35%;
+    right: 100%; }
+  60% {
+    left: 100%;
+    right: -90%; }
+  100% {
+    left: 100%;
+    right: -90%; } }
+@keyframes indeterminate {
+  0% {
+    left: -35%;
+    right: 100%; }
+  60% {
+    left: 100%;
+    right: -90%; }
+  100% {
+    left: 100%;
+    right: -90%; } }
+@-webkit-keyframes indeterminate-short {
+  0% {
+    left: -200%;
+    right: 100%; }
+  60% {
+    left: 107%;
+    right: -8%; }
+  100% {
+    left: 107%;
+    right: -8%; } }
+@keyframes indeterminate-short {
+  0% {
+    left: -200%;
+    right: 100%; }
+  60% {
+    left: 107%;
+    right: -8%; }
+  100% {
+    left: 107%;
+    right: -8%; } }
+
+
+
+</style>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+    <div id="assignment-id" style="display:none">{{assignment_id}}</div>
+    <div id="content">
+
+        <div class="normalheader transition animated fadeIn" style="padding-top: 20px">
+            <div class="hpanel">
+                <div class="panel-body">
+
+                    <h2 class="font-light m-b-xs" style="font-family:'Open Sans'; font-weight:300">
+                      Assignment Details
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div id="assignment"></div>
+    </div>
+
+</div>
+
+<!-- Vendor scripts -->
+<script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/static/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/vendor/metisMenu/dist/metisMenu.min.js"></script>
+<script src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
+<script src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
+<script src="/static/js/browser.min.js"></script>
+
+<!-- App scripts -->
+<script src="/static/scripts/homer.js"></script>
+<script src="/static/bundle/assignment.js"></script>
+
+</body>
+</html>
+
+{% endblock %}
