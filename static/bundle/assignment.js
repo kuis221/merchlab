@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1017);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1029);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -66360,65 +66360,7 @@ var ProductVisualizer = function (_React$Component) {
 exports.default = ProductVisualizer;
 
 /***/ }),
-/* 588 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadingIndicator = function (_React$Component) {
-	_inherits(LoadingIndicator, _React$Component);
-
-	function LoadingIndicator() {
-		_classCallCheck(this, LoadingIndicator);
-
-		return _possibleConstructorReturn(this, (LoadingIndicator.__proto__ || Object.getPrototypeOf(LoadingIndicator)).apply(this, arguments));
-	}
-
-	_createClass(LoadingIndicator, [{
-		key: "render",
-		value: function render() {
-			var loadingText = this.props.loadingText || "Loading... Hang tight!";
-			return _react2.default.createElement(
-				"div",
-				{ className: "text-center" },
-				_react2.default.createElement(
-					"h3",
-					{ style: { fontFamily: 'Open Sans', fontWeight: 300 } },
-					loadingText
-				),
-				_react2.default.createElement("br", null),
-				_react2.default.createElement("div", { className: "loader-1" }),
-				_react2.default.createElement("br", null),
-				_react2.default.createElement("br", null)
-			);
-		}
-	}]);
-
-	return LoadingIndicator;
-}(_react2.default.Component);
-
-exports.default = LoadingIndicator;
-
-/***/ }),
+/* 588 */,
 /* 589 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -92944,11 +92886,1043 @@ module.exports = baseSum;
 }));
 
 /***/ }),
-/* 1013 */,
+/* 1013 */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(true)
+		module.exports = factory(__webpack_require__(0), __webpack_require__(3));
+	else if(typeof define === 'function' && define.amd)
+		define(["react", "prop-types"], factory);
+	else if(typeof exports === 'object')
+		exports["Dropzone"] = factory(require("react"), require("prop-types"));
+	else
+		root["Dropzone"] = factory(root["react"], root["prop-types"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _utils = __webpack_require__(4);
+
+var _styles = __webpack_require__(6);
+
+var _styles2 = _interopRequireDefault(_styles);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint prefer-template: 0 */
+
+var Dropzone = function (_React$Component) {
+  _inherits(Dropzone, _React$Component);
+
+  function Dropzone(props, context) {
+    _classCallCheck(this, Dropzone);
+
+    var _this = _possibleConstructorReturn(this, (Dropzone.__proto__ || Object.getPrototypeOf(Dropzone)).call(this, props, context));
+
+    _this.renderChildren = function (children, isDragActive, isDragAccept, isDragReject) {
+      if (typeof children === 'function') {
+        return children(_extends({}, _this.state, {
+          isDragActive: isDragActive,
+          isDragAccept: isDragAccept,
+          isDragReject: isDragReject
+        }));
+      }
+      return children;
+    };
+
+    _this.composeHandlers = _this.composeHandlers.bind(_this);
+    _this.onClick = _this.onClick.bind(_this);
+    _this.onDocumentDrop = _this.onDocumentDrop.bind(_this);
+    _this.onDragEnter = _this.onDragEnter.bind(_this);
+    _this.onDragLeave = _this.onDragLeave.bind(_this);
+    _this.onDragOver = _this.onDragOver.bind(_this);
+    _this.onDragStart = _this.onDragStart.bind(_this);
+    _this.onDrop = _this.onDrop.bind(_this);
+    _this.onFileDialogCancel = _this.onFileDialogCancel.bind(_this);
+    _this.onInputElementClick = _this.onInputElementClick.bind(_this);
+
+    _this.setRef = _this.setRef.bind(_this);
+    _this.setRefs = _this.setRefs.bind(_this);
+
+    _this.isFileDialogActive = false;
+
+    _this.state = {
+      draggedFiles: [],
+      acceptedFiles: [],
+      rejectedFiles: []
+    };
+    return _this;
+  }
+
+  _createClass(Dropzone, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var preventDropOnDocument = this.props.preventDropOnDocument;
+
+      this.dragTargets = [];
+
+      if (preventDropOnDocument) {
+        document.addEventListener('dragover', _utils.onDocumentDragOver, false);
+        document.addEventListener('drop', this.onDocumentDrop, false);
+      }
+      this.fileInputEl.addEventListener('click', this.onInputElementClick, false);
+      // Tried implementing addEventListener, but didn't work out
+      document.body.onfocus = this.onFileDialogCancel;
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      var preventDropOnDocument = this.props.preventDropOnDocument;
+
+      if (preventDropOnDocument) {
+        document.removeEventListener('dragover', _utils.onDocumentDragOver);
+        document.removeEventListener('drop', this.onDocumentDrop);
+      }
+      this.fileInputEl.removeEventListener('click', this.onInputElementClick, false);
+      // Can be replaced with removeEventListener, if addEventListener works
+      document.body.onfocus = null;
+    }
+  }, {
+    key: 'composeHandlers',
+    value: function composeHandlers(handler) {
+      if (this.props.disabled) {
+        return null;
+      }
+
+      return handler;
+    }
+  }, {
+    key: 'onDocumentDrop',
+    value: function onDocumentDrop(evt) {
+      if (this.node.contains(evt.target)) {
+        // if we intercepted an event for our instance, let it propagate down to the instance's onDrop handler
+        return;
+      }
+      evt.preventDefault();
+      this.dragTargets = [];
+    }
+  }, {
+    key: 'onDragStart',
+    value: function onDragStart(evt) {
+      if (this.props.onDragStart) {
+        this.props.onDragStart.call(this, evt);
+      }
+    }
+  }, {
+    key: 'onDragEnter',
+    value: function onDragEnter(evt) {
+      evt.preventDefault();
+
+      // Count the dropzone and any children that are entered.
+      if (this.dragTargets.indexOf(evt.target) === -1) {
+        this.dragTargets.push(evt.target);
+      }
+
+      this.setState({
+        isDragActive: true, // Do not rely on files for the drag state. It doesn't work in Safari.
+        draggedFiles: (0, _utils.getDataTransferItems)(evt)
+      });
+
+      if (this.props.onDragEnter) {
+        this.props.onDragEnter.call(this, evt);
+      }
+    }
+  }, {
+    key: 'onDragOver',
+    value: function onDragOver(evt) {
+      // eslint-disable-line class-methods-use-this
+      evt.preventDefault();
+      evt.stopPropagation();
+      try {
+        evt.dataTransfer.dropEffect = 'copy'; // eslint-disable-line no-param-reassign
+      } catch (err) {
+        // continue regardless of error
+      }
+
+      if (this.props.onDragOver) {
+        this.props.onDragOver.call(this, evt);
+      }
+      return false;
+    }
+  }, {
+    key: 'onDragLeave',
+    value: function onDragLeave(evt) {
+      var _this2 = this;
+
+      evt.preventDefault();
+
+      // Only deactivate once the dropzone and all children have been left.
+      this.dragTargets = this.dragTargets.filter(function (el) {
+        return el !== evt.target && _this2.node.contains(el);
+      });
+      if (this.dragTargets.length > 0) {
+        return;
+      }
+
+      // Clear dragging files state
+      this.setState({
+        isDragActive: false,
+        draggedFiles: []
+      });
+
+      if (this.props.onDragLeave) {
+        this.props.onDragLeave.call(this, evt);
+      }
+    }
+  }, {
+    key: 'onDrop',
+    value: function onDrop(evt) {
+      var _this3 = this;
+
+      var _props = this.props,
+          onDrop = _props.onDrop,
+          onDropAccepted = _props.onDropAccepted,
+          onDropRejected = _props.onDropRejected,
+          multiple = _props.multiple,
+          disablePreview = _props.disablePreview,
+          accept = _props.accept;
+
+      var fileList = (0, _utils.getDataTransferItems)(evt);
+      var acceptedFiles = [];
+      var rejectedFiles = [];
+
+      // Stop default browser behavior
+      evt.preventDefault();
+
+      // Reset the counter along with the drag on a drop.
+      this.dragTargets = [];
+      this.isFileDialogActive = false;
+
+      fileList.forEach(function (file) {
+        if (!disablePreview) {
+          try {
+            file.preview = window.URL.createObjectURL(file); // eslint-disable-line no-param-reassign
+          } catch (err) {
+            if (process.env.NODE_ENV !== 'production') {
+              console.error('Failed to generate preview for file', file, err); // eslint-disable-line no-console
+            }
+          }
+        }
+
+        if ((0, _utils.fileAccepted)(file, accept) && (0, _utils.fileMatchSize)(file, _this3.props.maxSize, _this3.props.minSize)) {
+          acceptedFiles.push(file);
+        } else {
+          rejectedFiles.push(file);
+        }
+      });
+
+      if (!multiple) {
+        // if not in multi mode add any extra accepted files to rejected.
+        // This will allow end users to easily ignore a multi file drop in "single" mode.
+        rejectedFiles.push.apply(rejectedFiles, _toConsumableArray(acceptedFiles.splice(1)));
+      }
+
+      if (onDrop) {
+        onDrop.call(this, acceptedFiles, rejectedFiles, evt);
+      }
+
+      if (rejectedFiles.length > 0 && onDropRejected) {
+        onDropRejected.call(this, rejectedFiles, evt);
+      }
+
+      if (acceptedFiles.length > 0 && onDropAccepted) {
+        onDropAccepted.call(this, acceptedFiles, evt);
+      }
+
+      // Clear files value
+      this.draggedFiles = null;
+
+      // Reset drag state
+      this.setState({
+        isDragActive: false,
+        draggedFiles: [],
+        acceptedFiles: acceptedFiles,
+        rejectedFiles: rejectedFiles
+      });
+    }
+  }, {
+    key: 'onClick',
+    value: function onClick(evt) {
+      var _props2 = this.props,
+          onClick = _props2.onClick,
+          disableClick = _props2.disableClick;
+
+      if (!disableClick) {
+        evt.stopPropagation();
+
+        if (onClick) {
+          onClick.call(this, evt);
+        }
+
+        // in IE11/Edge the file-browser dialog is blocking, ensure this is behind setTimeout
+        // this is so react can handle state changes in the onClick prop above above
+        // see: https://github.com/react-dropzone/react-dropzone/issues/450
+        setTimeout(this.open.bind(this), 0);
+      }
+    }
+  }, {
+    key: 'onInputElementClick',
+    value: function onInputElementClick(evt) {
+      evt.stopPropagation();
+      if (this.props.inputProps && this.props.inputProps.onClick) {
+        this.props.inputProps.onClick();
+      }
+    }
+  }, {
+    key: 'onFileDialogCancel',
+    value: function onFileDialogCancel() {
+      // timeout will not recognize context of this method
+      var onFileDialogCancel = this.props.onFileDialogCancel;
+      var fileInputEl = this.fileInputEl;
+      var isFileDialogActive = this.isFileDialogActive;
+      // execute the timeout only if the onFileDialogCancel is defined and FileDialog
+      // is opened in the browser
+
+      if (onFileDialogCancel && isFileDialogActive) {
+        setTimeout(function () {
+          // Returns an object as FileList
+          var FileList = fileInputEl.files;
+          if (!FileList.length) {
+            isFileDialogActive = false;
+            onFileDialogCancel();
+          }
+        }, 300);
+      }
+    }
+  }, {
+    key: 'setRef',
+    value: function setRef(ref) {
+      this.node = ref;
+    }
+  }, {
+    key: 'setRefs',
+    value: function setRefs(ref) {
+      this.fileInputEl = ref;
+    }
+    /**
+     * Open system file upload dialog.
+     *
+     * @public
+     */
+
+  }, {
+    key: 'open',
+    value: function open() {
+      this.isFileDialogActive = true;
+      this.fileInputEl.value = null;
+      this.fileInputEl.click();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props3 = this.props,
+          accept = _props3.accept,
+          acceptClassName = _props3.acceptClassName,
+          activeClassName = _props3.activeClassName,
+          children = _props3.children,
+          disabled = _props3.disabled,
+          disabledClassName = _props3.disabledClassName,
+          inputProps = _props3.inputProps,
+          multiple = _props3.multiple,
+          name = _props3.name,
+          rejectClassName = _props3.rejectClassName,
+          rest = _objectWithoutProperties(_props3, ['accept', 'acceptClassName', 'activeClassName', 'children', 'disabled', 'disabledClassName', 'inputProps', 'multiple', 'name', 'rejectClassName']);
+
+      var acceptStyle = rest.acceptStyle,
+          activeStyle = rest.activeStyle,
+          className = rest.className,
+          disabledStyle = rest.disabledStyle,
+          rejectStyle = rest.rejectStyle,
+          style = rest.style,
+          props = _objectWithoutProperties(rest, ['acceptStyle', 'activeStyle', 'className', 'disabledStyle', 'rejectStyle', 'style']);
+
+      var _state = this.state,
+          isDragActive = _state.isDragActive,
+          draggedFiles = _state.draggedFiles;
+
+      var filesCount = draggedFiles.length;
+      var isMultipleAllowed = multiple || filesCount <= 1;
+      var isDragAccept = filesCount > 0 && (0, _utils.allFilesAccepted)(draggedFiles, this.props.accept);
+      var isDragReject = filesCount > 0 && (!isDragAccept || !isMultipleAllowed);
+      className = className || '';
+      var noStyles = !className && !style && !activeStyle && !acceptStyle && !rejectStyle && !disabledStyle;
+
+      if (isDragActive && activeClassName) {
+        className += ' ' + activeClassName;
+      }
+      if (isDragAccept && acceptClassName) {
+        className += ' ' + acceptClassName;
+      }
+      if (isDragReject && rejectClassName) {
+        className += ' ' + rejectClassName;
+      }
+      if (disabled && disabledClassName) {
+        className += ' ' + disabledClassName;
+      }
+
+      if (noStyles) {
+        style = _styles2.default.default;
+        activeStyle = _styles2.default.active;
+        acceptStyle = style.active;
+        rejectStyle = _styles2.default.rejected;
+        disabledStyle = _styles2.default.disabled;
+      }
+
+      var appliedStyle = _extends({}, style);
+      if (activeStyle && isDragActive) {
+        appliedStyle = _extends({}, style, activeStyle);
+      }
+      if (acceptStyle && isDragAccept) {
+        appliedStyle = _extends({}, appliedStyle, acceptStyle);
+      }
+      if (rejectStyle && isDragReject) {
+        appliedStyle = _extends({}, appliedStyle, rejectStyle);
+      }
+      if (disabledStyle && disabled) {
+        appliedStyle = _extends({}, style, disabledStyle);
+      }
+
+      var inputAttributes = {
+        accept: accept,
+        disabled: disabled,
+        type: 'file',
+        style: { display: 'none' },
+        multiple: _utils.supportMultiple && multiple,
+        ref: this.setRefs,
+        onChange: this.onDrop,
+        autoComplete: 'off'
+      };
+
+      if (name && name.length) {
+        inputAttributes.name = name;
+      }
+
+      // Remove custom properties before passing them to the wrapper div element
+      var customProps = ['acceptedFiles', 'preventDropOnDocument', 'disablePreview', 'disableClick', 'activeClassName', 'acceptClassName', 'rejectClassName', 'disabledClassName', 'onDropAccepted', 'onDropRejected', 'onFileDialogCancel', 'maxSize', 'minSize'];
+      var divProps = _extends({}, props);
+      customProps.forEach(function (prop) {
+        return delete divProps[prop];
+      });
+
+      return _react2.default.createElement(
+        'div',
+        _extends({
+          className: className,
+          style: appliedStyle
+        }, divProps /* expand user provided props first so event handlers are never overridden */, {
+          onClick: this.composeHandlers(this.onClick),
+          onDragStart: this.composeHandlers(this.onDragStart),
+          onDragEnter: this.composeHandlers(this.onDragEnter),
+          onDragOver: this.composeHandlers(this.onDragOver),
+          onDragLeave: this.composeHandlers(this.onDragLeave),
+          onDrop: this.composeHandlers(this.onDrop),
+          ref: this.setRef,
+          'aria-disabled': disabled
+        }),
+        this.renderChildren(children, isDragActive, isDragAccept, isDragReject),
+        _react2.default.createElement('input', _extends({}, inputProps /* expand user provided inputProps first so inputAttributes override them */, inputAttributes))
+      );
+    }
+  }]);
+
+  return Dropzone;
+}(_react2.default.Component);
+
+exports.default = Dropzone;
+
+
+Dropzone.propTypes = {
+  /**
+   * Allow specific types of files. See https://github.com/okonet/attr-accept for more information.
+   * Keep in mind that mime type determination is not reliable across platforms. CSV files,
+   * for example, are reported as text/plain under macOS but as application/vnd.ms-excel under
+   * Windows. In some cases there might not be a mime type set at all.
+   * See: https://github.com/react-dropzone/react-dropzone/issues/276
+   */
+  accept: _propTypes2.default.string,
+
+  /**
+   * Contents of the dropzone
+   */
+  children: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.func]),
+
+  /**
+   * Disallow clicking on the dropzone container to open file dialog
+   */
+  disableClick: _propTypes2.default.bool,
+
+  /**
+  * Enable/disable the dropzone entirely
+  */
+  disabled: _propTypes2.default.bool,
+
+  /**
+   * Enable/disable preview generation
+   */
+  disablePreview: _propTypes2.default.bool,
+
+  /**
+   * If false, allow dropped items to take over the current browser window
+   */
+  preventDropOnDocument: _propTypes2.default.bool,
+
+  /**
+   * Pass additional attributes to the `<input type="file"/>` tag
+   */
+  inputProps: _propTypes2.default.object,
+
+  /**
+   * Allow dropping multiple files
+   */
+  multiple: _propTypes2.default.bool,
+
+  /**
+   * `name` attribute for the input tag
+   */
+  name: _propTypes2.default.string,
+
+  /**
+   * Maximum file size
+   */
+  maxSize: _propTypes2.default.number,
+
+  /**
+   * Minimum file size
+   */
+  minSize: _propTypes2.default.number,
+
+  /**
+   * className
+   */
+  className: _propTypes2.default.string,
+
+  /**
+   * className for active state
+   */
+  activeClassName: _propTypes2.default.string,
+
+  /**
+   * className for accepted state
+   */
+  acceptClassName: _propTypes2.default.string,
+
+  /**
+   * className for rejected state
+   */
+  rejectClassName: _propTypes2.default.string,
+
+  /**
+   * className for disabled state
+   */
+  disabledClassName: _propTypes2.default.string,
+
+  /**
+   * CSS styles to apply
+   */
+  style: _propTypes2.default.object,
+
+  /**
+   * CSS styles to apply when drag is active
+   */
+  activeStyle: _propTypes2.default.object,
+
+  /**
+   * CSS styles to apply when drop will be accepted
+   */
+  acceptStyle: _propTypes2.default.object,
+
+  /**
+   * CSS styles to apply when drop will be rejected
+   */
+  rejectStyle: _propTypes2.default.object,
+
+  /**
+   * CSS styles to apply when dropzone is disabled
+   */
+  disabledStyle: _propTypes2.default.object,
+
+  /**
+   * onClick callback
+   * @param {Event} event
+   */
+  onClick: _propTypes2.default.func,
+
+  /**
+   * onDrop callback
+   */
+  onDrop: _propTypes2.default.func,
+
+  /**
+   * onDropAccepted callback
+   */
+  onDropAccepted: _propTypes2.default.func,
+
+  /**
+   * onDropRejected callback
+   */
+  onDropRejected: _propTypes2.default.func,
+
+  /**
+   * onDragStart callback
+   */
+  onDragStart: _propTypes2.default.func,
+
+  /**
+   * onDragEnter callback
+   */
+  onDragEnter: _propTypes2.default.func,
+
+  /**
+   * onDragOver callback
+   */
+  onDragOver: _propTypes2.default.func,
+
+  /**
+   * onDragLeave callback
+   */
+  onDragLeave: _propTypes2.default.func,
+
+  /**
+   * Provide a callback on clicking the cancel button of the file dialog
+   */
+  onFileDialogCancel: _propTypes2.default.func
+};
+
+Dropzone.defaultProps = {
+  preventDropOnDocument: true,
+  disabled: false,
+  disablePreview: false,
+  disableClick: false,
+  multiple: true,
+  maxSize: Infinity,
+  minSize: 0
+};
+module.exports = exports['default'];
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.supportMultiple = undefined;
+exports.getDataTransferItems = getDataTransferItems;
+exports.fileAccepted = fileAccepted;
+exports.fileMatchSize = fileMatchSize;
+exports.allFilesAccepted = allFilesAccepted;
+exports.onDocumentDragOver = onDocumentDragOver;
+
+var _attrAccept = __webpack_require__(5);
+
+var _attrAccept2 = _interopRequireDefault(_attrAccept);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var supportMultiple = exports.supportMultiple = typeof document !== 'undefined' && document && document.createElement ? 'multiple' in document.createElement('input') : true;
+
+function getDataTransferItems(event) {
+  var dataTransferItemsList = [];
+  if (event.dataTransfer) {
+    var dt = event.dataTransfer;
+    if (dt.files && dt.files.length) {
+      dataTransferItemsList = dt.files;
+    } else if (dt.items && dt.items.length) {
+      // During the drag even the dataTransfer.files is null
+      // but Chrome implements some drag store, which is accesible via dataTransfer.items
+      dataTransferItemsList = dt.items;
+    }
+  } else if (event.target && event.target.files) {
+    dataTransferItemsList = event.target.files;
+  }
+  // Convert from DataTransferItemsList to the native Array
+  return Array.prototype.slice.call(dataTransferItemsList);
+}
+
+// Firefox versions prior to 53 return a bogus MIME type for every file drag, so dragovers with
+// that MIME type will always be accepted
+function fileAccepted(file, accept) {
+  return file.type === 'application/x-moz-file' || (0, _attrAccept2.default)(file, accept);
+}
+
+function fileMatchSize(file, maxSize, minSize) {
+  return file.size <= maxSize && file.size >= minSize;
+}
+
+function allFilesAccepted(files, accept) {
+  return files.every(function (file) {
+    return fileAccepted(file, accept);
+  });
+}
+
+// allow the entire document to be a drag target
+function onDocumentDragOver(evt) {
+  evt.preventDefault();
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports=function(t){function n(e){if(r[e])return r[e].exports;var o=r[e]={exports:{},id:e,loaded:!1};return t[e].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var r={};return n.m=t,n.c=r,n.p="",n(0)}([function(t,n,r){"use strict";n.__esModule=!0,r(8),r(9),n["default"]=function(t,n){if(t&&n){var r=function(){var r=Array.isArray(n)?n:n.split(","),e=t.name||"",o=t.type||"",i=o.replace(/\/.*$/,"");return{v:r.some(function(t){var n=t.trim();return"."===n.charAt(0)?e.toLowerCase().endsWith(n.toLowerCase()):/\/\*$/.test(n)?i===n.replace(/\/.*$/,""):o===n})}}();if("object"==typeof r)return r.v}return!0},t.exports=n["default"]},function(t,n){var r=t.exports={version:"1.2.2"};"number"==typeof __e&&(__e=r)},function(t,n){var r=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=r)},function(t,n,r){var e=r(2),o=r(1),i=r(4),u=r(19),c="prototype",f=function(t,n){return function(){return t.apply(n,arguments)}},s=function(t,n,r){var a,p,l,y,d=t&s.G,h=t&s.P,v=d?e:t&s.S?e[n]||(e[n]={}):(e[n]||{})[c],x=d?o:o[n]||(o[n]={});d&&(r=n);for(a in r)p=!(t&s.F)&&v&&a in v,l=(p?v:r)[a],y=t&s.B&&p?f(l,e):h&&"function"==typeof l?f(Function.call,l):l,v&&!p&&u(v,a,l),x[a]!=l&&i(x,a,y),h&&((x[c]||(x[c]={}))[a]=l)};e.core=o,s.F=1,s.G=2,s.S=4,s.P=8,s.B=16,s.W=32,t.exports=s},function(t,n,r){var e=r(5),o=r(18);t.exports=r(22)?function(t,n,r){return e.setDesc(t,n,o(1,r))}:function(t,n,r){return t[n]=r,t}},function(t,n){var r=Object;t.exports={create:r.create,getProto:r.getPrototypeOf,isEnum:{}.propertyIsEnumerable,getDesc:r.getOwnPropertyDescriptor,setDesc:r.defineProperty,setDescs:r.defineProperties,getKeys:r.keys,getNames:r.getOwnPropertyNames,getSymbols:r.getOwnPropertySymbols,each:[].forEach}},function(t,n){var r=0,e=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++r+e).toString(36))}},function(t,n,r){var e=r(20)("wks"),o=r(2).Symbol;t.exports=function(t){return e[t]||(e[t]=o&&o[t]||(o||r(6))("Symbol."+t))}},function(t,n,r){r(26),t.exports=r(1).Array.some},function(t,n,r){r(25),t.exports=r(1).String.endsWith},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){var r={}.toString;t.exports=function(t){return r.call(t).slice(8,-1)}},function(t,n,r){var e=r(10);t.exports=function(t,n,r){if(e(t),void 0===n)return t;switch(r){case 1:return function(r){return t.call(n,r)};case 2:return function(r,e){return t.call(n,r,e)};case 3:return function(r,e,o){return t.call(n,r,e,o)}}return function(){return t.apply(n,arguments)}}},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n,r){t.exports=function(t){var n=/./;try{"/./"[t](n)}catch(e){try{return n[r(7)("match")]=!1,!"/./"[t](n)}catch(o){}}return!0}},function(t,n){t.exports=function(t){try{return!!t()}catch(n){return!0}}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n,r){var e=r(16),o=r(11),i=r(7)("match");t.exports=function(t){var n;return e(t)&&(void 0!==(n=t[i])?!!n:"RegExp"==o(t))}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n,r){var e=r(2),o=r(4),i=r(6)("src"),u="toString",c=Function[u],f=(""+c).split(u);r(1).inspectSource=function(t){return c.call(t)},(t.exports=function(t,n,r,u){"function"==typeof r&&(o(r,i,t[n]?""+t[n]:f.join(String(n))),"name"in r||(r.name=n)),t===e?t[n]=r:(u||delete t[n],o(t,n,r))})(Function.prototype,u,function(){return"function"==typeof this&&this[i]||c.call(this)})},function(t,n,r){var e=r(2),o="__core-js_shared__",i=e[o]||(e[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n,r){var e=r(17),o=r(13);t.exports=function(t,n,r){if(e(n))throw TypeError("String#"+r+" doesn't accept regex!");return String(o(t))}},function(t,n,r){t.exports=!r(15)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n){var r=Math.ceil,e=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?e:r)(t)}},function(t,n,r){var e=r(23),o=Math.min;t.exports=function(t){return t>0?o(e(t),9007199254740991):0}},function(t,n,r){"use strict";var e=r(3),o=r(24),i=r(21),u="endsWith",c=""[u];e(e.P+e.F*r(14)(u),"String",{endsWith:function(t){var n=i(this,t,u),r=arguments,e=r.length>1?r[1]:void 0,f=o(n.length),s=void 0===e?f:Math.min(o(e),f),a=String(t);return c?c.call(n,a,s):n.slice(s-a.length,s)===a}})},function(t,n,r){var e=r(5),o=r(3),i=r(1).Array||Array,u={},c=function(t,n){e.each.call(t.split(","),function(t){void 0==n&&t in i?u[t]=i[t]:t in[]&&(u[t]=r(12)(Function.call,[][t],n))})};c("pop,reverse,shift,keys,values,entries",1),c("indexOf,every,some,forEach,map,filter,find,findIndex,includes",3),c("join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill"),o(o.S,"Array",u)}]);
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  rejected: {
+    borderStyle: 'solid',
+    borderColor: '#c66',
+    backgroundColor: '#eee'
+  },
+  disabled: {
+    opacity: 0.5
+  },
+  active: {
+    borderStyle: 'solid',
+    borderColor: '#6c6',
+    backgroundColor: '#eee'
+  },
+  default: {
+    width: 200,
+    height: 200,
+    borderWidth: 2,
+    borderColor: '#666',
+    borderStyle: 'dashed',
+    borderRadius: 5
+  }
+};
+module.exports = exports['default'];
+
+/***/ })
+/******/ ]);
+});
+//# sourceMappingURL=index.js.map
+
+/***/ }),
 /* 1014 */,
 /* 1015 */,
 /* 1016 */,
-/* 1017 */
+/* 1017 */,
+/* 1018 */,
+/* 1019 */,
+/* 1020 */,
+/* 1021 */,
+/* 1022 */,
+/* 1023 */,
+/* 1024 */,
+/* 1025 */,
+/* 1026 */,
+/* 1027 */,
+/* 1028 */,
+/* 1029 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -92962,16 +93936,16 @@ var _reactDom = __webpack_require__(21);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Dashboard = __webpack_require__(1018);
+var _Assignment = __webpack_require__(1030);
 
-var _Dashboard2 = _interopRequireDefault(_Dashboard);
+var _Assignment2 = _interopRequireDefault(_Assignment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_Dashboard2.default, null), document.getElementById('wrapper'));
+_reactDom2.default.render(_react2.default.createElement(_Assignment2.default, null), document.getElementById('assignment'));
 
 /***/ }),
-/* 1018 */
+/* 1030 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -92987,17 +93961,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _BestSellersView = __webpack_require__(1019);
+var _DesignUploader = __webpack_require__(1031);
 
-var _BestSellersView2 = _interopRequireDefault(_BestSellersView);
+var _DesignUploader2 = _interopRequireDefault(_DesignUploader);
 
-var _WhatsHotThisWeekView = __webpack_require__(1020);
+var _ProductVisualizer = __webpack_require__(587);
 
-var _WhatsHotThisWeekView2 = _interopRequireDefault(_WhatsHotThisWeekView);
-
-var _KeywordViewer = __webpack_require__(1021);
-
-var _KeywordViewer2 = _interopRequireDefault(_KeywordViewer);
+var _ProductVisualizer2 = _interopRequireDefault(_ProductVisualizer);
 
 var _superagent = __webpack_require__(209);
 
@@ -93011,614 +93981,57 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Dashboard = function (_React$Component) {
-    _inherits(Dashboard, _React$Component);
+var Assignment = function (_React$Component) {
+    _inherits(Assignment, _React$Component);
 
-    function Dashboard() {
-        _classCallCheck(this, Dashboard);
+    function Assignment(props) {
+        _classCallCheck(this, Assignment);
 
-        var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this));
+        var _this = _possibleConstructorReturn(this, (Assignment.__proto__ || Object.getPrototypeOf(Assignment)).call(this, props));
 
         _this.state = {
             loaded: false,
-            data: null,
-            query: "",
-            dashboardView: "whats_hot_24_hrs",
-            cache: {}
+            assignment: {}
         };
         return _this;
     }
 
-    _createClass(Dashboard, [{
+    _createClass(Assignment, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
+            var assignment_id = $("#assignment-id").text();
 
-            $("#search").keyup(function (e) {
-                if (e.keyCode == 13) {
-                    setTimeout(function () {
-                        if ($("#search").attr("disabled") == undefined) {
-                            ////console.log("noticed an enter key too")
-                            this.search();
-                        }
-                    }.bind(this), 100);
-                }
-            }.bind(this));
-
-            var req = _superagent2.default.get('/dashboard_data/').end(function (err, res) {
-                var cache = this.state.cache;
-                cache[""] = JSON.parse(res.text);
+            this.serverRequest = $.get('/assignment/' + assignment_id + '/data/', function (result) {
+                var assignment = JSON.parse(result);
+                console.log(assignment);
                 this.setState({
-                    loaded: true,
-                    data: JSON.parse(res.text),
-                    cache: cache
+                    assignment: assignment,
+                    loaded: true
                 });
             }.bind(this));
         }
     }, {
-        key: 'showBestSellers',
-        value: function showBestSellers() {
-            this.setState({
-                dashboardView: "best_sellers"
-            });
+        key: 'updateDesignerUploads',
+        value: function updateDesignerUploads(id, design_data) {
+            var assignment = this.state.assignment;
+            var completed_work = assignment.completed_work || {};
+            completed_work[id] = design_data;
+            assignment.completed_work = completed_work;
+            this.setState({ assignment: assignment });
         }
     }, {
-        key: 'setDashboard',
-        value: function setDashboard(dashboardView) {
-            this.setState({
-                dashboardView: dashboardView
-            });
-        }
-    }, {
-        key: 'formatDashboardView',
-        value: function formatDashboardView(dashboardView) {
-            if (dashboardView === "whats_hot_24_hrs") {
-                return "What's Hot - Last 24 Hours";
-            } else if (dashboardView === "whats_hot_last_7d") {
-                return "What's Hot - Last 7 Days";
-            } else if (dashboardView === "best_sellers") {
-                return "Best Sellers";
-            } else if (dashboardView === "whats_hot_escore") {
-                return "What's Hot - eScore";
-            } else if (dashboardView === "whats_hot_weighted_escore_v1") {
-                return "What's Hot - Weighted eScore V1";
-            } else if (dashboardView === "whats_hot_weighted_escore_v2") {
-                return "What's Hot - Weighted eScore V2";
-            } else if (dashboardView === "whats_hot_streak_score_v1") {
-                return "What's Hot - Streak Score V1";
-            } else if (dashboardView === "whats_hot_streak_score_v2") {
-                return "What's Hot - Streak Score V2";
-            } else if (dashboardView === "consistent_winners") {
-                return "Consistent Winners";
-            } else if (dashboardView === "recently_discovered_shirts") {
-                return "Recently Discovered Shirts";
-            }
-        }
-    }, {
-        key: 'searchWithQuery',
-        value: function searchWithQuery(query) {
-            console.log("this is this", this);
-            console.log("this is query", query);
-            this.setState({
-                loaded: false,
-                data: null
-            });
-
-            $("#search").val(query);
-            var req = _superagent2.default.post('/dashboard/search/').send({ query: query }).end(function (err, res) {
-                this.setState({
-                    loaded: true,
-                    data: JSON.parse(res.text)
-                });
-            }.bind(this));
-        }
-    }, {
-        key: 'search',
-        value: function search() {
-            var query = $("#search").val();
-
-            if (this.state.cache[query]) {
-                this.setState({
-                    data: this.state.cache[query]
-                });
-                return;
-            }
-
-            this.setState({
-                loaded: false,
-                data: null
-            });
-
-            console.log(query);
-            var req = _superagent2.default.post('/dashboard/search/').send({ query: query }).end(function (err, res) {
-                var cache = this.state.cache;
-                cache[query] = JSON.parse(res.text);
-                this.setState({
-                    loaded: true,
-                    data: JSON.parse(res.text),
-                    cache: cache
-                });
-            }.bind(this));
-        }
-    }, {
-        key: 'toggleAsin',
-        value: function toggleAsin(asin) {
-            var data = this.state.data;
-            var favorites = data.favorites_by_asin;
-
-            var shouldAdd;
-            if (favorites[asin]) {
-                console.log("this is favorites", favorites[asin], favorites[asin] === true, favorites[asin] === false);
-
-                // asin was in favorites, but it was already deleted
-                if (favorites[asin]["deleted"] && favorites[asin]["deleted"] === true) {
-                    favorites[asin]["deleted"] = false;
-                    shouldAdd = true;
-                    // asin was in favorites but never had deleted key, or deleted key was false. 
-                    // either way, make sure the asin is deleted.
-                } else {
-                    favorites[asin]["deleted"] = true;
-                    shouldAdd = false;
-                }
-            } else {
-                // didn't ever find asin before, so we must be toggling it on
-                console.log("never found it before, gonna toggle it on");
-                favorites[asin] = { deleted: false };
-                shouldAdd = true;
-            }
-            data.favorites_by_asin = favorites;
-            this.setState({
-                data: data
-            });
-
-            if (shouldAdd) {
-                var req = _superagent2.default.post('/favorites/add/').send({ asin: asin }).end(function (err, res) {
-                    // @TODO: Alert user that it worked
-                }.bind(this));
-            } else {
-                var req = _superagent2.default.post('/favorites/delete/').send({ asin: asin }).end(function (err, res) {
-                    // @TODO: Alert user that it worked
-                }.bind(this));
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-
-            var dashboardView = this.state.dashboardView;
-            var formattedDashboardView = this.formatDashboardView(dashboardView);
-            var dashboardToDisplay;
-            if (this.state.dashboardView === "whats_hot_24_hrs") {
-                dashboardToDisplay = _react2.default.createElement(_WhatsHotThisWeekView2.default, { loaded: this.state.loaded, data: this.state.data, dataKey: 'whats_hot_this_week', toggleAsin: this.toggleAsin.bind(this), showBestSellers: this.showBestSellers.bind(this) });
-            } else if (this.state.dashboardView === "whats_hot_last_7d") {
-                dashboardToDisplay = _react2.default.createElement(_WhatsHotThisWeekView2.default, { loaded: this.state.loaded, data: this.state.data, dataKey: 'whats_hot_last_7d', toggleAsin: this.toggleAsin.bind(this), showBestSellers: this.showBestSellers.bind(this) });
-            } else if (this.state.dashboardView === "best_sellers") {
-                dashboardToDisplay = _react2.default.createElement(_BestSellersView2.default, { loaded: this.state.loaded, data: this.state.data });
-            } else if (this.state.dashboardView === "whats_hot_escore") {
-                dashboardToDisplay = _react2.default.createElement(_WhatsHotThisWeekView2.default, {
-                    loaded: this.state.loaded,
-                    data: this.state.data,
-                    dataKey: 'whats_hot_escore',
-                    showBestSellers: this.showBestSellers.bind(this)
-                });
-            } else if (this.state.dashboardView === "whats_hot_weighted_escore_v1") {
-                dashboardToDisplay = _react2.default.createElement(_WhatsHotThisWeekView2.default, {
-                    loaded: this.state.loaded,
-                    data: this.state.data,
-                    dataKey: 'whats_hot_weighted_escore_v1',
-                    showBestSellers: this.showBestSellers.bind(this)
-                });
-            } else if (this.state.dashboardView === "whats_hot_weighted_escore_v2") {
-                dashboardToDisplay = _react2.default.createElement(_WhatsHotThisWeekView2.default, {
-                    loaded: this.state.loaded,
-                    data: this.state.data,
-                    dataKey: 'whats_hot_weighted_escore_v2',
-                    showBestSellers: this.showBestSellers.bind(this)
-                });
-            } else if (this.state.dashboardView === "whats_hot_streak_score_v1") {
-                dashboardToDisplay = _react2.default.createElement(_WhatsHotThisWeekView2.default, {
-                    loaded: this.state.loaded,
-                    data: this.state.data,
-                    dataKey: 'whats_hot_streak_score_v1',
-                    showBestSellers: this.showBestSellers.bind(this)
-                });
-            } else if (this.state.dashboardView === "whats_hot_streak_score_v2") {
-                dashboardToDisplay = _react2.default.createElement(_WhatsHotThisWeekView2.default, {
-                    loaded: this.state.loaded,
-                    data: this.state.data,
-                    dataKey: 'whats_hot_streak_score_v2',
-                    showBestSellers: this.showBestSellers.bind(this)
-                });
-            } else if (this.state.dashboardView === "consistent_winners") {
-                dashboardToDisplay = _react2.default.createElement(_WhatsHotThisWeekView2.default, {
-                    loaded: this.state.loaded,
-                    data: this.state.data,
-                    dataKey: 'whats_hot_streak_score_v2',
-                    toggleAsin: this.toggleAsin.bind(this),
-                    showBestSellers: this.showBestSellers.bind(this)
-                });
-            } else if (this.state.dashboardView === "recently_discovered_shirts") {
-                dashboardToDisplay = _react2.default.createElement(_WhatsHotThisWeekView2.default, {
-                    loaded: this.state.loaded,
-                    data: this.state.data,
-                    dataKey: 'recently_discovered_shirts',
-                    toggleAsin: this.toggleAsin.bind(this),
-                    showBestSellers: this.showBestSellers.bind(this)
-                });
-            }
-
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'div',
-                    { className: 'normalheader transition animated fadeIn' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'hpanel' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'panel-body' },
-                            _react2.default.createElement(
-                                'h2',
-                                { className: 'font-light m-b-xs', style: { marginTop: "0px", marginBottom: "0px", fontWeight: 300, fontFamily: 'Open Sans' } },
-                                'The Feed'
-                            )
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'content animate-panel' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'row' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'col-lg-12' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'hpanel' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'hpanel-body' },
-                                    _react2.default.createElement(
-                                        'div',
-                                        { className: 'input-group margin-bottom' },
-                                        _react2.default.createElement(
-                                            'div',
-                                            { className: 'input-group-btn' },
-                                            _react2.default.createElement(
-                                                'button',
-                                                { className: 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', type: 'button' },
-                                                _react2.default.createElement(
-                                                    'span',
-                                                    { className: 'margin-right' },
-                                                    'Current Feed: ',
-                                                    _react2.default.createElement(
-                                                        'span',
-                                                        { id: 'current-feed' },
-                                                        formattedDashboardView
-                                                    )
-                                                ),
-                                                _react2.default.createElement('span', { className: 'caret' })
-                                            ),
-                                            _react2.default.createElement(
-                                                'ul',
-                                                { className: 'dropdown-menu dropdown-menu-left' },
-                                                _react2.default.createElement(
-                                                    'li',
-                                                    null,
-                                                    _react2.default.createElement(
-                                                        'a',
-                                                        { href: '#a', onClick: this.setDashboard.bind(this, "whats_hot_24_hrs") },
-                                                        'What\'s Hot - Last 24 Hrs'
-                                                    )
-                                                ),
-                                                _react2.default.createElement(
-                                                    'li',
-                                                    null,
-                                                    _react2.default.createElement(
-                                                        'a',
-                                                        { href: '#a', onClick: this.setDashboard.bind(this, "whats_hot_last_7d") },
-                                                        'What\'s Hot - Last 7 Days'
-                                                    )
-                                                ),
-                                                _react2.default.createElement(
-                                                    'li',
-                                                    null,
-                                                    _react2.default.createElement(
-                                                        'a',
-                                                        { href: '#a', onClick: this.setDashboard.bind(this, "consistent_winners") },
-                                                        'Consistent Winners'
-                                                    )
-                                                )
-                                            )
-                                        ),
-                                        _react2.default.createElement('input', { type: 'text', id: 'search', className: 'form-control', placeholder: 'Search a keyword...' }),
-                                        _react2.default.createElement(
-                                            'span',
-                                            { className: 'input-group-btn' },
-                                            _react2.default.createElement(
-                                                'button',
-                                                { onClick: this.search.bind(this), tabIndex: '-1', className: 'btn btn-default', type: 'button' },
-                                                _react2.default.createElement('i', { className: 'pe-7s-search margin-right' })
-                                            )
-                                        )
-                                    )
-                                )
-                            ),
-                            dashboardToDisplay
-                        )
-                    )
-                )
-            );
-        }
-    }]);
-
-    return Dashboard;
-}(_react2.default.Component);
-
-exports.default = Dashboard;
-
-/***/ }),
-/* 1019 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _LoadingIndicator = __webpack_require__(588);
-
-var _LoadingIndicator2 = _interopRequireDefault(_LoadingIndicator);
-
-var _ProductVisualizer = __webpack_require__(587);
-
-var _ProductVisualizer2 = _interopRequireDefault(_ProductVisualizer);
-
-var _superagent = __webpack_require__(209);
-
-var _superagent2 = _interopRequireDefault(_superagent);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BestSellersView = function (_React$Component) {
-    _inherits(BestSellersView, _React$Component);
-
-    function BestSellersView(props) {
-        _classCallCheck(this, BestSellersView);
-
-        var _this = _possibleConstructorReturn(this, (BestSellersView.__proto__ || Object.getPrototypeOf(BestSellersView)).call(this, props));
-
-        _this.state = {
-            "showModal": false,
-            "productData": null
-        };
-        return _this;
-    }
-
-    _createClass(BestSellersView, [{
         key: 'showModal',
-        value: function showModal(asin) {
+        value: function showModal(assignment) {
             this.setState({
                 showModal: true
             });
 
-            var dataByAsin = {};
-            this.props.data.best_sellers.map(function (tshirt) {
-                dataByAsin[tshirt.asin] = tshirt;
-            });
-
-            var req = _superagent2.default.get('/product_metadata/' + asin).end(function (err, res) {
+            var req = _superagent2.default.get('/product_metadata/' + assignment.asin).end(function (err, res) {
                 console.log(res.text);
                 this.setState({
                     loaded: true,
                     productData: JSON.parse(res.text),
-                    selectedProduct: dataByAsin[asin]
-                });
-            }.bind(this));
-        }
-    }, {
-        key: 'closeModal',
-        value: function closeModal() {
-            this.setState({
-                showModal: false
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var dataNodes;
-            if (this.props.loaded && this.props.data && this.props.data.best_sellers && this.props.data.best_sellers.length > 0) {
-                console.log("it was loaded and we have data");
-                dataNodes = this.props.data.best_sellers.map(function (tshirt) {
-                    var title = tshirt.title;
-                    var brand = tshirt.brand;
-                    if (title.length > 30) {
-                        title = title.slice(0, 30) + "...";
-                    }
-                    if (brand.length > 20) {
-                        brand = brand.slice(0, 30) + "...";
-                    }
-
-                    var image = tshirt.image;
-                    image = image.replace("._SL75", "._SL200");
-
-                    return _react2.default.createElement(
-                        'a',
-                        { href: '#a', onClick: this.showModal.bind(this, tshirt.asin) },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'col-lg-3', style: { "height": "250px" } },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'text-center' },
-                                _react2.default.createElement('img', { src: image, style: { height: "130px", "maxWidth": "150px" } })
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'text-center' },
-                                _react2.default.createElement(
-                                    'p',
-                                    null,
-                                    'BSR: ',
-                                    _react2.default.createElement(
-                                        'b',
-                                        null,
-                                        tshirt.salesrank
-                                    ),
-                                    ' | Price: ',
-                                    _react2.default.createElement(
-                                        'b',
-                                        null,
-                                        '$',
-                                        tshirt.list_price
-                                    ),
-                                    _react2.default.createElement('br', null),
-                                    _react2.default.createElement(
-                                        'small',
-                                        null,
-                                        title,
-                                        ' by ',
-                                        _react2.default.createElement(
-                                            'b',
-                                            null,
-                                            brand
-                                        )
-                                    ),
-                                    _react2.default.createElement('br', null),
-                                    'ASIN: ',
-                                    tshirt.asin
-                                )
-                            )
-                        )
-                    );
-                }.bind(this));
-            } else if (this.props.loaded && this.props.data && this.props.data.best_sellers && this.props.data.best_sellers.length === 0) {
-                var dataNodes = _react2.default.createElement(
-                    'p',
-                    null,
-                    'Sorry, no data was found in this dashboard.'
-                );
-            }
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'hpanel' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'panel-body float-e-margins' },
-                    _react2.default.createElement(
-                        'h3',
-                        { style: { fontWeight: "300", fontFamily: "Open Sans", marginTop: "0px" } },
-                        'Best Sellers'
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        'These are the top selling Merch By Amazon shirts, updated daily.'
-                    ),
-                    _react2.default.createElement('hr', null),
-                    dataNodes
-                ),
-                _react2.default.createElement(_ProductVisualizer2.default, {
-                    show: this.state.showModal, productData: this.state.productData,
-                    selectedProduct: this.state.selectedProduct, onHide: this.closeModal.bind(this) })
-            );
-        }
-    }]);
-
-    return BestSellersView;
-}(_react2.default.Component);
-
-exports.default = BestSellersView;
-
-/***/ }),
-/* 1020 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _LoadingIndicator = __webpack_require__(588);
-
-var _LoadingIndicator2 = _interopRequireDefault(_LoadingIndicator);
-
-var _ProductVisualizer = __webpack_require__(587);
-
-var _ProductVisualizer2 = _interopRequireDefault(_ProductVisualizer);
-
-var _superagent = __webpack_require__(209);
-
-var _superagent2 = _interopRequireDefault(_superagent);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var WhatsHotThisWeekView = function (_React$Component) {
-    _inherits(WhatsHotThisWeekView, _React$Component);
-
-    function WhatsHotThisWeekView(props) {
-        _classCallCheck(this, WhatsHotThisWeekView);
-
-        var _this = _possibleConstructorReturn(this, (WhatsHotThisWeekView.__proto__ || Object.getPrototypeOf(WhatsHotThisWeekView)).call(this, props));
-
-        _this.state = {
-            "showModal": false,
-            "productData": null
-        };
-        return _this;
-    }
-
-    _createClass(WhatsHotThisWeekView, [{
-        key: 'showModal',
-        value: function showModal(asin) {
-            this.setState({
-                showModal: true
-            });
-
-            var dataByAsin = {};
-            var dataKey = this.props.dataKey;
-            this.props.data[dataKey].map(function (tshirt) {
-                dataByAsin[tshirt.asin] = tshirt;
-            });
-
-            var req = _superagent2.default.get('/product_metadata/' + asin).end(function (err, res) {
-                console.log(res.text);
-                this.setState({
-                    loaded: true,
-                    productData: JSON.parse(res.text),
-                    selectedProduct: dataByAsin[asin]
+                    selectedProduct: { image: assignment.thumbnail }
                 });
             }.bind(this));
         }
@@ -93634,165 +94047,295 @@ var WhatsHotThisWeekView = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var assignment_id = $("#assignment-id").text();
 
-            var dataNodes;
-            var dataKey = this.props.dataKey;
-            if (this.props.loaded && this.props.data && this.props.data[dataKey] && this.props.data[dataKey].length > 0) {
-                console.log("it was loaded");
-                dataNodes = this.props.data[dataKey].map(function (tshirt) {
-                    var title = tshirt.title;
-                    var brand = tshirt.brand;
-                    if (title.length > 30) {
-                        title = title.slice(0, 30) + "...";
-                    }
-                    if (brand.length > 20) {
-                        brand = brand.slice(0, 30) + "...";
-                    }
+            var designs_array = [];
+            for (var key in this.state.assignment.completed_work || {}) {
+                var design = this.state.assignment.completed_work[key];
+                design.id = key;
+                designs_array.push(design);
+            }
 
-                    var last_7d_salesrank = tshirt.last_7d_salesrank;
-                    var salesrank = tshirt.salesrank;
-                    var multiplier = (last_7d_salesrank / salesrank).toFixed(1);
-                    var dropTag = multiplier + "X DROP";
+            var assignment = this.state.assignment;
+            console.log("rendering design nodes");
+            var image_nodes = designs_array.map(function (design) {
+                console.log("design", design);
+                var url = design.s3_url;
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'col-lg-6 text-center design-image-div' },
+                    _react2.default.createElement('img', { src: url, className: 'design-image', style: { maxWidth: "100%", height: '200px', marginBottom: '10px' } }),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'button',
+                        { className: 'btn btn-sm btn-primary' },
+                        'APPROVE'
+                    )
+                );
+            });
 
-                    var image = tshirt.image;
-                    image = image.replace("._SL75", "._SL200");
-
-                    var openInNewTab = function openInNewTab(url) {
-                        var win = window.open(url, '_blank');
-                        win.focus();
-                    };
-
-                    var heartStyle = { marginLeft: "5px" };
-                    if (this.props.loaded && this.props.data && this.props.data.favorites_by_asin[tshirt.asin] && !this.props.data.favorites_by_asin[tshirt.asin].deleted) {
-                        heartStyle["color"] = "red";
-                    }
-
-                    return _react2.default.createElement(
-                        'div',
-                        { className: 'col-lg-3', style: { "height": "270px" } },
-                        _react2.default.createElement(
-                            'a',
-                            { href: '#a', onClick: this.showModal.bind(this, tshirt.asin) },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'text-center' },
-                                _react2.default.createElement('img', { src: image, style: { height: "130px", "maxWidth": "150px" } })
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'text-center' },
-                            _react2.default.createElement(
-                                'p',
-                                null,
-                                _react2.default.createElement(
-                                    'label',
-                                    { className: 'label label-primary', style: { fontWeight: 300, paddingBottom: "0px", fontSize: "12px" } },
-                                    'BSR: ',
-                                    tshirt.salesrank || "THROTTLED",
-                                    ' (',
-                                    dropTag,
-                                    ')'
-                                ),
-                                _react2.default.createElement(
-                                    'a',
-                                    { href: '#a', onClick: this.props.toggleAsin.bind(null, tshirt.asin) },
-                                    _react2.default.createElement('i', { className: 'fa fa-heart', 'aria-hidden': 'true', style: heartStyle })
-                                ),
-                                _react2.default.createElement('br', null),
-                                _react2.default.createElement('br', null),
-                                _react2.default.createElement(
-                                    'small',
-                                    null,
-                                    title,
-                                    ' by ',
-                                    _react2.default.createElement(
-                                        'b',
-                                        null,
-                                        brand
-                                    )
-                                ),
-                                _react2.default.createElement('br', null),
-                                'ASIN: ',
-                                _react2.default.createElement(
-                                    'a',
-                                    { href: '#a', onClick: openInNewTab.bind(null, "https://www.amazon.com/dp/" + tshirt.asin) },
-                                    ' ',
-                                    tshirt.asin
-                                ),
-                                _react2.default.createElement('br', null),
-                                'Price: ',
-                                _react2.default.createElement(
-                                    'b',
-                                    null,
-                                    '$',
-                                    tshirt.list_price
-                                )
-                            )
-                        )
-                    );
-                }.bind(this));
-            } else if (this.props.loaded && this.props.data && this.props.data[dataKey] && this.props.data[dataKey].length === 0) {
-                if (this.props.data.best_sellers && this.props.data.best_sellers.length > 0) {
-                    dataNodes = _react2.default.createElement(
-                        'p',
-                        null,
-                        'We didn\'t find any trending t-shirts that dropped in salesrank recently with that query, but ',
-                        _react2.default.createElement(
-                            'a',
-                            { href: '#a', onClick: this.props.showBestSellers },
-                            'click here to find ',
-                            this.props.data.best_sellers.length,
-                            ' tshirts in the Best Seller Dashboard'
-                        ),
-                        '!'
-                    );
-                } else {
-                    dataNodes = _react2.default.createElement(
-                        'p',
-                        null,
-                        'No data was found in this current dashboard.'
-                    );
-                }
-            } else {
-                dataNodes = _react2.default.createElement(_LoadingIndicator2.default, { loadingText: 'Loading merch data... ' });
+            var num_uploaded = Object.keys(this.state.assignment.completed_work || {}).length;
+            var raw_completed_percent = num_uploaded * 100 / assignment.num_variations || 0;
+            var completed_percent = Math.min(100, raw_completed_percent);
+            var completed_percent_color = "text-warning";
+            if (completed_percent === 0) {
+                completed_percent_color = "text-danger";
+            } else if (completed_percent === 100) {
+                completed_percent_color = "text-success";
             }
 
             return _react2.default.createElement(
                 'div',
-                { className: 'hpanel' },
+                { className: 'content' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'panel-body float-e-margins' },
+                    { className: 'row' },
                     _react2.default.createElement(
-                        'h3',
-                        { style: { fontWeight: "300", fontFamily: "Open Sans", marginTop: "0px" } },
-                        'What\'s Hot'
+                        'div',
+                        { className: 'col-lg-8' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'hpanel' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'panel-heading hbuilt' },
+                                _react2.default.createElement(
+                                    'span',
+                                    { style: { marginLeft: '10px' } },
+                                    'Assignment Progress'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'panel-body' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'text-center', style: { marginBottom: '10px' } },
+                                    _react2.default.createElement(_DesignUploader2.default, { update: this.updateDesignerUploads.bind(this), assignment_id: assignment_id })
+                                ),
+                                _react2.default.createElement(
+                                    'h4',
+                                    null,
+                                    'Previously Completed Work'
+                                ),
+                                _react2.default.createElement(
+                                    'label',
+                                    { style: { marginRight: '5px' } },
+                                    'Viewing: '
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'input-group-btn margin-right', style: { display: 'inline' } },
+                                    _react2.default.createElement(
+                                        'button',
+                                        { className: 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', type: 'button' },
+                                        _react2.default.createElement(
+                                            'span',
+                                            { className: 'margin-right' },
+                                            'Unapproved'
+                                        ),
+                                        _react2.default.createElement('span', { className: 'caret' })
+                                    ),
+                                    _react2.default.createElement(
+                                        'ul',
+                                        { className: 'dropdown-menu dropdown-menu-left', style: { marginTop: '17.5px' } },
+                                        _react2.default.createElement(
+                                            'li',
+                                            null,
+                                            _react2.default.createElement(
+                                                'a',
+                                                { href: '#a' },
+                                                'Unapproved'
+                                            )
+                                        ),
+                                        _react2.default.createElement(
+                                            'li',
+                                            null,
+                                            _react2.default.createElement(
+                                                'a',
+                                                { href: '#a' },
+                                                'Approved'
+                                            )
+                                        )
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { className: 'btn btn-success btn-sm pull-right' },
+                                    'COMPLETE ASSIGNMENT'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { className: 'btn btn-default btn-sm margin-right pull-right' },
+                                    'EXPORT DESIGNS'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { className: 'btn btn-default btn-sm margin-right pull-right' },
+                                    'DOWNLOAD DESIGNS (.ZIP)'
+                                ),
+                                _react2.default.createElement('hr', null),
+                                _react2.default.createElement('br', null),
+                                image_nodes
+                            )
+                        )
                     ),
-                    _react2.default.createElement('hr', null),
-                    dataNodes
-                ),
-                _react2.default.createElement(_ProductVisualizer2.default, {
-                    show: this.state.showModal, productData: this.state.productData,
-                    selectedProduct: this.state.selectedProduct, onHide: this.closeModal.bind(this) })
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-lg-4' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'col-lg-12' },
+                                _react2.default.createElement(_ProductVisualizer2.default, {
+                                    show: this.state.showModal, productData: this.state.productData,
+                                    selectedProduct: this.state.selectedProduct, onHide: this.closeModal.bind(this) }),
+                                _react2.default.createElement(
+                                    'a',
+                                    { href: '#a', onClick: this.showModal.bind(this, assignment) },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'hpanel' },
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'panel-body text-center', style: { height: '280px' } },
+                                            _react2.default.createElement(
+                                                'div',
+                                                { className: 'stats-title pull-left' },
+                                                _react2.default.createElement(
+                                                    'h4',
+                                                    null,
+                                                    'Inspiration'
+                                                )
+                                            ),
+                                            _react2.default.createElement('br', null),
+                                            _react2.default.createElement('br', null),
+                                            _react2.default.createElement('img', { src: assignment.thumbnail, style: { height: '200px' } })
+                                        )
+                                    )
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'col-lg-12' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'hpanel stats' },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'panel-body list', style: { height: '280px', overflow: 'scroll' } },
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'stats-title pull-left' },
+                                            _react2.default.createElement(
+                                                'h4',
+                                                null,
+                                                'Assignment Details'
+                                            )
+                                        ),
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'm-t-xl' },
+                                            _react2.default.createElement(
+                                                'p',
+                                                null,
+                                                _react2.default.createElement(
+                                                    'label',
+                                                    null,
+                                                    'Designer:'
+                                                ),
+                                                ' ',
+                                                assignment.designer_username,
+                                                _react2.default.createElement(
+                                                    'button',
+                                                    { className: 'btn btn-xs btn-default', style: { marginLeft: '5px' } },
+                                                    'Unassign'
+                                                )
+                                            ),
+                                            _react2.default.createElement(
+                                                'p',
+                                                null,
+                                                _react2.default.createElement(
+                                                    'label',
+                                                    null,
+                                                    'Rate:'
+                                                ),
+                                                ' $',
+                                                assignment.rate
+                                            ),
+                                            _react2.default.createElement(
+                                                'p',
+                                                null,
+                                                _react2.default.createElement(
+                                                    'label',
+                                                    null,
+                                                    'Estimated Hours:'
+                                                ),
+                                                ' ',
+                                                assignment.estimated_hours
+                                            ),
+                                            _react2.default.createElement(
+                                                'p',
+                                                null,
+                                                _react2.default.createElement(
+                                                    'label',
+                                                    null,
+                                                    '# Variations:'
+                                                ),
+                                                ' ',
+                                                assignment.num_variations,
+                                                ' (',
+                                                _react2.default.createElement(
+                                                    'small',
+                                                    { className: completed_percent_color },
+                                                    _react2.default.createElement(
+                                                        'strong',
+                                                        null,
+                                                        completed_percent,
+                                                        '% complete!'
+                                                    )
+                                                ),
+                                                ')'
+                                            ),
+                                            _react2.default.createElement(
+                                                'p',
+                                                null,
+                                                _react2.default.createElement(
+                                                    'label',
+                                                    null,
+                                                    'Notes:'
+                                                ),
+                                                ' ',
+                                                assignment.notes
+                                            )
+                                        )
+                                    ),
+                                    _react2.default.createElement('br', null)
+                                )
+                            )
+                        )
+                    )
+                )
             );
         }
     }]);
 
-    return WhatsHotThisWeekView;
+    return Assignment;
 }(_react2.default.Component);
 
-exports.default = WhatsHotThisWeekView;
+exports.default = Assignment;
 
 /***/ }),
-/* 1021 */
+/* 1031 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -93801,9 +94344,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _LoadingIndicator = __webpack_require__(588);
+var _reactDropzone = __webpack_require__(1013);
 
-var _LoadingIndicator2 = _interopRequireDefault(_LoadingIndicator);
+var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
 var _superagent = __webpack_require__(209);
 
@@ -93817,106 +94360,217 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var KeywordViewer = function (_React$Component) {
-    _inherits(KeywordViewer, _React$Component);
+var DesignUploader = function (_React$Component) {
+	_inherits(DesignUploader, _React$Component);
 
-    function KeywordViewer(props) {
-        _classCallCheck(this, KeywordViewer);
+	function DesignUploader() {
+		_classCallCheck(this, DesignUploader);
 
-        var _this = _possibleConstructorReturn(this, (KeywordViewer.__proto__ || Object.getPrototypeOf(KeywordViewer)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (DesignUploader.__proto__ || Object.getPrototypeOf(DesignUploader)).call(this));
 
-        _this.state = {};
-        return _this;
-    }
+		_this.state = { disabled: false, accepted: [], rejected: [] };
+		return _this;
+	}
 
-    _createClass(KeywordViewer, [{
-        key: 'render',
-        value: function render() {
+	_createClass(DesignUploader, [{
+		key: 'onDrop',
+		value: function onDrop(accepted, rejected) {
+			var callback = function callback(err, res) {
+				if (err || !res.ok) {
+					//alert('Oh no! error');
+				} else {
+					var accepted = this.state.accepted;
+					var fileStatusMap = JSON.parse(res.text);
+					console.log(fileStatusMap);
+					for (var fileName in fileStatusMap) {
+						for (var c = 0; c < accepted.length; c++) {
+							if (accepted[c].name === fileName) {
+								accepted[c].meta = fileStatusMap[fileName];
+								console.log("this is the file", accepted[c].name, accepted[c].meta);
+								var url = "https://s3.amazonaws.com/" + accepted[c].meta.s3_bucket_name + "/" + accepted[c].meta.s3_filename;
+								var upload_uuid = accepted[c].meta.upload_uuid;
+								console.log(url);
+								var work = {
+									s3_url: url
+								};
+								this.props.update(upload_uuid, work);
+							}
+						}
+					}
+					this.setState({
+						accepted: accepted
+					});
+				}
+			};
+			var req = _superagent2.default.post('/assignment/' + this.props.assignment_id + '/upload/');
+			accepted.forEach(function (file) {
+				req.attach(file.name, file);
+			});
+			req.end(callback.bind(this));
 
-            var caption = this.props.caption || "";
-            var captionTag;
-            if (caption != "") {
-                captionTag = _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'small',
-                        null,
-                        caption
-                    ),
-                    _react2.default.createElement('br', null),
-                    _react2.default.createElement('br', null)
-                );
-            }
-            var title = this.props.title || "Trending Title Keywords";
+			var currAccepted = this.state.accepted;
+			for (var c = 0; c < accepted.length; c++) {
+				accepted[c].job_status = "Uploading...";
+				currAccepted.push(accepted[c]);
+			}
 
-            var bodyContent;
-            if (this.props.keywords) {
-                var keywords = this.props.keywords;
-                var keywordNodes;
-                if (keywords.length === 0) {
-                    keywordNodes = _react2.default.createElement(
-                        'p',
-                        null,
-                        'No keywords found unfortunately.'
-                    );
-                    captionTag = undefined;
-                } else {
-                    keywordNodes = keywords.map(function (keyword) {
-                        return _react2.default.createElement(
-                            'p',
-                            null,
-                            _react2.default.createElement(
-                                'a',
-                                { href: '#a', onClick: this.props.search.bind(null, keyword.id) },
-                                keyword.id,
-                                ' '
-                            ),
-                            _react2.default.createElement(
-                                'small',
-                                null,
-                                '(',
-                                keyword.count,
-                                ' shirts found)'
-                            )
-                        );
-                    }.bind(this));
-                }
+			var currRejected = this.state.rejected;
+			for (var c = 0; c < rejected.length; c++) {
+				currRejected.push(rejected[c]);
+			}
 
-                var bodyContent = _react2.default.createElement(
-                    'div',
-                    { className: 'panel-body float-e-margins' },
-                    _react2.default.createElement(
-                        'h4',
-                        { style: { marginTop: "0px", fontSize: "16px" } },
-                        title
-                    ),
-                    _react2.default.createElement('hr', { style: { marginTop: "0px" } }),
-                    captionTag,
-                    keywordNodes
-                );
-            } else {
-                var bodyContent = _react2.default.createElement(
-                    'div',
-                    { className: 'panel-body float-e-margins' },
-                    _react2.default.createElement(_LoadingIndicator2.default, {
-                        loadingText: 'Loading common phrases... '
-                    })
-                );
-            }
+			this.setState({
+				accepted: currAccepted,
+				rejected: currRejected
+			});
+		}
+	}, {
+		key: 'startOver',
+		value: function startOver() {
+			this.setState({
+				accepted: [],
+				rejected: []
+			});
+		}
+	}, {
+		key: 'jsUcfirst',
+		value: function jsUcfirst(string) {
+			return string.charAt(0).toUpperCase() + string.slice(1);
+		}
+	}, {
+		key: 'generateFileView',
+		value: function generateFileView(file) {
 
-            return _react2.default.createElement(
-                'div',
-                { className: 'hpanel', style: { maxHeight: "850px", overflow: "scroll" } },
-                bodyContent
-            );
-        }
-    }]);
+			var status;
+			if (file.meta && file.meta.job_status && file.meta.job_status.toLocaleLowerCase().indexOf("error") !== -1) {
+				status = _react2.default.createElement(
+					'div',
+					{ className: 'col-sm-11', style: { textAlign: "left" } },
+					_react2.default.createElement('i', { className: 'fa fa-times-circle-o fa-2x fa-fw pull-right' }),
+					_react2.default.createElement(
+						'h5',
+						{ style: { fontWeight: "600", fontFamily: "Open Sans", marginTop: "0px" } },
+						'Filename: ',
+						file.name
+					),
+					_react2.default.createElement(
+						'p',
+						{ style: { fontWeight: "300", fontFamily: "Open Sans" } },
+						'Status: ',
+						this.jsUcfirst(file.meta.job_status) + ". " + file.meta.error_message
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'progress' },
+						_react2.default.createElement('div', { className: 'determinate', style: { width: "100%", backgroundColor: "#e74c3c" } })
+					)
+				);
+			} else if (file.meta && file.meta.job_status && file.meta.job_status.toLocaleLowerCase().indexOf("uploaded") !== -1) {
+				return _react2.default.createElement('div', { style: { display: 'none' } });
+			} else {
+				status = _react2.default.createElement(
+					'div',
+					{ className: 'col-sm-11', style: { textAlign: "left" } },
+					_react2.default.createElement('i', { className: 'fa fa-spinner fa-spin fa-2x fa-fw pull-right' }),
+					_react2.default.createElement(
+						'h5',
+						{ style: { fontWeight: "600", fontFamily: "Open Sans", marginTop: "0px" } },
+						'Filename: ',
+						file.name
+					),
+					_react2.default.createElement(
+						'p',
+						{ style: { fontWeight: "300", fontFamily: "Open Sans", marginBottom: "0px" } },
+						'Status: ',
+						file.meta ? file.meta.job_status : "Uploading..."
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'progress' },
+						_react2.default.createElement('div', { className: 'indeterminate' })
+					)
+				);
+			}
 
-    return KeywordViewer;
+			return _react2.default.createElement(
+				'div',
+				{ className: 'hpanel', style: { marginBottom: "20px" } },
+				_react2.default.createElement(
+					'div',
+					{ className: 'panel-body', style: { padding: "0px", paddingLeft: "10px", paddingRight: "10px", border: "0px" } },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-sm-1' },
+							_react2.default.createElement('img', { src: '/static/images/excel.png', style: { opacity: 0.5, width: "100%" } })
+						),
+						status
+					)
+				)
+			);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			if (this.state.accepted.length > 0) {
+				var acceptedFiles = this.state.accepted.map(function (f) {
+					return _this2.generateFileView(f);
+				});
+				return _react2.default.createElement(
+					'div',
+					{ className: 'row' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-lg-12' },
+						acceptedFiles,
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-default', onClick: this.startOver.bind(this), style: { marginRight: "5px", marginBottom: "20px" } },
+							'START OVER & UPLOAD MORE'
+						)
+					)
+				);
+			}
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'row', style: { marginBottom: "30px" } },
+				_react2.default.createElement(
+					'div',
+					{ className: 'col-lg-12' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'dropzone' },
+						_react2.default.createElement(
+							_reactDropzone2.default,
+							{ className: 'dropzone-component', activeClassName: 'dropzone-component-active', onDrop: this.onDrop.bind(this), disabled: this.state.disabled },
+							_react2.default.createElement('img', { src: '/static/images/upload-icon.png', style: { opacity: 0.5, width: "100px" } }),
+							_react2.default.createElement(
+								'h1',
+								{ style: { marginBottom: "0px" } },
+								'Drag & Drop'
+							),
+							_react2.default.createElement(
+								'p',
+								{ style: { fontWeight: 600, color: "#aaa" } },
+								'YOUR DESIGNS HERE',
+								_react2.default.createElement('br', null)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return DesignUploader;
 }(_react2.default.Component);
 
-exports.default = KeywordViewer;
+exports.default = DesignUploader;
 
 /***/ })
 /******/ ]);
