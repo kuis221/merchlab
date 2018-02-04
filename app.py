@@ -9,6 +9,7 @@ from flask_login import (LoginManager, login_required, login_user,
                          current_user, logout_user)
 from rq import Queue
 
+import email_utils
 from worker import conn
 
 nltk.download('stopwords')
@@ -1290,16 +1291,40 @@ def forgot_password():
     if request.method == "POST":
         email = request.form.get('email')
         if not email:
-            return redirect(url_for("forgot_password", email_error=True))
+            return render_template("forgot_password.html", email_error=True)
 
         user = firebase_api.find_user_by_email(email)
         if not user:
-            return redirect(url_for("forgot_password", user_error=True))
+            return render_template("forgot_password.html", user_error=True)
 
         token = firebase_api.create_password_reset_token(email)
+        if not app.testing:
+            email_utils.send_reset_password_email(email, token)
+        return render_template("forgot_password.html", sent=True)
 
 
-        return redirect(url_for("forgot_password", sent=True))
+@app.route('/reset_password/', methods=["GET", "POST"])
+def reset_password():
+    if request.method == "GET":
+        token = request.args.get('token')
+        return render_template("reset_password.html", token=token)
+
+    if request.method == "POST":
+        token = request.form.get('token')
+        new_password = request.form.get('password')
+        new_password_2 = request.form.get('password_2')
+
+        if not token:
+            return render_template("reset_password.html", token=None)
+        if new_password != new_password_2:
+            return render_template("reset_password.html", passwords_mismatch_error=True, token=token)
+
+        user = firebase_api.get_user_by_password_reset_token(token)
+        if not user:
+            return render_template("reset_password.html", invalid_token_error=True, token=token)
+
+        firebase_api.update_object("users/" + user["objectId"], "password", hash_pass(new_password))
+        return render_template("reset_password.html", success=True, token=token)
 
 
 # Endpoint for searching Merch Researcher.

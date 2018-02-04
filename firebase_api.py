@@ -226,7 +226,28 @@ def create_password_reset_token(email):
     return token
 
 
+def get_password_reset_token_by_email(email):
+    """
+    Given email address, return stored password reset token, if it exists. If not, return None
+
+    :param email: email address to get token for;
+    :return: str with UUID token if it exists, otherwise None
+    """
+    user = find_user_by_email(email)
+    result = fb.get('password_reset_tokens/{0}'.format(user['objectId']), None)
+    if result:
+        return result.get('token')
+    else:
+        return None
+
+
 def get_user_by_password_reset_token(token):
+    """
+    Given UUID token, return User dict if found one. If not, return None
+
+    :param token: str -> UUID token;
+    :return: dict with User data if it exists, otherwise None
+    """
     results = query_objects('password_reset_tokens')
     for user_object_id in results:
         db_token = results[user_object_id].get('token')

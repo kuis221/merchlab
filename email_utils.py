@@ -214,7 +214,7 @@ def remove_mailing_list(list_address):
 
 
 def send_emails_to_list(mailing_list_address, subject, text, html=None, attachments=None,
-                       from_name=FROM_NAME, from_address=FROM_ADDRESS, domain_name=DOMAIN_NAME):
+                        from_name=FROM_NAME, from_address=FROM_ADDRESS, domain_name=DOMAIN_NAME):
     """
     Send email messages to mailing list. Uses `send_email` function
 
@@ -236,3 +236,18 @@ def send_emails_to_list(mailing_list_address, subject, text, html=None, attachme
     ]
     """
     return send_email(mailing_list_address, subject, text, html, attachments, from_name, from_address, domain_name)
+
+
+def send_reset_password_email(address, token):
+    """
+    Send email message with a link to password reset form on Merchlab
+
+    :param str address: email address to send link to;
+    :param str token: reset password UUID token;
+    :return:
+    """
+    subject = "Merchlab password reset"
+    text = 'Please, follow this link to reset your password: ' \
+           'http://merchlab.herokuapp.com/reset_password/?token={0}'.format(token)
+
+    send_email(address, subject, text)
