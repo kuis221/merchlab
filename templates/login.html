@@ -1,98 +1,139 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Page title -->
+  <title>MERCHLAB</title>
 
-    <!-- Page title -->
-    <title>MERCHLAB</title>
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!--<link rel="shortcut icon" type="image/ico" href="favicon.ico" />-->
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!--<link rel="shortcut icon" type="image/ico" href="favicon.ico" />-->
+  <!-- Vendor styles -->
+  <link rel="stylesheet" href="/static/vendor/fontawesome/css/font-awesome.css"/>
+  <link rel="stylesheet" href="/static/vendor/metisMenu/dist/metisMenu.css"/>
+  <link rel="stylesheet" href="/static/vendor/animate.css/animate.css"/>
+  <link rel="stylesheet" href="/static/vendor/bootstrap/dist/css/bootstrap.css"/>
 
-    <!-- Vendor styles -->
-    <link rel="stylesheet" href="/static/vendor/fontawesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="/static/vendor/metisMenu/dist/metisMenu.css" />
-    <link rel="stylesheet" href="/static/vendor/animate.css/animate.css" />
-    <link rel="stylesheet" href="/static/vendor/bootstrap/dist/css/bootstrap.css" />
+  <!-- App styles -->
+  <link rel="stylesheet" href="/static/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
+  <link rel="stylesheet" href="/static/fonts/pe-icon-7-stroke/css/helper.css"/>
+  <link rel="stylesheet" href="/static/styles/style.css">
 
-    <!-- App styles -->
-    <link rel="stylesheet" href="/static/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
-    <link rel="stylesheet" href="/static/fonts/pe-icon-7-stroke/css/helper.css" />
-    <link rel="stylesheet" href="/static/styles/style.css">
-
-    <!-- Begin Inspectlet Embed Code -->
-    <script type="text/javascript" id="inspectletjs">
+  <!-- Begin Inspectlet Embed Code -->
+  <script type="text/javascript" id="inspectletjs">
     window.__insp = window.__insp || [];
     __insp.push(['wid', 1355144002]);
-    (function() {
-    function ldinsp(){if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
-    setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
-    })();
-    </script>
-    <!-- End Inspectlet Embed Code -->
-
-    <!-- Intercom Integration Code -->
-    <script>
-      window.intercomSettings = {
-        app_id: "zj7fd4cy"
+    (function () {
+      function ldinsp() {
+        if (typeof window.__inspld != "undefined") return;
+        window.__inspld = 1;
+        var insp = document.createElement('script');
+        insp.type = 'text/javascript';
+        insp.async = true;
+        insp.id = "inspsync";
+        insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js';
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(insp, x);
       };
-    </script>
-    <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/zj7fd4cy';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
-    <!-- End Intercom Integration Code -->
+      setTimeout(ldinsp, 500);
+      document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
+    })();
+  </script>
+  <!-- End Inspectlet Embed Code -->
 
+  <!-- Intercom Integration Code -->
+  <script>
+    window.intercomSettings = {
+      app_id: "zj7fd4cy"
+    };
+  </script>
+  <script>(function () {
+    var w = window;
+    var ic = w.Intercom;
+    if (typeof ic === "function") {
+      ic('reattach_activator');
+      ic('update', intercomSettings);
+    } else {
+      var d = document;
+      var i = function () {
+        i.c(arguments)
+      };
+      i.q = [];
+      i.c = function (args) {
+        i.q.push(args)
+      };
+      w.Intercom = i;
 
+      function l() {
+        var s = d.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'https://widget.intercom.io/widget/zj7fd4cy';
+        var x = d.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+      }
+
+      if (w.attachEvent) {
+        w.attachEvent('onload', l);
+      } else {
+        w.addEventListener('load', l, false);
+      }
+    }
+  })()</script>
+  <!-- End Intercom Integration Code -->
 </head>
+
 <body class="blank">
 <div class="login-container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="text-center m-b-md">
-                <h3>PLEASE LOGIN TO MERCHLAB</h3>
-                <small>Just a few details away from amazing research data for Merch By Amazon!</small>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center m-b-md">
+        <h3>PLEASE LOGIN TO MERCHLAB</h3>
+        <small>Just a few details away from amazing research data for Merch By Amazon!</small>
+      </div>
+      <div class="hpanel">
+        <div class="panel-body">
+          {% if error=="credentials_error" %}
+            <div class="alert alert-danger" role="alert">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <b>Oh snap</b>, we don't have that username/password combo in our database!
             </div>
-            <div class="hpanel">
-                <div class="panel-body">
-                        {% if error=="credentials_error" %}
-                              <div class="alert alert-danger" role="alert">
-                                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                    <b>Oh snap</b>, we don't have that username/password combo in our database!
-                              </div>   
-                              <br>        
-                        {% endif %}
-                        <form id="loginForm" method="post">
-                            <div class="form-group">
-                                <label class="control-label" for="username">Username OR Email</label>
-                                <input type="text" placeholder="username" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">
-                                <span class="help-block small">The username OR email you used to sign up for MERCHLAB.</span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="password">Password</label>
-                                <input type="password" title="Please enter your password" required="" value="" name="password" id="password" class="form-control">
-                            </div>
-                            <div class="checkbox" style="margin-left:20px">
-                                <input type="checkbox" class="i-checks" name="remember" checked>
-                                     Remember login
-                                <p class="help-block small">(if this is a private computer)</p>
-                            </div>
-                            <button class="btn btn-success btn-block">Login</button>
-                            <hr>
-                            <div class="text-center" style="margin-bottom:5px">Don't have an account?</div>
-                            <a class="btn btn-primary btn-block" href="/register/">Register</a>
-                        </form>
-                </div>
+            <br>
+          {% endif %}
+          <form id="loginForm" method="post">
+            <div class="form-group">
+              <label class="control-label" for="username">Username OR Email</label>
+              <input type="text" placeholder="username" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">
+              <span class="help-block small">The username OR email you used to sign up for MERCHLAB.</span>
             </div>
+            <div class="form-group">
+              <label class="control-label" for="password">Password</label>
+              <input type="password" title="Please enter your password" required="" value="" name="password" id="password" class="form-control">
+            </div>
+            <div class="checkbox" style="margin-left:20px">
+              <input type="checkbox" class="i-checks" name="remember" checked>
+              Remember login
+              <p class="help-block small">(if this is a private computer)</p>
+            </div>
+            <button class="btn btn-success btn-block">Login</button>
+            <a class="btn btn-sm btn-primary btn-block" href="/forgot_password/">Forgot password</a>
+            <hr>
+            <div class="text-center" style="margin-bottom:5px">Don't have an account?</div>
+            <a class="btn btn-primary btn-block" href="/register/">Register</a>
+          </form>
         </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-md-12 text-center">
-            2017 Copyright <strong>MERCHLAB</strong>.
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      2017 Copyright <strong>MERCHLAB</strong>.
     </div>
+  </div>
 </div>
-
 
 <!-- Vendor scripts -->
 <script src="/static/vendor/jquery/dist/jquery.min.js"></script>
@@ -103,12 +144,7 @@
 <script src="/static/vendor/iCheck/icheck.min.js"></script>
 <script src="/static/vendor/sparkline/index.js"></script>
 
-
-
-
-
 <!-- App scripts -->
 <script src="/static/scripts/homer.js"></script>
-
 </body>
 </html>

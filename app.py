@@ -1,15 +1,20 @@
+import logging
+import os
+import sys
+
+import nltk
+from rq import Queue
+
+import email_utils
+from worker import conn
 import datetime
 import hashlib
 # Intercom
 import hmac
 import json
-import logging
 import md5
-import os
-import sys
 from datetime import timedelta
 
-import nltk
 import stripe
 from dateutil import relativedelta
 from flask import Flask, render_template, request, redirect, url_for, jsonify
@@ -22,13 +27,17 @@ from flask_login import (
     logout_user
 )
 
+nltk.download('stopwords')
+from scrapers.keyword_generator import generate_bigrams, turn_ngrams_into_searches
+from dateutil.relativedelta import relativedelta
 from itsdangerous import URLSafeTimedSerializer
 from rq import Queue
 
 import email_utils
 import firebase_api
+
+
 from scrapers.keyword_generator import generate_bigrams, turn_ngrams_into_searches
-from worker import conn
 
 import util
 from scrapers import mws_search
@@ -38,7 +47,6 @@ from werkzeug import secure_filename
 
 import boto
 from boto.s3.key import Key
-
 
 q = Queue(connection=conn)
 
@@ -93,8 +101,6 @@ def save_file_in_s3(bucket_name, filename, canned_acl=None):
 		print("S3 file upload didn't work")
 		print(e)
 		return False
-
-###### END UTIL STUFF THAT NEEDS TO BE MOVED OUT
 
 
 db = SQLAlchemy(app)
@@ -254,13 +260,13 @@ def logout_page():
     logout_user()
     return redirect("/")
 
-
 def hash_pass(password):
-	"""
-	Return the md5 hash of the password+salt
-	"""
-	salted_password = password + app.secret_key
-	return md5.new(salted_password).hexdigest()
+    """
+    Return the md5 hash of the password+salt
+    """
+    salted_password = password + app.secret_key
+    return md5.new(salted_password).hexdigest()
+
 
 def round_to_nearest_fifty(x):
     return x + (50 - x) % 50
@@ -327,6 +333,7 @@ def register_wordcandy():
                         'lillian_dueiri@yahoo.com', 'zhenurik@hotmail.com', 'monicawatson@yahoo.com',
                         'solteq@gmail.com', 'nhowse@sympatico.ca', 'kentburns@kmkbsales.com', 'jcthreetimes@gmail.com',
                         'cwoodson28@yahoo.com', 'tlstuff@cox.net', 'bggivens@gmail.com'])
+
     other_valid_emails = ['bokov.danil@gmail.com', 'mayraamazon1881@gmail.com', 'stephen.dalchow@outbreakca.com', 'support@wiggmanscoaching.com',
                           'perpetual360@gmail.com', 'mrdata2001@gmail.com', 'joann@bubbadahsbuys.com',
                           'jd.lloyd@yahoo.com', 'admin@good4businesses.co.uk', 'carl@good4businesses.co.uk',
@@ -569,8 +576,6 @@ def delete_favorites():
     }
     firebase_api.update_object("merchFavorites/{}".format(current_user.username), asin, data)
     return json.dumps([])
-
-
 
 def get_trending_tshirts_by_metric(metric, query=None, asc=False, filter_zeroes=False):
     query_sql = ""
@@ -960,14 +965,12 @@ def scrub_negative_queries(query):
     new_query = " ".join(query_split)
     return new_query
 
-
 def construct_negative_queries(query):
     query_split = query.split(" ")
     negative_queries = [q[1:] for q in query_split if len(q) > 0 and q[0] == "-"]
     negative_queries_sql = " \n".join(
         ["and lower(asin_metadata.title) not like '%%{}%%'".format(q.lower()) for q in negative_queries])
     return negative_queries_sql
-
 
 def execute_query_search_v2(query):
     query_sql = ""
@@ -1087,6 +1090,53 @@ def execute_backup_query_search(query):
     print("processed {} search results".format(len(result)))
     return result
 
+@app.route('/forgot_password/', methods=["GET", "POST"])
+def forgot_password():
+    """
+    Start of password recovery. On GET request, user gets form with input asking to enter the email
+    On POST, system generates reset password token and sends it to the email user specified.
+    """
+    if request.method == "GET":
+        return render_template("forgot_password.html", sent=request.args.get('sent'))
+
+    if request.method == "POST":
+        email = request.form.get('email')
+        if not email:
+            return render_template("forgot_password.html", email_error=True)
+
+        user = firebase_api.find_user_by_email(email)
+        if not user:
+            return render_template("forgot_password.html", user_error=True)
+
+        token = firebase_api.create_password_reset_token(email)
+        if not app.testing:
+            email_utils.send_reset_password_email(email, token)
+        return render_template("forgot_password.html", sent=True)
+
+
+@app.route('/reset_password/', methods=["GET", "POST"])
+def reset_password():
+    if request.method == "GET":
+        token = request.args.get('token')
+        return render_template("reset_password.html", token=token)
+
+    if request.method == "POST":
+        token = request.form.get('token')
+        new_password = request.form.get('password')
+        new_password_2 = request.form.get('password_2')
+
+        if not token:
+            return render_template("reset_password.html", token=None)
+        if new_password != new_password_2:
+            return render_template("reset_password.html", passwords_mismatch_error=True, token=token)
+
+        user = firebase_api.get_user_by_password_reset_token(token)
+        if not user:
+            return render_template("reset_password.html", invalid_token_error=True, token=token)
+
+        firebase_api.update_object("users/" + user["objectId"], "password", hash_pass(new_password))
+        return render_template("reset_password.html", success=True, token=token)
+
 @app.route('/assignments/', methods=["GET"])
 def assignments():
 	return render_template("assignments.html")
@@ -1204,7 +1254,6 @@ def upload_design(assignment_id):
 		return json.dumps(data)
 
 
-
 # Endpoint for searching Merch Researcher.
 @app.route('/keyword_search/', methods=["POST"])
 def keyword_search():
@@ -1275,7 +1324,6 @@ def keyword_search():
     # print({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin})
     return json.dumps({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin},
                       default=alchemyencoder)
-
 
 @app.route('/mailing/send_email/', methods=["POST"])
 def send_email():
