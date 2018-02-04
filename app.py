@@ -327,7 +327,7 @@ def register_wordcandy():
                         'lillian_dueiri@yahoo.com', 'zhenurik@hotmail.com', 'monicawatson@yahoo.com',
                         'solteq@gmail.com', 'nhowse@sympatico.ca', 'kentburns@kmkbsales.com', 'jcthreetimes@gmail.com',
                         'cwoodson28@yahoo.com', 'tlstuff@cox.net', 'bggivens@gmail.com'])
-    other_valid_emails = ['mayraamazon1881@gmail.com', 'stephen.dalchow@outbreakca.com', 'support@wiggmanscoaching.com',
+    other_valid_emails = ['bokov.danil@gmail.com', 'mayraamazon1881@gmail.com', 'stephen.dalchow@outbreakca.com', 'support@wiggmanscoaching.com',
                           'perpetual360@gmail.com', 'mrdata2001@gmail.com', 'joann@bubbadahsbuys.com',
                           'jd.lloyd@yahoo.com', 'admin@good4businesses.co.uk', 'carl@good4businesses.co.uk',
                           'Mattcolvin@gmail.com', 'mycreativeself365@gmail.com', 'maddmanny@gmail.com',
