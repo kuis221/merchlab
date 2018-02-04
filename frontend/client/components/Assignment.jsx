@@ -8,7 +8,8 @@ export default class Assignment extends React.Component {
         super(props);
         this.state = {
             loaded: false,
-            assignment: {}
+            assignment: {},
+            completed_work_display: "all"
         }
     }
 
@@ -23,6 +24,42 @@ export default class Assignment extends React.Component {
                 loaded: true
             });
         }.bind(this));    
+    }
+
+    approveDesign(id) {
+        var assignment_id = $("#assignment-id").text();
+        var data = {
+            "upload_uuid": id
+        }
+        this.serverRequest = $.post('/assignment/' + assignment_id + '/approve/', data, function (result) {
+            var assignment = this.state.assignment;
+            var completed_work = assignment.completed_work;
+            completed_work[id].approved = true;
+            assignment.completed_work = completed_work;
+
+            this.setState({
+                assignment: assignment,
+                loaded: true
+            });
+        }.bind(this));   
+    }
+
+    disapproveDesign(id) {
+        var assignment_id = $("#assignment-id").text();
+        var data = {
+            "upload_uuid": id
+        }
+        this.serverRequest = $.post('/assignment/' + assignment_id + '/disapprove/', data, function (result) {
+            var assignment = this.state.assignment;
+            var completed_work = assignment.completed_work;
+            completed_work[id].approved = false;
+            assignment.completed_work = completed_work;
+
+            this.setState({
+                assignment: assignment,
+                loaded: true
+            });
+        }.bind(this));   
     }
 
     updateDesignerUploads(id, design_data) {
@@ -60,6 +97,7 @@ export default class Assignment extends React.Component {
 
     render() {
         var assignment_id = $("#assignment-id").text();
+        var assignment = this.state.assignment;
 
         var designs_array = [];
         for (var key in this.state.assignment.completed_work || {}) {
@@ -67,19 +105,49 @@ export default class Assignment extends React.Component {
             design.id = key;
             designs_array.push(design);
         }
+        var image_nodes;
+        if (designs_array.length === 0) {
+            image_nodes = (
+                <div>
+                    <p>Your designer has not uploaded any designs yet for this assignment.</p>
+                    <button className="btn btn-primary btn-sm">PING DESIGNER FOR UPDATES</button>
+                </div>
+            )
+        } else {
+            var completed_work_display = this.state.completed_work_display;
+            if (completed_work_display === "unapproved") {
+                designs_array = designs_array.filter(design => design.approved !== true)
+            } else if  (completed_work_display === "approved") {
+                designs_array = designs_array.filter(design => design.approved === true)
+            }
 
-        var assignment = this.state.assignment;
-        console.log("rendering design nodes");
-        var image_nodes = designs_array.map(function(design) {
-            console.log("design", design);
-            var url = design.s3_url;
-            return (
-                <div className="col-lg-6 text-center design-image-div">
-                    <img src={url} className="design-image" style={{maxWidth:"100%", height:'200px', marginBottom:'10px'}}></img>
-                    <br />
-                    <button className="btn btn-sm btn-primary">APPROVE</button>
-                </div>)
-        })
+            if (designs_array.length === 0) {
+                var image_nodes = (
+                    <div>
+                        <p>There are no designs for you to view in this tab.</p>
+                    </div>
+                )
+            } else {
+                console.log("rendering design nodes");
+                image_nodes = designs_array.map(function(design) {
+                    console.log("design", design);
+                    var url = design.s3_url;
+                    var btn;
+                    if (!design.approved) {
+                        btn = <button className="btn btn-sm btn-primary" onClick={this.approveDesign.bind(this, design.id)}>APPROVE</button>
+                    } else {
+                        btn = <button className="btn btn-sm btn-danger" onClick={this.disapproveDesign.bind(this, design.id)}>DISAPPROVE</button>                    
+                    }
+                    return (
+                        <div className="col-lg-6 text-center design-image-div">
+                            <img src={url} className="design-image" style={{maxWidth:"100%", height:'200px', marginBottom:'10px'}}></img>
+                            <br />
+                            {btn}
+                        </div>)
+                }.bind(this))            
+            }
+        }
+
 
         var num_uploaded = Object.keys(this.state.assignment.completed_work || {}).length;
         var raw_completed_percent = (num_uploaded * 100 / assignment.num_variations) || 0;
@@ -107,11 +175,12 @@ export default class Assignment extends React.Component {
                                 <label style={{marginRight:'5px'}}>Viewing: </label>
                                 <div className="input-group-btn margin-right" style={{display:'inline'}}>
                                     <button className="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
-                                    <span className="margin-right">Unapproved</span> 
+                                    <span className="margin-right">{this.state.completed_work_display}</span> 
                                     <span className="caret"></span></button>
                                     <ul className="dropdown-menu dropdown-menu-left" style={{marginTop:'17.5px'}}>
-                                        <li><a href="#a">Unapproved</a></li>
-                                        <li><a href="#a">Approved</a></li>
+                                        <li><a href="#a" onClick={this.setState.bind(this, {completed_work_display: 'all'})}>all</a></li>
+                                        <li><a href="#a" onClick={this.setState.bind(this, {completed_work_display: 'unapproved'})}>unapproved</a></li>
+                                        <li><a href="#a" onClick={this.setState.bind(this, {completed_work_display: 'approved'})}>approved</a></li>
                                     </ul>
                                 </div>                                
                                 <button className="btn btn-success btn-sm pull-right">COMPLETE ASSIGNMENT</button>

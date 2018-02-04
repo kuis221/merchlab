@@ -2,8 +2,15 @@ import firebase_api
 import datetime
 
 
-def assign_va_to_user(username, designer_username, rate):
-	firebase_api.patch_object("users/" + username + "/virtual_assistants/" + designer_username, {rate: rate})
+def assign_va_to_user(username, designer_username, designer_first_name, designer_last_name, rate):
+	firebase_api.patch_object(
+		"users/" + username + "/virtual_assistants/" + designer_username, 
+		{
+			"rate": rate,
+			"designer_first_name": designer_first_name,
+			"designer_last_name": designer_last_name
+		}
+	)
 	firebase_api.patch_object("users/" + designer_username + "/clients/" + username, {rate: rate})
 
 def update_rate(username, designer_username, rate):
@@ -24,11 +31,13 @@ def get_clients_for_va(designer_username):
 
 def get_vas_for_user(username):
 	vas = firebase_api.query_objects("users/" + username + "/virtual_assistants")
-	filtered = set()
 	for key in vas:
-		if filtered[key]:
-			filtered.add(key)
-	return list(filtered)
+		vas[key]["designer_username"] = key
+	return vas.values()
+
+def get_va_dashboard_data_for_user(username):
+	get_breakdown_by_va_for_user(username, is_paid_out=False)
+
 
 def get_assignment(username, assignment_id):
 	assignment = firebase_api.query_objects("assignments/" + username + "/" + assignment_id)
@@ -37,6 +46,9 @@ def get_assignment(username, assignment_id):
 
 def get_assignments_for_user(username, status=None, designer_username=None):
 	assignments = firebase_api.query_objects("assignments/" + username) or {}
+	return filter_assignments(assignments, status, designer_username)
+
+def filter_assignments(assignments, status=None, designer_username=None):
 	filtered = {}
 	for key in assignments:
 		print(assignments[key])
@@ -112,6 +124,30 @@ def get_breakdown_by_va_for_user(username, is_paid_out=None, is_approved=None, s
 			breakdown["actual_hours"] = actual_hours
 			breakdown["designs_uploaded"] = designs_uploaded
 			breakdown_by_va[designer_username] = breakdown
+
+	status_breakdown_by_va = {}
+	for assignment_id in assignments:
+		assignment = assignments[assignment_id]
+		designer_username = assignment.get("designer_username")
+		if not designer_username:
+			continue
+
+		status = assignment["status"]
+		if designer_username not in status_breakdown_by_va:
+			status_breakdown_by_va[designer_username] = {status: 0}
+		else:
+			if status not in status_breakdown_by_va[designer_username]:
+				status_breakdown_by_va[designer_username] = 1
+			else:
+				status_breakdown_by_va[designer_username][status] += 1
+
+	for designer_username in status_breakdown_by_va:
+		if designer_username not in breakdown_by_va:
+			continue
+
+		status_breakdown = status_breakdown_by_va[designer_username]
+		breakdown_by_va[designer_username]["status_breakdown"] = status_breakdown
+
 	return breakdown_by_va
 
 def get_commissions_for_va(designer_username, is_paid_out=None, is_approved=None, start_date=None, end_date=None):
@@ -129,6 +165,8 @@ def create_assignment(username, assignment_data):
 	return firebase_api.save_object("assignments/" + username, assignment_data)
 
 def update_assignment(username, assignment_id, assignment_data):
+	updated_on = datetime.datetime.utcnow().isoformat()
+	assignment_data["updated_on"] = updated_on
 	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id, assignment_data)
 
 def update_assignment_progress(username, assignment_id, status):
@@ -136,7 +174,7 @@ def update_assignment_progress(username, assignment_id, status):
 
 def mark_assignment_as_completed(username, assignment_id, actual_hours):
 	assignment = get_assignment(username, assignment_id)
-	designer_username = assignment.get("designer_username") or "Unassigned" # If user completes it while it is unassigned, then we need to guard against that state
+	designer_username = assignment.get("designer_username") or "unassigned" # If user completes it while it is unassigned, then we need to guard against that state
 	rate = assignment.get("rate") or 0.0
 	data = {
 		"status": "completed",
@@ -147,6 +185,10 @@ def mark_assignment_as_completed(username, assignment_id, actual_hours):
 
 	commission_amount = actual_hours * rate
 	create_va_commission(username, designer_username, assignment_id, actual_hours, commission_amount)
+
+def mark_assignment_as_in_progress(username, assignment_id):
+	update_assignment_progress(username, assignment_id, "in_progress")
+
 
 def mark_assignment_as_revision_requested(username, assignment_id):
 	data = {
@@ -196,7 +238,29 @@ def delete_upload_from_assignment(username, assignment_id, upload_uuid):
 	firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/inspiration_uploads/" + upload_uuid, None)
 
 def add_completed_work_to_assignment(username, assignment_id, upload_uuid, s3_url):
-	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, {"s3_url": s3_url})
+	return firebase_api.patch_object(
+		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
+		{
+			"s3_url": s3_url,
+			"approved": False
+		}
+	)
+
+def approve_completed_work(username, assignment_id, upload_uuid):
+	return firebase_api.patch_object(
+		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
+		{
+			"approved": True
+		}
+	)	
+
+def disapprove_completed_work(username, assignment_id, upload_uuid):
+	return firebase_api.patch_object(
+		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
+		{
+			"approved": False
+		}
+	)	
 
 def delete_completed_work_from_assignment(username, assignment_id, s3_url):
 	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, None)

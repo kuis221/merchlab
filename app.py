@@ -1142,9 +1142,30 @@ def assignment_data(assignment_id):
 	print(assignment)
 	return json.dumps(assignment)
 
+@app.route('/assignment/<assignment_id>/approve/', methods=["POST"])
+def approve_assignment(assignment_id):
+    upload_uuid = request.form.get("upload_uuid")
+    result = assignments_util.approve_completed_work(current_user.username, assignment_id, upload_uuid)
+    return json.dumps(result)
+
+@app.route('/assignment/<assignment_id>/disapprove/', methods=["POST"])
+def disapprove_assignment(assignment_id):
+    upload_uuid = request.form.get("upload_uuid")
+    result = assignments_util.disapprove_completed_work(current_user.username, assignment_id, upload_uuid)
+    return json.dumps(result)
+
+
 @app.route('/designers/', methods=["GET"])
 def designers():
 	return render_template("designers.html")
+
+@app.route('/designers/data/', methods=["GET"])
+def designers_data():
+    assignments_util.get_vas_for_user(current_user.username)
+
+@app.route('/designers/add/', methods=["POST"])
+def add_designer():
+    pass
 
 
 @app.route('/assignment/<assignment_id>/upload/', methods=["POST"])

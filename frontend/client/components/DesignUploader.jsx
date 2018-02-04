@@ -26,7 +26,8 @@ export default class DesignUploader extends React.Component {
 							var upload_uuid = accepted[c].meta.upload_uuid;
 							console.log(url);
 							var work = {
-								s3_url: url
+								s3_url: url,
+								approved: false
 							}
 							this.props.update(upload_uuid, work);
 						}

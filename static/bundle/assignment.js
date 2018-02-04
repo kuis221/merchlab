@@ -93991,7 +93991,8 @@ var Assignment = function (_React$Component) {
 
         _this.state = {
             loaded: false,
-            assignment: {}
+            assignment: {},
+            completed_work_display: "all"
         };
         return _this;
     }
@@ -94004,6 +94005,44 @@ var Assignment = function (_React$Component) {
             this.serverRequest = $.get('/assignment/' + assignment_id + '/data/', function (result) {
                 var assignment = JSON.parse(result);
                 console.log(assignment);
+                this.setState({
+                    assignment: assignment,
+                    loaded: true
+                });
+            }.bind(this));
+        }
+    }, {
+        key: 'approveDesign',
+        value: function approveDesign(id) {
+            var assignment_id = $("#assignment-id").text();
+            var data = {
+                "upload_uuid": id
+            };
+            this.serverRequest = $.post('/assignment/' + assignment_id + '/approve/', data, function (result) {
+                var assignment = this.state.assignment;
+                var completed_work = assignment.completed_work;
+                completed_work[id].approved = true;
+                assignment.completed_work = completed_work;
+
+                this.setState({
+                    assignment: assignment,
+                    loaded: true
+                });
+            }.bind(this));
+        }
+    }, {
+        key: 'disapproveDesign',
+        value: function disapproveDesign(id) {
+            var assignment_id = $("#assignment-id").text();
+            var data = {
+                "upload_uuid": id
+            };
+            this.serverRequest = $.post('/assignment/' + assignment_id + '/disapprove/', data, function (result) {
+                var assignment = this.state.assignment;
+                var completed_work = assignment.completed_work;
+                completed_work[id].approved = false;
+                assignment.completed_work = completed_work;
+
                 this.setState({
                     assignment: assignment,
                     loaded: true
@@ -94048,6 +94087,7 @@ var Assignment = function (_React$Component) {
         key: 'render',
         value: function render() {
             var assignment_id = $("#assignment-id").text();
+            var assignment = this.state.assignment;
 
             var designs_array = [];
             for (var key in this.state.assignment.completed_work || {}) {
@@ -94055,24 +94095,73 @@ var Assignment = function (_React$Component) {
                 design.id = key;
                 designs_array.push(design);
             }
-
-            var assignment = this.state.assignment;
-            console.log("rendering design nodes");
-            var image_nodes = designs_array.map(function (design) {
-                console.log("design", design);
-                var url = design.s3_url;
-                return _react2.default.createElement(
+            var image_nodes;
+            if (designs_array.length === 0) {
+                image_nodes = _react2.default.createElement(
                     'div',
-                    { className: 'col-lg-6 text-center design-image-div' },
-                    _react2.default.createElement('img', { src: url, className: 'design-image', style: { maxWidth: "100%", height: '200px', marginBottom: '10px' } }),
-                    _react2.default.createElement('br', null),
+                    null,
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Your designer has not uploaded any designs yet for this assignment.'
+                    ),
                     _react2.default.createElement(
                         'button',
-                        { className: 'btn btn-sm btn-primary' },
-                        'APPROVE'
+                        { className: 'btn btn-primary btn-sm' },
+                        'PING DESIGNER FOR UPDATES'
                     )
                 );
-            });
+            } else {
+                var completed_work_display = this.state.completed_work_display;
+                if (completed_work_display === "unapproved") {
+                    designs_array = designs_array.filter(function (design) {
+                        return design.approved !== true;
+                    });
+                } else if (completed_work_display === "approved") {
+                    designs_array = designs_array.filter(function (design) {
+                        return design.approved === true;
+                    });
+                }
+
+                if (designs_array.length === 0) {
+                    var image_nodes = _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            'There are no designs for you to view in this tab.'
+                        )
+                    );
+                } else {
+                    console.log("rendering design nodes");
+                    image_nodes = designs_array.map(function (design) {
+                        console.log("design", design);
+                        var url = design.s3_url;
+                        var btn;
+                        if (!design.approved) {
+                            btn = _react2.default.createElement(
+                                'button',
+                                { className: 'btn btn-sm btn-primary', onClick: this.approveDesign.bind(this, design.id) },
+                                'APPROVE'
+                            );
+                        } else {
+                            btn = _react2.default.createElement(
+                                'button',
+                                { className: 'btn btn-sm btn-danger', onClick: this.disapproveDesign.bind(this, design.id) },
+                                'DISAPPROVE'
+                            );
+                        }
+                        return _react2.default.createElement(
+                            'div',
+                            { className: 'col-lg-6 text-center design-image-div' },
+                            _react2.default.createElement('img', { src: url, className: 'design-image', style: { maxWidth: "100%", height: '200px', marginBottom: '10px' } }),
+                            _react2.default.createElement('br', null),
+                            btn
+                        );
+                    }.bind(this));
+                }
+            }
 
             var num_uploaded = Object.keys(this.state.assignment.completed_work || {}).length;
             var raw_completed_percent = num_uploaded * 100 / assignment.num_variations || 0;
@@ -94132,7 +94221,7 @@ var Assignment = function (_React$Component) {
                                         _react2.default.createElement(
                                             'span',
                                             { className: 'margin-right' },
-                                            'Unapproved'
+                                            this.state.completed_work_display
                                         ),
                                         _react2.default.createElement('span', { className: 'caret' })
                                     ),
@@ -94144,8 +94233,8 @@ var Assignment = function (_React$Component) {
                                             null,
                                             _react2.default.createElement(
                                                 'a',
-                                                { href: '#a' },
-                                                'Unapproved'
+                                                { href: '#a', onClick: this.setState.bind(this, { completed_work_display: 'all' }) },
+                                                'all'
                                             )
                                         ),
                                         _react2.default.createElement(
@@ -94153,8 +94242,17 @@ var Assignment = function (_React$Component) {
                                             null,
                                             _react2.default.createElement(
                                                 'a',
-                                                { href: '#a' },
-                                                'Approved'
+                                                { href: '#a', onClick: this.setState.bind(this, { completed_work_display: 'unapproved' }) },
+                                                'unapproved'
+                                            )
+                                        ),
+                                        _react2.default.createElement(
+                                            'li',
+                                            null,
+                                            _react2.default.createElement(
+                                                'a',
+                                                { href: '#a', onClick: this.setState.bind(this, { completed_work_display: 'approved' }) },
+                                                'approved'
                                             )
                                         )
                                     )
@@ -94391,7 +94489,8 @@ var DesignUploader = function (_React$Component) {
 								var upload_uuid = accepted[c].meta.upload_uuid;
 								console.log(url);
 								var work = {
-									s3_url: url
+									s3_url: url,
+									approved: false
 								};
 								this.props.update(upload_uuid, work);
 							}
