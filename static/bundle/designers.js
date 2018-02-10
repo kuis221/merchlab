@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1044);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1051);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -55059,8 +55059,874 @@ var _temp = function () {
 /* 1019 */,
 /* 1020 */,
 /* 1021 */,
-/* 1022 */,
-/* 1023 */
+/* 1022 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+if (process.env.NODE_ENV !== 'production') {
+  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+    Symbol.for &&
+    Symbol.for('react.element')) ||
+    0xeac7;
+
+  var isValidElement = function(object) {
+    return typeof object === 'object' &&
+      object !== null &&
+      object.$$typeof === REACT_ELEMENT_TYPE;
+  };
+
+  // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+  var throwOnDirectAccess = true;
+  module.exports = __webpack_require__(1058)(isValidElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = __webpack_require__(1060)();
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1023 */,
+/* 1024 */,
+/* 1025 */,
+/* 1026 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+function makeEmptyFunction(arg) {
+  return function () {
+    return arg;
+  };
+}
+
+/**
+ * This function accepts and discards inputs; it has no side effects. This is
+ * primarily useful idiomatically for overridable function endpoints which
+ * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+ */
+var emptyFunction = function emptyFunction() {};
+
+emptyFunction.thatReturns = makeEmptyFunction;
+emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+emptyFunction.thatReturnsThis = function () {
+  return this;
+};
+emptyFunction.thatReturnsArgument = function (arg) {
+  return arg;
+};
+
+module.exports = emptyFunction;
+
+/***/ }),
+/* 1027 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var validateFormat = function validateFormat(format) {};
+
+if (process.env.NODE_ENV !== 'production') {
+  validateFormat = function validateFormat(format) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  };
+}
+
+function invariant(condition, format, a, b, c, d, e, f) {
+  validateFormat(format);
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+module.exports = invariant;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1028 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+module.exports = ReactPropTypesSecret;
+
+
+/***/ }),
+/* 1029 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactTransitionGroup = __webpack_require__(1056);
+
+var _classnames = __webpack_require__(3);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Notification = __webpack_require__(1065);
+
+var _Notification2 = _interopRequireDefault(_Notification);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Notifications = function (_React$Component) {
+  _inherits(Notifications, _React$Component);
+
+  function Notifications() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Notifications);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Notifications.__proto__ || Object.getPrototypeOf(Notifications)).call.apply(_ref, [this].concat(args))), _this), _this.handleRequestHide = function (notification) {
+      return function () {
+        var onRequestHide = _this.props.onRequestHide;
+
+        if (onRequestHide) {
+          onRequestHide(notification);
+        }
+      };
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Notifications, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          notifications = _props.notifications,
+          enterTimeout = _props.enterTimeout,
+          leaveTimeout = _props.leaveTimeout;
+
+      var className = (0, _classnames2.default)('notification-container', {
+        'notification-container-empty': notifications.length === 0
+      });
+      return _react2.default.createElement(
+        'div',
+        { className: className },
+        _react2.default.createElement(
+          _reactTransitionGroup.CSSTransitionGroup,
+          {
+            transitionName: 'notification',
+            transitionEnterTimeout: enterTimeout,
+            transitionLeaveTimeout: leaveTimeout
+          },
+          notifications.map(function (notification) {
+            var key = notification.id || new Date().getTime();
+            return _react2.default.createElement(_Notification2.default, {
+              key: key,
+              type: notification.type,
+              title: notification.title,
+              message: notification.message,
+              timeOut: notification.timeOut,
+              onClick: notification.onClick,
+              onRequestHide: _this2.handleRequestHide(notification)
+            });
+          })
+        )
+      );
+    }
+  }]);
+
+  return Notifications;
+}(_react2.default.Component);
+
+Notifications.propTypes = {
+  notifications: _propTypes2.default.array.isRequired,
+  onRequestHide: _propTypes2.default.func,
+  enterTimeout: _propTypes2.default.number,
+  leaveTimeout: _propTypes2.default.number
+};
+Notifications.defaultProps = {
+  notifications: [],
+  onRequestHide: function onRequestHide() {},
+  enterTimeout: 400,
+  leaveTimeout: 400
+};
+exports.default = Notifications;
+module.exports = exports['default'];
+
+/***/ }),
+/* 1030 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var emptyFunction = __webpack_require__(1026);
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var warning = emptyFunction;
+
+if (process.env.NODE_ENV !== 'production') {
+  var printWarning = function printWarning(format) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    var argIndex = 0;
+    var message = 'Warning: ' + format.replace(/%s/g, function () {
+      return args[argIndex++];
+    });
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+
+  warning = function warning(condition, format) {
+    if (format === undefined) {
+      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+    }
+
+    if (format.indexOf('Failed Composite propType: ') === 0) {
+      return; // Ignore CompositeComponent proptype check.
+    }
+
+    if (!condition) {
+      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+        args[_key2 - 2] = arguments[_key2];
+      }
+
+      printWarning.apply(undefined, [format].concat(args));
+    }
+  };
+}
+
+module.exports = warning;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1031 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _chainFunction = __webpack_require__(1061);
+
+var _chainFunction2 = _interopRequireDefault(_chainFunction);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1022);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _warning = __webpack_require__(32);
+
+var _warning2 = _interopRequireDefault(_warning);
+
+var _ChildMapping = __webpack_require__(1062);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var propTypes = {
+  component: _propTypes2.default.any,
+  childFactory: _propTypes2.default.func,
+  children: _propTypes2.default.node
+};
+
+var defaultProps = {
+  component: 'span',
+  childFactory: function childFactory(child) {
+    return child;
+  }
+};
+
+var TransitionGroup = function (_React$Component) {
+  _inherits(TransitionGroup, _React$Component);
+
+  function TransitionGroup(props, context) {
+    _classCallCheck(this, TransitionGroup);
+
+    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
+
+    _this.performAppear = function (key, component) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      if (component.componentWillAppear) {
+        component.componentWillAppear(_this._handleDoneAppearing.bind(_this, key, component));
+      } else {
+        _this._handleDoneAppearing(key, component);
+      }
+    };
+
+    _this._handleDoneAppearing = function (key, component) {
+      if (component.componentDidAppear) {
+        component.componentDidAppear();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
+
+      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+        // This was removed before it had fully appeared. Remove it.
+        _this.performLeave(key, component);
+      }
+    };
+
+    _this.performEnter = function (key, component) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      if (component.componentWillEnter) {
+        component.componentWillEnter(_this._handleDoneEntering.bind(_this, key, component));
+      } else {
+        _this._handleDoneEntering(key, component);
+      }
+    };
+
+    _this._handleDoneEntering = function (key, component) {
+      if (component.componentDidEnter) {
+        component.componentDidEnter();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
+
+      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+        // This was removed before it had fully entered. Remove it.
+        _this.performLeave(key, component);
+      }
+    };
+
+    _this.performLeave = function (key, component) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      if (component.componentWillLeave) {
+        component.componentWillLeave(_this._handleDoneLeaving.bind(_this, key, component));
+      } else {
+        // Note that this is somewhat dangerous b/c it calls setState()
+        // again, effectively mutating the component before all the work
+        // is done.
+        _this._handleDoneLeaving(key, component);
+      }
+    };
+
+    _this._handleDoneLeaving = function (key, component) {
+      if (component.componentDidLeave) {
+        component.componentDidLeave();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
+
+      if (currentChildMapping && currentChildMapping.hasOwnProperty(key)) {
+        // This entered again before it fully left. Add it again.
+        _this.keysToEnter.push(key);
+      } else {
+        _this.setState(function (state) {
+          var newChildren = _extends({}, state.children);
+          delete newChildren[key];
+          return { children: newChildren };
+        });
+      }
+    };
+
+    _this.childRefs = Object.create(null);
+
+    _this.state = {
+      children: (0, _ChildMapping.getChildMapping)(props.children)
+    };
+    return _this;
+  }
+
+  TransitionGroup.prototype.componentWillMount = function componentWillMount() {
+    this.currentlyTransitioningKeys = {};
+    this.keysToEnter = [];
+    this.keysToLeave = [];
+  };
+
+  TransitionGroup.prototype.componentDidMount = function componentDidMount() {
+    var initialChildMapping = this.state.children;
+    for (var key in initialChildMapping) {
+      if (initialChildMapping[key]) {
+        this.performAppear(key, this.childRefs[key]);
+      }
+    }
+  };
+
+  TransitionGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var nextChildMapping = (0, _ChildMapping.getChildMapping)(nextProps.children);
+    var prevChildMapping = this.state.children;
+
+    this.setState({
+      children: (0, _ChildMapping.mergeChildMappings)(prevChildMapping, nextChildMapping)
+    });
+
+    for (var key in nextChildMapping) {
+      var hasPrev = prevChildMapping && prevChildMapping.hasOwnProperty(key);
+      if (nextChildMapping[key] && !hasPrev && !this.currentlyTransitioningKeys[key]) {
+        this.keysToEnter.push(key);
+      }
+    }
+
+    for (var _key in prevChildMapping) {
+      var hasNext = nextChildMapping && nextChildMapping.hasOwnProperty(_key);
+      if (prevChildMapping[_key] && !hasNext && !this.currentlyTransitioningKeys[_key]) {
+        this.keysToLeave.push(_key);
+      }
+    }
+
+    // If we want to someday check for reordering, we could do it here.
+  };
+
+  TransitionGroup.prototype.componentDidUpdate = function componentDidUpdate() {
+    var _this2 = this;
+
+    var keysToEnter = this.keysToEnter;
+    this.keysToEnter = [];
+    keysToEnter.forEach(function (key) {
+      return _this2.performEnter(key, _this2.childRefs[key]);
+    });
+
+    var keysToLeave = this.keysToLeave;
+    this.keysToLeave = [];
+    keysToLeave.forEach(function (key) {
+      return _this2.performLeave(key, _this2.childRefs[key]);
+    });
+  };
+
+  TransitionGroup.prototype.render = function render() {
+    var _this3 = this;
+
+    // TODO: we could get rid of the need for the wrapper node
+    // by cloning a single child
+    var childrenToRender = [];
+
+    var _loop = function _loop(key) {
+      var child = _this3.state.children[key];
+      if (child) {
+        var isCallbackRef = typeof child.ref !== 'string';
+        var factoryChild = _this3.props.childFactory(child);
+        var ref = function ref(r) {
+          _this3.childRefs[key] = r;
+        };
+
+        process.env.NODE_ENV !== 'production' ? (0, _warning2.default)(isCallbackRef, 'string refs are not supported on children of TransitionGroup and will be ignored. ' + 'Please use a callback ref instead: https://facebook.github.io/react/docs/refs-and-the-dom.html#the-ref-callback-attribute') : void 0;
+
+        // Always chaining the refs leads to problems when the childFactory
+        // wraps the child. The child ref callback gets called twice with the
+        // wrapper and the child. So we only need to chain the ref if the
+        // factoryChild is not different from child.
+        if (factoryChild === child && isCallbackRef) {
+          ref = (0, _chainFunction2.default)(child.ref, ref);
+        }
+
+        // You may need to apply reactive updates to a child as it is leaving.
+        // The normal React way to do it won't work since the child will have
+        // already been removed. In case you need this behavior you can provide
+        // a childFactory function to wrap every child, even the ones that are
+        // leaving.
+        childrenToRender.push(_react2.default.cloneElement(factoryChild, {
+          key: key,
+          ref: ref
+        }));
+      }
+    };
+
+    for (var key in this.state.children) {
+      _loop(key);
+    }
+
+    // Do not forward TransitionGroup props to primitive DOM nodes
+    var props = _extends({}, this.props);
+    delete props.transitionLeave;
+    delete props.transitionName;
+    delete props.transitionAppear;
+    delete props.transitionEnter;
+    delete props.childFactory;
+    delete props.transitionLeaveTimeout;
+    delete props.transitionEnterTimeout;
+    delete props.transitionAppearTimeout;
+    delete props.component;
+
+    return _react2.default.createElement(this.props.component, props, childrenToRender);
+  };
+
+  return TransitionGroup;
+}(_react2.default.Component);
+
+TransitionGroup.displayName = 'TransitionGroup';
+
+
+TransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
+TransitionGroup.defaultProps = defaultProps;
+
+exports.default = TransitionGroup;
+module.exports = exports['default'];
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1032 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.nameShape = undefined;
+exports.transitionTimeout = transitionTimeout;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1022);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function transitionTimeout(transitionType) {
+  var timeoutPropName = 'transition' + transitionType + 'Timeout';
+  var enabledPropName = 'transition' + transitionType;
+
+  return function (props) {
+    // If the transition is enabled
+    if (props[enabledPropName]) {
+      // If no timeout duration is provided
+      if (props[timeoutPropName] == null) {
+        return new Error(timeoutPropName + ' wasn\'t supplied to CSSTransitionGroup: ' + 'this can cause unreliable animations and won\'t be supported in ' + 'a future version of React. See ' + 'https://fb.me/react-animation-transition-group-timeout for more ' + 'information.');
+
+        // If the duration isn't a number
+      } else if (typeof props[timeoutPropName] !== 'number') {
+        return new Error(timeoutPropName + ' must be a number (in milliseconds)');
+      }
+    }
+
+    return null;
+  };
+}
+
+var nameShape = exports.nameShape = _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.shape({
+  enter: _propTypes2.default.string,
+  leave: _propTypes2.default.string,
+  active: _propTypes2.default.string
+}), _propTypes2.default.shape({
+  enter: _propTypes2.default.string,
+  enterActive: _propTypes2.default.string,
+  leave: _propTypes2.default.string,
+  leaveActive: _propTypes2.default.string,
+  appear: _propTypes2.default.string,
+  appearActive: _propTypes2.default.string
+})]);
+
+/***/ }),
+/* 1033 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _events = __webpack_require__(281);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var createUUID = function createUUID() {
+  var pattern = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
+  return pattern.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0;
+    var v = c === 'x' ? r : r & 0x3 | 0x8;
+    return v.toString(16);
+  });
+};
+
+var Constants = {
+  CHANGE: 'change',
+  INFO: 'info',
+  SUCCESS: 'success',
+  WARNING: 'warning',
+  ERROR: 'error'
+};
+
+var NotificationManager = function (_EventEmitter) {
+  _inherits(NotificationManager, _EventEmitter);
+
+  function NotificationManager() {
+    _classCallCheck(this, NotificationManager);
+
+    var _this = _possibleConstructorReturn(this, (NotificationManager.__proto__ || Object.getPrototypeOf(NotificationManager)).call(this));
+
+    _this.listNotify = [];
+    return _this;
+  }
+
+  _createClass(NotificationManager, [{
+    key: 'create',
+    value: function create(notify) {
+      var defaultNotify = {
+        id: createUUID(),
+        type: 'info',
+        title: null,
+        message: null,
+        timeOut: 5000
+      };
+      if (notify.priority) {
+        this.listNotify.unshift(Object.assign(defaultNotify, notify));
+      } else {
+        this.listNotify.push(Object.assign(defaultNotify, notify));
+      }
+      this.emitChange();
+    }
+  }, {
+    key: 'info',
+    value: function info(message, title, timeOut, onClick, priority) {
+      this.create({
+        type: Constants.INFO,
+        message: message,
+        title: title,
+        timeOut: timeOut,
+        onClick: onClick,
+        priority: priority
+      });
+    }
+  }, {
+    key: 'success',
+    value: function success(message, title, timeOut, onClick, priority) {
+      this.create({
+        type: Constants.SUCCESS,
+        message: message,
+        title: title,
+        timeOut: timeOut,
+        onClick: onClick,
+        priority: priority
+      });
+    }
+  }, {
+    key: 'warning',
+    value: function warning(message, title, timeOut, onClick, priority) {
+      this.create({
+        type: Constants.WARNING,
+        message: message,
+        title: title,
+        timeOut: timeOut,
+        onClick: onClick,
+        priority: priority
+      });
+    }
+  }, {
+    key: 'error',
+    value: function error(message, title, timeOut, onClick, priority) {
+      this.create({
+        type: Constants.ERROR,
+        message: message,
+        title: title,
+        timeOut: timeOut,
+        onClick: onClick,
+        priority: priority
+      });
+    }
+  }, {
+    key: 'remove',
+    value: function remove(notification) {
+      this.listNotify = this.listNotify.filter(function (n) {
+        return notification.id !== n.id;
+      });
+      this.emitChange();
+    }
+  }, {
+    key: 'emitChange',
+    value: function emitChange() {
+      this.emit(Constants.CHANGE, this.listNotify);
+    }
+  }, {
+    key: 'addChangeListener',
+    value: function addChangeListener(callback) {
+      this.addListener(Constants.CHANGE, callback);
+    }
+  }, {
+    key: 'removeChangeListener',
+    value: function removeChangeListener(callback) {
+      this.removeListener(Constants.CHANGE, callback);
+    }
+  }]);
+
+  return NotificationManager;
+}(_events.EventEmitter);
+
+exports.default = new NotificationManager();
+module.exports = exports['default'];
+
+/***/ }),
+/* 1034 */,
+/* 1035 */,
+/* 1036 */,
+/* 1037 */,
+/* 1038 */,
+/* 1039 */,
+/* 1040 */,
+/* 1041 */,
+/* 1042 */,
+/* 1043 */,
+/* 1044 */,
+/* 1045 */,
+/* 1046 */,
+/* 1047 */,
+/* 1048 */,
+/* 1049 */,
+/* 1050 */,
+/* 1051 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(17);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _DesignersPage = __webpack_require__(1052);
+
+var _DesignersPage2 = _interopRequireDefault(_DesignersPage);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_reactDom2.default.render(_react2.default.createElement(_DesignersPage2.default, null), document.getElementById('designers-page'));
+
+/***/ }),
+/* 1052 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55076,6 +55942,10 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _DesignersTable = __webpack_require__(1053);
+
+var _DesignersTable2 = _interopRequireDefault(_DesignersTable);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55084,255 +55954,88 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AssignmentSummary = function (_React$Component) {
-    _inherits(AssignmentSummary, _React$Component);
+var DesignersPage = function (_React$Component) {
+    _inherits(DesignersPage, _React$Component);
 
-    function AssignmentSummary() {
-        _classCallCheck(this, AssignmentSummary);
+    function DesignersPage(props) {
+        _classCallCheck(this, DesignersPage);
 
-        return _possibleConstructorReturn(this, (AssignmentSummary.__proto__ || Object.getPrototypeOf(AssignmentSummary)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (DesignersPage.__proto__ || Object.getPrototypeOf(DesignersPage)).call(this, props));
+
+        _this.state = {
+            loaded: false,
+            designers: []
+        };
+        return _this;
     }
 
-    _createClass(AssignmentSummary, [{
-        key: "render",
+    _createClass(DesignersPage, [{
+        key: 'unassignDesignerFromClient',
+        value: function unassignDesignerFromClient(designerUsername) {
+            var data = {
+                designer_username: designerUsername
+            };
+            $.post("/unassign_designer_from_client/", data, function (result) {
+                console.log(result);
+                var designersLeft = [];
+                for (var c = 0; c < this.state.designers.length; c++) {
+                    if (this.state.designers[c].designer_username !== designerUsername) {
+                        designersLeft.push(this.state.designers[c]);
+                    }
+                }
+                this.setState({ designers: designersLeft });
+            }.bind(this));
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.serverRequest = $.get('/get_designers/', function (result) {
+                var designers = JSON.parse(result);
+                console.log(designers);
+                this.setState({
+                    designers: designers,
+                    loaded: true
+                });
+            }.bind(this));
+        }
+    }, {
+        key: 'updateTable',
+        value: function updateTable(designer) {
+            var designers = this.state.designers;
+            designers.push(designer);
+            this.setState({ designers: designers });
+        }
+    }, {
+        key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                "div",
-                { className: "row" },
+                'div',
+                null,
                 _react2.default.createElement(
-                    "div",
-                    { className: "col-lg-4" },
+                    'div',
+                    { 'class': 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "hpanel" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "panel-body text-center", style: { height: '230px' } },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "stats-title pull-left" },
-                                _react2.default.createElement(
-                                    "h4",
-                                    null,
-                                    "Summary"
-                                )
-                            ),
-                            _react2.default.createElement("br", null),
-                            _react2.default.createElement("br", null),
-                            _react2.default.createElement("br", null),
-                            _react2.default.createElement("i", { className: "pe-7s-graph2 fa-4x" }),
-                            _react2.default.createElement(
-                                "h2",
-                                { className: "m-xs", style: { fontWeight: 300, fontFamily: 'Open Sans' } },
-                                "482 DESIGNS MADE"
-                            ),
-                            _react2.default.createElement(
-                                "p",
-                                null,
-                                _react2.default.createElement(
-                                    "strong",
-                                    null,
-                                    "(8.0% ",
-                                    _react2.default.createElement("i", { className: "fa fa-level-up text-success" }),
-                                    " from last week)"
-                                )
-                            )
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "col-lg-4" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "hpanel stats" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "panel-body list", style: { height: '230px' } },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "stats-title pull-left" },
-                                _react2.default.createElement(
-                                    "h4",
-                                    null,
-                                    "Designer Breakdown"
-                                )
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "stats-icon pull-right" },
-                                _react2.default.createElement("i", { className: "pe-7s-display1 fa-4x" })
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "m-t-xl" },
-                                _react2.default.createElement(
-                                    "small",
-                                    null,
-                                    "Breakdown of uploads from your most active designers."
-                                )
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "progress m-t-xs full" },
-                                _react2.default.createElement(
-                                    "div",
-                                    { style: { width: '95%' }, "aria-valuemax": "100", "aria-valuemin": "0", "aria-valuenow": "95", role: "progressbar", className: " progress-bar progress-bar-success" },
-                                    _react2.default.createElement(
-                                        "span",
-                                        { style: { fontWeight: 300, fontSize: '10px' } },
-                                        "Mark (80%)"
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "progress m-t-xs full" },
-                                _react2.default.createElement(
-                                    "div",
-                                    { style: { width: '55%' }, "aria-valuemax": "100", "aria-valuemin": "0", "aria-valuenow": "55", role: "progressbar", className: " progress-bar progress-bar-success" },
-                                    _react2.default.createElement(
-                                        "span",
-                                        { style: { fontWeight: 300, fontSize: '10px' } },
-                                        "Joe (14%)"
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "progress m-t-xs full" },
-                                _react2.default.createElement(
-                                    "div",
-                                    { style: { width: '35%' }, "aria-valuemax": "100", "aria-valuemin": "0", "aria-valuenow": "35", role: "progressbar", className: " progress-bar progress-bar-success" },
-                                    _react2.default.createElement(
-                                        "span",
-                                        { style: { fontWeight: 300, fontSize: '10px' } },
-                                        "Bob (10%)"
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "progress m-t-xs full" },
-                                _react2.default.createElement(
-                                    "div",
-                                    { style: { width: '20%' }, "aria-valuemax": "100", "aria-valuemin": "0", "aria-valuenow": "25", role: "progressbar", className: " progress-bar progress-bar-success" },
-                                    _react2.default.createElement(
-                                        "span",
-                                        { style: { fontWeight: 300, fontSize: '10px' } },
-                                        "Tim (8%)"
-                                    )
-                                )
-                            )
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "col-lg-4" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "hpanel stats" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "panel-body", style: { height: '230px' } },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "stats-title pull-left" },
-                                _react2.default.createElement(
-                                    "h4",
-                                    null,
-                                    "Assignment Statuses"
-                                )
-                            ),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "stats-icon pull-right" },
-                                _react2.default.createElement("i", { className: "pe-7s-battery fa-4x" })
-                            ),
-                            _react2.default.createElement("div", { className: "clearfix" }),
-                            _react2.default.createElement(
-                                "div",
-                                { className: "m-t-xs" },
-                                _react2.default.createElement(
-                                    "div",
-                                    { className: "row" },
-                                    _react2.default.createElement(
-                                        "div",
-                                        { className: "col-xs-6" },
-                                        _react2.default.createElement(
-                                            "small",
-                                            { className: "stat-label" },
-                                            "Unassigned"
-                                        ),
-                                        _react2.default.createElement(
-                                            "h4",
-                                            null,
-                                            "8"
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        "div",
-                                        { className: "col-xs-6" },
-                                        _react2.default.createElement(
-                                            "small",
-                                            { className: "stat-label" },
-                                            "Assigned"
-                                        ),
-                                        _react2.default.createElement(
-                                            "h4",
-                                            null,
-                                            "65"
-                                        )
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    "div",
-                                    { className: "row" },
-                                    _react2.default.createElement(
-                                        "div",
-                                        { className: "col-xs-6" },
-                                        _react2.default.createElement(
-                                            "small",
-                                            { className: "stat-label" },
-                                            "Completed"
-                                        ),
-                                        _react2.default.createElement(
-                                            "h4",
-                                            null,
-                                            "43"
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        "div",
-                                        { className: "col-xs-6" },
-                                        _react2.default.createElement(
-                                            "small",
-                                            { className: "stat-label" },
-                                            "Deleted"
-                                        ),
-                                        _react2.default.createElement(
-                                            "h4",
-                                            null,
-                                            "2"
-                                        )
-                                    )
-                                )
-                            )
-                        )
+                        'div',
+                        { className: 'col-lg-12', style: { padding: '0px' } },
+                        _react2.default.createElement(_DesignersTable2.default, {
+                            designers: this.state.designers,
+                            updateTable: this.updateTable.bind(this),
+                            unassignDesignerFromClient: this.unassignDesignerFromClient.bind(this)
+                        }),
+                        _react2.default.createElement('br', null)
                     )
                 )
             );
         }
     }]);
 
-    return AssignmentSummary;
+    return DesignersPage;
 }(_react2.default.Component);
 
-exports.default = AssignmentSummary;
+exports.default = DesignersPage;
 
 /***/ }),
-/* 1024 */
+/* 1053 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55350,9 +56053,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrapTable = __webpack_require__(589);
 
-var _NewAssignmentModal = __webpack_require__(1025);
+var _NewDesignerModal = __webpack_require__(1054);
 
-var _NewAssignmentModal2 = _interopRequireDefault(_NewAssignmentModal);
+var _NewDesignerModal2 = _interopRequireDefault(_NewDesignerModal);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -55362,313 +56065,130 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AssignmentsTable = function (_React$Component) {
-    _inherits(AssignmentsTable, _React$Component);
+var DesignersTable = function (_React$Component) {
+    _inherits(DesignersTable, _React$Component);
 
-    function AssignmentsTable(props) {
-        _classCallCheck(this, AssignmentsTable);
+    function DesignersTable(props) {
+        _classCallCheck(this, DesignersTable);
 
-        var _this = _possibleConstructorReturn(this, (AssignmentsTable.__proto__ || Object.getPrototypeOf(AssignmentsTable)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (DesignersTable.__proto__ || Object.getPrototypeOf(DesignersTable)).call(this, props));
 
         _this.state = {
-            showNewAssignmentModal: false
+            showNewDesignerModal: false
         };
         return _this;
     }
 
-    _createClass(AssignmentsTable, [{
+    _createClass(DesignersTable, [{
         key: 'componentDidMount',
         value: function componentDidMount() {}
     }, {
-        key: 'statusFormatter',
-        value: function statusFormatter(cell, row) {
-            var status = row.status || "";
-            var statusNode;
-            if (status.toLocaleLowerCase() === "unassigned") {
-                statusNode = _react2.default.createElement(
-                    'span',
-                    { className: 'label label-danger' },
-                    status
-                );
-            } else if (status.toLocaleLowerCase() === "completed") {
-                statusNode = _react2.default.createElement(
-                    'span',
-                    { className: 'label label-success' },
-                    status
-                );
-            } else {
-                statusNode = _react2.default.createElement(
-                    'span',
-                    { className: 'label label-warning' },
-                    status
-                );
-            }
-            return statusNode;
-        }
-    }, {
-        key: 'inspirationFormatter',
-        value: function inspirationFormatter(cell, row) {
-            if (row.thumbnail) {
-                return _react2.default.createElement('img', { src: row.thumbnail || "", style: { height: '100px' } });
-            } else {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    row.asin,
-                    _react2.default.createElement('br', null),
-                    _react2.default.createElement(
-                        'small',
-                        null,
-                        '(Image not found)'
-                    )
-                );
-            }
-        }
-    }, {
-        key: 'notesFormatter',
-        value: function notesFormatter(cell, row) {
+        key: 'actionsFormatter',
+        value: function actionsFormatter(cell, row) {
             return _react2.default.createElement(
-                'small',
+                'div',
                 null,
-                row.notes
+                _react2.default.createElement(
+                    'button',
+                    { className: 'btn btn-primary btn-xs table-button' },
+                    'GENERATE PAYOUT'
+                ),
+                _react2.default.createElement(
+                    'button',
+                    { className: 'btn btn-default btn-xs table-button', onClick: this.props.unassignDesignerFromClient.bind(null, row.designer_username) },
+                    'REMOVE'
+                )
             );
         }
     }, {
-        key: 'designerFormatter',
-        value: function designerFormatter(cell, row) {
-            var designers = this.props.designers;
-            var designerNames = [];
-            for (var c = 0; c < designers.length; c++) {
-                designerNames.push(designers[c].designer_username);
-            }
-            var designerNodes = designerNames.map(function (name) {
-                return _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                        'a',
-                        { href: '#a', onClick: this.props.assignDesigner.bind(null, row.id, name) },
-                        name
-                    )
-                );
-            }.bind(this));
-
-            if (row.status.toLocaleLowerCase() === "completed") {
-                return row.designer_username;
-            } else if (row.designer_username) {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    row.designer_username,
-                    _react2.default.createElement('br', null),
-                    _react2.default.createElement(
-                        'button',
-                        { className: 'btn btn-default btn-xs', style: { width: '90%', marginBottom: '5px' }, onClick: this.props.unassignDesigner.bind(null, row.id) },
-                        'UNASSIGN'
-                    )
-                );
-            } else {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'input-group-btn' },
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', type: 'button', style: { width: '100%' } },
-                            _react2.default.createElement(
-                                'span',
-                                { className: 'margin-right' },
-                                'Choose'
-                            ),
-                            _react2.default.createElement('span', { className: 'caret' })
-                        ),
-                        _react2.default.createElement(
-                            'ul',
-                            { className: 'dropdown-menu dropdown-menu-left' },
-                            designerNodes
-                        )
-                    )
-                );
-            }
-        }
-    }, {
-        key: 'actionsFormatter',
-        value: function actionsFormatter(cell, row) {
-            var clientUsername = $("#client-username").text();
-            if (this.props.isDesignerView || row.status.toLocaleLowerCase() === "completed") {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'a',
-                        { href: "/assignment/" + clientUsername + "/" + row.id },
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'btn btn-primary btn-xs table-button' },
-                            'VIEW'
-                        )
-                    )
-                );
-            } else {
-
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'a',
-                        { href: "/assignment/" + clientUsername + "/" + row.id },
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'btn btn-primary btn-xs table-button' },
-                            'VIEW'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'a',
-                        { href: "/assignment/" + clientUsername + "/" + row.id },
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'btn btn-default btn-xs table-button' },
-                            'PING'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'a',
-                        { href: "/assignment/" + clientUsername + "/" + row.id },
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'btn btn-default btn-xs table-button' },
-                            'DELETE'
-                        )
-                    )
-                );
-            }
-        }
-    }, {
-        key: 'showNewAssignmentModal',
-        value: function showNewAssignmentModal() {
+        key: 'showNewDesignerModal',
+        value: function showNewDesignerModal() {
             this.setState({
-                showNewAssignmentModal: true
+                showNewDesignerModal: true
             });
         }
     }, {
-        key: 'onHideNewAssignmentModal',
-        value: function onHideNewAssignmentModal() {
+        key: 'onHideNewDesignerModal',
+        value: function onHideNewDesignerModal() {
             this.setState({
-                showNewAssignmentModal: false
+                showNewDesignerModal: false
             });
+        }
+    }, {
+        key: 'formatStatusBreakdown',
+        value: function formatStatusBreakdown(cell, row) {
+            var statusBreakdown = cell;
+            console.log(cell);
+            var nodes = Object.keys(statusBreakdown || {}).map(function (status) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    status,
+                    ': ',
+                    statusBreakdown[status]
+                );
+            });
+            return _react2.default.createElement(
+                'div',
+                null,
+                nodes
+            );
         }
     }, {
         key: 'render',
         value: function render() {
-            var options = {
-                defaultSortName: 'created_at',
-                defaultSortOrder: 'desc'
-            };
-
-            var table;
-            var newAssignmentBtn;
-            if (this.props.isDesignerView) {
-                table = _react2.default.createElement(
-                    _reactBootstrapTable.BootstrapTable,
-                    {
-                        data: this.props.assignments,
-                        exportCSV: false,
-                        striped: false,
-                        bordered: false,
-                        hover: false,
-                        pagination: true,
-                        search: true,
-                        options: options
-                    },
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, dataField: 'status', editable: false, dataFormat: this.statusFormatter },
-                        'STATUS'
-                    ),
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, dataField: 'created_at', editable: false, isKey: true },
-                        'CREATED ON'
-                    ),
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, dataField: 'thumbnail', editable: false, dataFormat: this.inspirationFormatter },
-                        'INSPIRATION'
-                    ),
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, dataField: 'notes', editable: false, dataFormat: this.notesFormatter },
-                        'NOTES'
-                    ),
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, editable: false, dataFormat: this.actionsFormatter.bind(this) },
-                        'ACTIONS'
-                    )
-                );
-            } else {
-                table = _react2.default.createElement(
-                    _reactBootstrapTable.BootstrapTable,
-                    {
-                        data: this.props.assignments,
-                        exportCSV: false,
-                        striped: false,
-                        bordered: false,
-                        hover: false,
-                        pagination: true,
-                        search: true,
-                        options: options
-                    },
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, dataField: 'status', editable: false, dataFormat: this.statusFormatter },
-                        'STATUS'
-                    ),
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, dataField: 'created_at', editable: false, isKey: true },
-                        'CREATED ON'
-                    ),
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, dataField: 'thumbnail', editable: false, dataFormat: this.inspirationFormatter },
-                        'INSPIRATION'
-                    ),
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, dataField: 'notes', editable: false, dataFormat: this.notesFormatter },
-                        'NOTES'
-                    ),
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, dataField: 'designer_username', editable: false, dataFormat: this.designerFormatter.bind(this) },
-                        'DESIGNER'
-                    ),
-                    _react2.default.createElement(
-                        _reactBootstrapTable.TableHeaderColumn,
-                        { dataAlign: 'center', dataSort: true, editable: false, dataFormat: this.actionsFormatter.bind(this) },
-                        'ACTIONS'
-                    )
-                );
-                newAssignmentBtn = _react2.default.createElement(
-                    'button',
-                    { className: 'btn btn-primary', style: { marginLeft: '10px' }, onClick: this.showNewAssignmentModal.bind(this) },
-                    'NEW ASSIGNMENT'
-                );
-            }
+            var table = _react2.default.createElement(
+                _reactBootstrapTable.BootstrapTable,
+                {
+                    data: this.props.designers,
+                    exportCSV: false,
+                    striped: false,
+                    bordered: false,
+                    hover: false,
+                    pagination: true,
+                    search: false
+                },
+                _react2.default.createElement(
+                    _reactBootstrapTable.TableHeaderColumn,
+                    { dataAlign: 'center', dataSort: true, dataField: 'designer_username', editable: false, isKey: true },
+                    'DESIGNER NAME'
+                ),
+                _react2.default.createElement(
+                    _reactBootstrapTable.TableHeaderColumn,
+                    { dataAlign: 'center', dataSort: true, dataField: 'assigned_on', editable: false },
+                    'ADDED ON'
+                ),
+                _react2.default.createElement(
+                    _reactBootstrapTable.TableHeaderColumn,
+                    { dataAlign: 'center', dataSort: true, dataField: 'rate', editable: false },
+                    'RATE'
+                ),
+                _react2.default.createElement(
+                    _reactBootstrapTable.TableHeaderColumn,
+                    { dataAlign: 'center', dataSort: true, dataField: 'approved_commission_amount', editable: false },
+                    'APPROVED'
+                ),
+                _react2.default.createElement(
+                    _reactBootstrapTable.TableHeaderColumn,
+                    { dataAlign: 'center', dataSort: true, dataField: 'unapproved_commission_amount', editable: false },
+                    'UNAPPROVED'
+                ),
+                _react2.default.createElement(
+                    _reactBootstrapTable.TableHeaderColumn,
+                    { dataAlign: 'center', dataSort: true, dataField: 'status_breakdown', editable: false, dataFormat: this.formatStatusBreakdown },
+                    'ASSIGNMENTS'
+                ),
+                _react2.default.createElement(
+                    _reactBootstrapTable.TableHeaderColumn,
+                    { dataAlign: 'center', dataSort: false, editable: false, dataFormat: this.actionsFormatter.bind(this) },
+                    'ACTIONS'
+                )
+            );
 
             return _react2.default.createElement(
                 'div',
                 { className: 'hpanel' },
-                _react2.default.createElement(_NewAssignmentModal2.default, {
-                    designers: this.props.designers,
-                    show: this.state.showNewAssignmentModal,
-                    onHide: this.onHideNewAssignmentModal.bind(this),
-                    updateTable: this.props.updateTable
-                }),
+                _react2.default.createElement(_NewDesignerModal2.default, { updateTable: this.props.updateTable, show: this.state.showNewDesignerModal, onHide: this.onHideNewDesignerModal.bind(this) }),
                 _react2.default.createElement(
                     'div',
                     { className: 'panel-heading hbuilt' },
@@ -55684,7 +56204,7 @@ var AssignmentsTable = function (_React$Component) {
                     _react2.default.createElement(
                         'span',
                         { style: { marginLeft: '10px' } },
-                        'Assignments'
+                        'Designers'
                     )
                 ),
                 _react2.default.createElement(
@@ -55697,74 +56217,10 @@ var AssignmentsTable = function (_React$Component) {
                             'div',
                             { className: 'col-lg-12 text-left' },
                             _react2.default.createElement(
-                                'label',
-                                { style: { marginRight: '5px' } },
-                                'Currently Viewing: '
-                            ),
-                            _react2.default.createElement(
                                 'div',
-                                { className: 'input-group-btn', style: { display: 'inline' } },
-                                _react2.default.createElement(
-                                    'button',
-                                    { className: 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', type: 'button' },
-                                    _react2.default.createElement(
-                                        'span',
-                                        { className: 'margin-right' },
-                                        'Unassigned Assignments'
-                                    ),
-                                    _react2.default.createElement('span', { className: 'caret' })
-                                ),
-                                _react2.default.createElement(
-                                    'ul',
-                                    { className: 'dropdown-menu dropdown-menu-left', style: { marginTop: '17.5px' } },
-                                    _react2.default.createElement(
-                                        'li',
-                                        null,
-                                        _react2.default.createElement(
-                                            'a',
-                                            { href: '#a' },
-                                            'Complete'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        'li',
-                                        null,
-                                        _react2.default.createElement(
-                                            'a',
-                                            { href: '#a' },
-                                            'Assigned'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        'li',
-                                        null,
-                                        _react2.default.createElement(
-                                            'a',
-                                            { href: '#a' },
-                                            'Unassigned'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        'li',
-                                        null,
-                                        _react2.default.createElement(
-                                            'a',
-                                            { href: '#a' },
-                                            'In Progress'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        'li',
-                                        null,
-                                        _react2.default.createElement(
-                                            'a',
-                                            { href: '#a' },
-                                            'Deleted'
-                                        )
-                                    )
-                                )
+                                { className: 'btn btn-primary btn-sm', style: { marginLeft: '10px' }, onClick: this.showNewDesignerModal.bind(this) },
+                                'NEW DESIGNER'
                             ),
-                            newAssignmentBtn,
                             _react2.default.createElement('br', null),
                             table
                         )
@@ -55774,13 +56230,13 @@ var AssignmentsTable = function (_React$Component) {
         }
     }]);
 
-    return AssignmentsTable;
+    return DesignersTable;
 }(_react2.default.Component);
 
-exports.default = AssignmentsTable;
+exports.default = DesignersTable;
 
 /***/ }),
-/* 1025 */
+/* 1054 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55795,6 +56251,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactNotifications = __webpack_require__(1055);
 
 var _reactBootstrap = __webpack_require__(406);
 
@@ -55806,182 +56264,99 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var NewAssignmentModal = function (_React$Component) {
-    _inherits(NewAssignmentModal, _React$Component);
+var NewDesignerPanel = function (_React$Component) {
+    _inherits(NewDesignerPanel, _React$Component);
 
-    function NewAssignmentModal(props) {
-        _classCallCheck(this, NewAssignmentModal);
+    function NewDesignerPanel() {
+        _classCallCheck(this, NewDesignerPanel);
 
-        var _this = _possibleConstructorReturn(this, (NewAssignmentModal.__proto__ || Object.getPrototypeOf(NewAssignmentModal)).call(this, props));
-
-        _this.state = {};
-        return _this;
+        return _possibleConstructorReturn(this, (NewDesignerPanel.__proto__ || Object.getPrototypeOf(NewDesignerPanel)).apply(this, arguments));
     }
 
-    _createClass(NewAssignmentModal, [{
-        key: 'addAssignment',
-        value: function addAssignment() {
-            var designer_username = this.state.designer;
-            var asin = $("#asin").val();
+    _createClass(NewDesignerPanel, [{
+        key: 'addDesigner',
+        value: function addDesigner() {
+            var designer_username = $("#designer-username").val();
             var rate = parseFloat($("#rate").val()) || 0;
-            var estimated_hours = parseInt($("#estimated-hours").val()) || 0;
-            var num_variations = parseInt($("#num-variations").val()) || 0;
-            var notes = $("#notes").val();
-            var assignment = JSON.stringify({
-                designer_username: designer_username,
-                asin: asin,
-                rate: rate,
-                estimated_hours: estimated_hours,
-                num_variations: num_variations,
-                status: "assigned",
-                notes: notes
+
+            var designer = JSON.stringify({
+                "designer_username": designer_username,
+                "rate": rate
             });
-            var data = { assignment: assignment };
-            $.post("/add_assignment/", data, function (result) {
-                console.log(result);
-                console.log(this);
-                result = JSON.parse(result);
-                assignment = JSON.parse(assignment);
-                assignment.id = result.name;
-                assignment.created_at = new Date().toISOString();
-                this.props.updateTable(assignment);
-                $("#asin").val("");
-                $("#rate").val("");
-                $("#estimated-hours").val("");
-                $("#num-variations").val("");
-                $("#notes").val("");
-                this.setState({ designer: null });
-                this.props.onHide();
+            var data = { designer: designer };
+            $.post("/add_designer/", data, function (result) {
+                var result = result;
+                if (result !== "success") {
+                    _reactNotifications.NotificationManager.error('Error: ' + result);
+                } else {
+                    _reactNotifications.NotificationManager.success('We successfully added your new designer!');
+                    designer = JSON.parse(designer);
+                    designer.unpaid_commissions = 0;
+                    designer.pending_commissions = 0;
+                    designer.status_breakdown = {};
+                    designer.assigned_on = new Date().toISOString();
+                    designer.actual_hours = 0;
+                    designer.designs_uploaded = 0;
+
+                    this.props.updateTable(designer);
+                    this.props.onHide();
+                }
             }.bind(this));
-        }
-    }, {
-        key: 'assignDesigner',
-        value: function assignDesigner(designer, rate) {
-            this.setState({ designer: designer, rate: rate });
-            $("#rate").val(rate);
         }
     }, {
         key: 'render',
         value: function render() {
-
-            var designerNodes = (this.props.designers || []).map(function (designer) {
-                return _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                        'a',
-                        { href: '#a', onClick: this.assignDesigner.bind(this, designer.designer_username, designer.rate) },
-                        designer.designer_username
-                    )
-                );
-            }.bind(this));
-
-            var chooseDesignerNode = _react2.default.createElement(
+            return _react2.default.createElement(
                 'div',
                 null,
+                _react2.default.createElement(_reactNotifications.NotificationContainer, null),
                 _react2.default.createElement(
-                    'div',
-                    { className: 'input-group-btn' },
+                    _reactBootstrap.Modal,
+                    { show: this.props.show, onHide: this.props.onHide },
                     _react2.default.createElement(
-                        'button',
-                        { className: 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', type: 'button', style: { width: '100%' } },
+                        _reactBootstrap.Modal.Header,
+                        { closeButton: true },
                         _react2.default.createElement(
-                            'span',
-                            { className: 'margin-right' },
-                            this.state.designer || "Choose"
-                        ),
-                        _react2.default.createElement('span', { className: 'caret' })
+                            'h4',
+                            { className: 'modal-title', style: { fontWeight: 300, fontFamily: 'Open Sans' } },
+                            'New Assignment'
+                        )
                     ),
                     _react2.default.createElement(
-                        'ul',
-                        { className: 'dropdown-menu dropdown-menu-left' },
-                        designerNodes
-                    )
-                )
-            );
-
-            return _react2.default.createElement(
-                _reactBootstrap.Modal,
-                { show: this.props.show, onHide: this.props.onHide },
-                _react2.default.createElement(
-                    _reactBootstrap.Modal.Header,
-                    { closeButton: true },
-                    _react2.default.createElement(
-                        'h4',
-                        { className: 'modal-title', style: { fontWeight: 300, fontFamily: 'Open Sans' } },
-                        'New Assignment'
-                    )
-                ),
-                _react2.default.createElement(
-                    _reactBootstrap.Modal.Body,
-                    null,
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
+                        _reactBootstrap.Modal.Body,
+                        null,
                         _react2.default.createElement(
-                            'label',
-                            { className: 'control-label' },
-                            'Designer Username'
-                        ),
-                        chooseDesignerNode
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'label',
-                            { className: 'control-label' },
-                            'Rate'
-                        ),
-                        _react2.default.createElement('input', { type: 'text', className: 'form-control input-sm', id: 'rate' })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'label',
-                            { className: 'control-label' },
-                            'ASIN'
-                        ),
-                        _react2.default.createElement('input', { type: 'text', className: 'form-control input-sm', id: 'asin' })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'label',
-                            { className: 'control-label' },
-                            'Estimated Hours'
-                        ),
-                        _react2.default.createElement('input', { type: 'text', className: 'form-control input-sm', id: 'estimated-hours' })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'label',
-                            { className: 'control-label' },
-                            '# Variations'
-                        ),
-                        _react2.default.createElement('input', { type: 'text', className: 'form-control input-sm', id: 'num-variations' })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                            'label',
-                            { className: 'control-label' },
-                            'Notes'
-                        ),
-                        _react2.default.createElement('textarea', { type: 'text', className: 'form-control input-sm', id: 'notes' })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'text-center' },
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'btn btn-success', style: { fontWeight: 300, fontFamily: 'Open Sans' }, onClick: this.addAssignment.bind(this) },
-                            'ADD ASSIGNMENT'
+                            'div',
+                            { className: 'panel-body', style: { textAlign: 'left' } },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'control-label' },
+                                    'Designer Username'
+                                ),
+                                _react2.default.createElement('input', { type: 'text', className: 'form-control input-sm', id: 'designer-username' })
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'control-label' },
+                                    'Rate'
+                                ),
+                                _react2.default.createElement('input', { type: 'text', className: 'form-control input-sm', id: 'rate' })
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'text-center' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { className: 'btn btn-success', style: { fontWeight: 300, fontFamily: 'Open Sans' }, onClick: this.addDesigner.bind(this) },
+                                    'ADD DESIGNER'
+                                )
+                            )
                         )
                     )
                 )
@@ -55989,76 +56364,92 @@ var NewAssignmentModal = function (_React$Component) {
         }
     }]);
 
-    return NewAssignmentModal;
+    return NewDesignerPanel;
 }(_react2.default.Component);
 
-exports.default = NewAssignmentModal;
+exports.default = NewDesignerPanel;
 
 /***/ }),
-/* 1026 */,
-/* 1027 */,
-/* 1028 */,
-/* 1029 */,
-/* 1030 */,
-/* 1031 */,
-/* 1032 */,
-/* 1033 */,
-/* 1034 */,
-/* 1035 */,
-/* 1036 */,
-/* 1037 */,
-/* 1038 */,
-/* 1039 */,
-/* 1040 */,
-/* 1041 */,
-/* 1042 */,
-/* 1043 */,
-/* 1044 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(17);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _AssignmentsPage = __webpack_require__(1045);
-
-var _AssignmentsPage2 = _interopRequireDefault(_AssignmentsPage);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_reactDom2.default.render(_react2.default.createElement(_AssignmentsPage2.default, null), document.getElementById('assignments-page'));
-
-/***/ }),
-/* 1045 */
+/* 1055 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
+exports.NotificationManager = exports.NotificationContainer = exports.Notifications = undefined;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _Notifications = __webpack_require__(1029);
+
+var _Notifications2 = _interopRequireDefault(_Notifications);
+
+var _NotificationContainer = __webpack_require__(1066);
+
+var _NotificationContainer2 = _interopRequireDefault(_NotificationContainer);
+
+var _NotificationManager = __webpack_require__(1033);
+
+var _NotificationManager2 = _interopRequireDefault(_NotificationManager);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Notifications = _Notifications2.default;
+exports.NotificationContainer = _NotificationContainer2.default;
+exports.NotificationManager = _NotificationManager2.default;
+exports.default = _Notifications2.default;
+
+/***/ }),
+/* 1056 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _CSSTransitionGroup = __webpack_require__(1057);
+
+var _CSSTransitionGroup2 = _interopRequireDefault(_CSSTransitionGroup);
+
+var _TransitionGroup = __webpack_require__(1031);
+
+var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+  TransitionGroup: _TransitionGroup2.default,
+  CSSTransitionGroup: _CSSTransitionGroup2.default
+};
+
+/***/ }),
+/* 1057 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AssignmentsSummary = __webpack_require__(1023);
+var _propTypes = __webpack_require__(1022);
 
-var _AssignmentsSummary2 = _interopRequireDefault(_AssignmentsSummary);
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _AssignmentsTable = __webpack_require__(1024);
+var _TransitionGroup = __webpack_require__(1031);
 
-var _AssignmentsTable2 = _interopRequireDefault(_AssignmentsTable);
+var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
+
+var _CSSTransitionGroupChild = __webpack_require__(1063);
+
+var _CSSTransitionGroupChild2 = _interopRequireDefault(_CSSTransitionGroupChild);
+
+var _PropTypes = __webpack_require__(1032);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56068,143 +56459,1392 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AssignmentsPage = function (_React$Component) {
-    _inherits(AssignmentsPage, _React$Component);
+var propTypes = {
+  transitionName: _PropTypes.nameShape.isRequired,
 
-    function AssignmentsPage(props) {
-        _classCallCheck(this, AssignmentsPage);
+  transitionAppear: _propTypes2.default.bool,
+  transitionEnter: _propTypes2.default.bool,
+  transitionLeave: _propTypes2.default.bool,
+  transitionAppearTimeout: (0, _PropTypes.transitionTimeout)('Appear'),
+  transitionEnterTimeout: (0, _PropTypes.transitionTimeout)('Enter'),
+  transitionLeaveTimeout: (0, _PropTypes.transitionTimeout)('Leave')
+};
 
-        var _this = _possibleConstructorReturn(this, (AssignmentsPage.__proto__ || Object.getPrototypeOf(AssignmentsPage)).call(this, props));
+var defaultProps = {
+  transitionAppear: false,
+  transitionEnter: true,
+  transitionLeave: true
+};
 
-        _this.state = {
-            loaded: false,
-            assignments: [],
-            designers: [],
-            showNewAssignmentModal: false
-        };
-        return _this;
+var CSSTransitionGroup = function (_React$Component) {
+  _inherits(CSSTransitionGroup, _React$Component);
+
+  function CSSTransitionGroup() {
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, CSSTransitionGroup);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
-    _createClass(AssignmentsPage, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.serverRequest = $.get('/get_assignments/', function (result) {
-                var data = JSON.parse(result);
-                console.log(data);
-                this.setState({
-                    assignments: data.assignments,
-                    designers: data.designers,
-                    loaded: true
-                });
-            }.bind(this));
-        }
-    }, {
-        key: 'updateTable',
-        value: function updateTable(assignment) {
-            var assignments = this.state.assignments;
-            console.log("this is the assignment", assignment);
-            assignments.push(assignment);
-            this.setState({ assignments: assignments });
-        }
-    }, {
-        key: 'assignDesigner',
-        value: function assignDesigner(id, designerUsername) {
-            console.log(id, designerUsername, "being assigned");
-            var assignments = this.state.assignments;
-            for (var c = 0; c < assignments.length; c++) {
-                var assignment = assignments[c];
-                console.log(assignment);
-                if (assignment.id === id) {
-                    assignments[c].designer_username = designerUsername;
-                    assignments[c].status = "assigned";
-                    var data = {
-                        designer_username: designerUsername,
-                        assignment_id: id,
-                        client_username: $("#client-username").text()
-                    };
-                    this.serverRequest = $.post('/assign_designer_to_assignment/', data, function (result) {
-                        var data = JSON.parse(result);
-                        console.log(data);
-                    }.bind(this));
-                    c = assignments.length;
-                }
-            }
-            this.setState({ assignments: assignments });
-        }
-    }, {
-        key: 'unassignDesigner',
-        value: function unassignDesigner(id) {
-            console.log(id, "unassigning");
-            var assignments = this.state.assignments;
-            for (var c = 0; c < assignments.length; c++) {
-                var assignment = assignments[c];
-                console.log(assignment);
-                if (assignment.id === id) {
-                    assignments[c].designer_username = null;
-                    assignments[c].status = "unassigned";
-                    var data = {
-                        assignment_id: id,
-                        client_username: $("#client-username").text()
-                    };
-                    this.serverRequest = $.post('/unassign_designer_from_assignment/', data, function (result) {
-                        var data = JSON.parse(result);
-                        console.log(data);
-                    }.bind(this));
-                    c = assignments.length;
-                }
-            }
-            this.setState({ assignments: assignments });
-        }
-    }, {
-        key: 'deleteAssignment',
-        value: function deleteAssignment(id) {
-            this.serverRequest = $.post('/delete_assignment/', data, function (result) {
-                var data = JSON.parse(result);
-                console.log(data);
-            }.bind(this));
-            c = assignments.length;
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this._wrapChild = function (child) {
+      return _react2.default.createElement(_CSSTransitionGroupChild2.default, {
+        name: _this.props.transitionName,
+        appear: _this.props.transitionAppear,
+        enter: _this.props.transitionEnter,
+        leave: _this.props.transitionLeave,
+        appearTimeout: _this.props.transitionAppearTimeout,
+        enterTimeout: _this.props.transitionEnterTimeout,
+        leaveTimeout: _this.props.transitionLeaveTimeout
+      }, child);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
 
-            console.log(id, "unassigning");
-            var assignments = this.state.assignments;
-            var assignmentsLeft = [];
-            for (var c = 0; c < assignments.length; c++) {
-                var assignment = assignments[c];
-                console.log(assignment);
-                if (assignment.id !== id) {
-                    assignmentsLeft.push(assignment);
-                }
-            }
-            this.setState({ assignments: assignmentsLeft });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-lg-12' },
-                        _react2.default.createElement(_AssignmentsTable2.default, {
-                            assignments: this.state.assignments,
-                            designers: this.state.designers,
-                            assignDesigner: this.assignDesigner.bind(this),
-                            unassignDesigner: this.unassignDesigner.bind(this),
-                            updateTable: this.updateTable.bind(this)
-                        })
-                    )
-                )
-            );
-        }
-    }]);
+  // We need to provide this childFactory so that
+  // ReactCSSTransitionGroupChild can receive updates to name, enter, and
+  // leave while it is leaving.
 
-    return AssignmentsPage;
+
+  CSSTransitionGroup.prototype.render = function render() {
+    return _react2.default.createElement(_TransitionGroup2.default, _extends({}, this.props, { childFactory: this._wrapChild }));
+  };
+
+  return CSSTransitionGroup;
 }(_react2.default.Component);
 
-exports.default = AssignmentsPage;
+CSSTransitionGroup.displayName = 'CSSTransitionGroup';
+
+
+CSSTransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
+CSSTransitionGroup.defaultProps = defaultProps;
+
+exports.default = CSSTransitionGroup;
+module.exports = exports['default'];
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1058 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var emptyFunction = __webpack_require__(1026);
+var invariant = __webpack_require__(1027);
+var warning = __webpack_require__(1030);
+var assign = __webpack_require__(13);
+
+var ReactPropTypesSecret = __webpack_require__(1028);
+var checkPropTypes = __webpack_require__(1059);
+
+module.exports = function(isValidElement, throwOnDirectAccess) {
+  /* global Symbol */
+  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+
+  /**
+   * Returns the iterator method function contained on the iterable object.
+   *
+   * Be sure to invoke the function with the iterable as context:
+   *
+   *     var iteratorFn = getIteratorFn(myIterable);
+   *     if (iteratorFn) {
+   *       var iterator = iteratorFn.call(myIterable);
+   *       ...
+   *     }
+   *
+   * @param {?object} maybeIterable
+   * @return {?function}
+   */
+  function getIteratorFn(maybeIterable) {
+    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+    if (typeof iteratorFn === 'function') {
+      return iteratorFn;
+    }
+  }
+
+  /**
+   * Collection of methods that allow declaration and validation of props that are
+   * supplied to React components. Example usage:
+   *
+   *   var Props = require('ReactPropTypes');
+   *   var MyArticle = React.createClass({
+   *     propTypes: {
+   *       // An optional string prop named "description".
+   *       description: Props.string,
+   *
+   *       // A required enum prop named "category".
+   *       category: Props.oneOf(['News','Photos']).isRequired,
+   *
+   *       // A prop named "dialog" that requires an instance of Dialog.
+   *       dialog: Props.instanceOf(Dialog).isRequired
+   *     },
+   *     render: function() { ... }
+   *   });
+   *
+   * A more formal specification of how these methods are used:
+   *
+   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
+   *   decl := ReactPropTypes.{type}(.isRequired)?
+   *
+   * Each and every declaration produces a function with the same signature. This
+   * allows the creation of custom validation functions. For example:
+   *
+   *  var MyLink = React.createClass({
+   *    propTypes: {
+   *      // An optional string or URI prop named "href".
+   *      href: function(props, propName, componentName) {
+   *        var propValue = props[propName];
+   *        if (propValue != null && typeof propValue !== 'string' &&
+   *            !(propValue instanceof URI)) {
+   *          return new Error(
+   *            'Expected a string or an URI for ' + propName + ' in ' +
+   *            componentName
+   *          );
+   *        }
+   *      }
+   *    },
+   *    render: function() {...}
+   *  });
+   *
+   * @internal
+   */
+
+  var ANONYMOUS = '<<anonymous>>';
+
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+  var ReactPropTypes = {
+    array: createPrimitiveTypeChecker('array'),
+    bool: createPrimitiveTypeChecker('boolean'),
+    func: createPrimitiveTypeChecker('function'),
+    number: createPrimitiveTypeChecker('number'),
+    object: createPrimitiveTypeChecker('object'),
+    string: createPrimitiveTypeChecker('string'),
+    symbol: createPrimitiveTypeChecker('symbol'),
+
+    any: createAnyTypeChecker(),
+    arrayOf: createArrayOfTypeChecker,
+    element: createElementTypeChecker(),
+    instanceOf: createInstanceTypeChecker,
+    node: createNodeChecker(),
+    objectOf: createObjectOfTypeChecker,
+    oneOf: createEnumTypeChecker,
+    oneOfType: createUnionTypeChecker,
+    shape: createShapeTypeChecker,
+    exact: createStrictShapeTypeChecker,
+  };
+
+  /**
+   * inlined Object.is polyfill to avoid requiring consumers ship their own
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+   */
+  /*eslint-disable no-self-compare*/
+  function is(x, y) {
+    // SameValue algorithm
+    if (x === y) {
+      // Steps 1-5, 7-10
+      // Steps 6.b-6.e: +0 != -0
+      return x !== 0 || 1 / x === 1 / y;
+    } else {
+      // Step 6.a: NaN == NaN
+      return x !== x && y !== y;
+    }
+  }
+  /*eslint-enable no-self-compare*/
+
+  /**
+   * We use an Error-like object for backward compatibility as people may call
+   * PropTypes directly and inspect their output. However, we don't use real
+   * Errors anymore. We don't inspect their stack anyway, and creating them
+   * is prohibitively expensive if they are created too often, such as what
+   * happens in oneOfType() for any type before the one that matched.
+   */
+  function PropTypeError(message) {
+    this.message = message;
+    this.stack = '';
+  }
+  // Make `instanceof Error` still work for returned errors.
+  PropTypeError.prototype = Error.prototype;
+
+  function createChainableTypeChecker(validate) {
+    if (process.env.NODE_ENV !== 'production') {
+      var manualPropTypeCallCache = {};
+      var manualPropTypeWarningCount = 0;
+    }
+    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+      componentName = componentName || ANONYMOUS;
+      propFullName = propFullName || propName;
+
+      if (secret !== ReactPropTypesSecret) {
+        if (throwOnDirectAccess) {
+          // New behavior only for users of `prop-types` package
+          invariant(
+            false,
+            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+            'Use `PropTypes.checkPropTypes()` to call them. ' +
+            'Read more at http://fb.me/use-check-prop-types'
+          );
+        } else if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
+          // Old behavior for people using React.PropTypes
+          var cacheKey = componentName + ':' + propName;
+          if (
+            !manualPropTypeCallCache[cacheKey] &&
+            // Avoid spamming the console because they are often not actionable except for lib authors
+            manualPropTypeWarningCount < 3
+          ) {
+            warning(
+              false,
+              'You are manually calling a React.PropTypes validation ' +
+              'function for the `%s` prop on `%s`. This is deprecated ' +
+              'and will throw in the standalone `prop-types` package. ' +
+              'You may be seeing this warning due to a third-party PropTypes ' +
+              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.',
+              propFullName,
+              componentName
+            );
+            manualPropTypeCallCache[cacheKey] = true;
+            manualPropTypeWarningCount++;
+          }
+        }
+      }
+      if (props[propName] == null) {
+        if (isRequired) {
+          if (props[propName] === null) {
+            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+          }
+          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
+        }
+        return null;
+      } else {
+        return validate(props, propName, componentName, location, propFullName);
+      }
+    }
+
+    var chainedCheckType = checkType.bind(null, false);
+    chainedCheckType.isRequired = checkType.bind(null, true);
+
+    return chainedCheckType;
+  }
+
+  function createPrimitiveTypeChecker(expectedType) {
+    function validate(props, propName, componentName, location, propFullName, secret) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== expectedType) {
+        // `propValue` being instance of, say, date/regexp, pass the 'object'
+        // check, but we can offer a more precise error message here rather than
+        // 'of type `object`'.
+        var preciseType = getPreciseType(propValue);
+
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createAnyTypeChecker() {
+    return createChainableTypeChecker(emptyFunction.thatReturnsNull);
+  }
+
+  function createArrayOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
+      }
+      var propValue = props[propName];
+      if (!Array.isArray(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
+      }
+      for (var i = 0; i < propValue.length; i++) {
+        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
+        if (error instanceof Error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createElementTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      if (!isValidElement(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createInstanceTypeChecker(expectedClass) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!(props[propName] instanceof expectedClass)) {
+        var expectedClassName = expectedClass.name || ANONYMOUS;
+        var actualClassName = getClassName(props[propName]);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createEnumTypeChecker(expectedValues) {
+    if (!Array.isArray(expectedValues)) {
+      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
+      return emptyFunction.thatReturnsNull;
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      for (var i = 0; i < expectedValues.length; i++) {
+        if (is(propValue, expectedValues[i])) {
+          return null;
+        }
+      }
+
+      var valuesString = JSON.stringify(expectedValues);
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createObjectOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
+      }
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
+      }
+      for (var key in propValue) {
+        if (propValue.hasOwnProperty(key)) {
+          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+          if (error instanceof Error) {
+            return error;
+          }
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createUnionTypeChecker(arrayOfTypeCheckers) {
+    if (!Array.isArray(arrayOfTypeCheckers)) {
+      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+      return emptyFunction.thatReturnsNull;
+    }
+
+    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+      var checker = arrayOfTypeCheckers[i];
+      if (typeof checker !== 'function') {
+        warning(
+          false,
+          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
+          'received %s at index %s.',
+          getPostfixForTypeWarning(checker),
+          i
+        );
+        return emptyFunction.thatReturnsNull;
+      }
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+        var checker = arrayOfTypeCheckers[i];
+        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
+          return null;
+        }
+      }
+
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createNodeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!isNode(props[propName])) {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      for (var key in shapeTypes) {
+        var checker = shapeTypes[key];
+        if (!checker) {
+          continue;
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createStrictShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      // We need to check all keys in case some are required but missing from
+      // props.
+      var allKeys = assign({}, props[propName], shapeTypes);
+      for (var key in allKeys) {
+        var checker = shapeTypes[key];
+        if (!checker) {
+          return new PropTypeError(
+            'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
+            '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
+            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
+          );
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function isNode(propValue) {
+    switch (typeof propValue) {
+      case 'number':
+      case 'string':
+      case 'undefined':
+        return true;
+      case 'boolean':
+        return !propValue;
+      case 'object':
+        if (Array.isArray(propValue)) {
+          return propValue.every(isNode);
+        }
+        if (propValue === null || isValidElement(propValue)) {
+          return true;
+        }
+
+        var iteratorFn = getIteratorFn(propValue);
+        if (iteratorFn) {
+          var iterator = iteratorFn.call(propValue);
+          var step;
+          if (iteratorFn !== propValue.entries) {
+            while (!(step = iterator.next()).done) {
+              if (!isNode(step.value)) {
+                return false;
+              }
+            }
+          } else {
+            // Iterator will provide entry [k,v] tuples rather than values.
+            while (!(step = iterator.next()).done) {
+              var entry = step.value;
+              if (entry) {
+                if (!isNode(entry[1])) {
+                  return false;
+                }
+              }
+            }
+          }
+        } else {
+          return false;
+        }
+
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  function isSymbol(propType, propValue) {
+    // Native Symbol.
+    if (propType === 'symbol') {
+      return true;
+    }
+
+    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+    if (propValue['@@toStringTag'] === 'Symbol') {
+      return true;
+    }
+
+    // Fallback for non-spec compliant Symbols which are polyfilled.
+    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
+      return true;
+    }
+
+    return false;
+  }
+
+  // Equivalent of `typeof` but with special handling for array and regexp.
+  function getPropType(propValue) {
+    var propType = typeof propValue;
+    if (Array.isArray(propValue)) {
+      return 'array';
+    }
+    if (propValue instanceof RegExp) {
+      // Old webkits (at least until Android 4.0) return 'function' rather than
+      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+      // passes PropTypes.object.
+      return 'object';
+    }
+    if (isSymbol(propType, propValue)) {
+      return 'symbol';
+    }
+    return propType;
+  }
+
+  // This handles more types than `getPropType`. Only used for error messages.
+  // See `createPrimitiveTypeChecker`.
+  function getPreciseType(propValue) {
+    if (typeof propValue === 'undefined' || propValue === null) {
+      return '' + propValue;
+    }
+    var propType = getPropType(propValue);
+    if (propType === 'object') {
+      if (propValue instanceof Date) {
+        return 'date';
+      } else if (propValue instanceof RegExp) {
+        return 'regexp';
+      }
+    }
+    return propType;
+  }
+
+  // Returns a string that is postfixed to a warning about an invalid type.
+  // For example, "undefined" or "of type array"
+  function getPostfixForTypeWarning(value) {
+    var type = getPreciseType(value);
+    switch (type) {
+      case 'array':
+      case 'object':
+        return 'an ' + type;
+      case 'boolean':
+      case 'date':
+      case 'regexp':
+        return 'a ' + type;
+      default:
+        return type;
+    }
+  }
+
+  // Returns class name of the object, if any.
+  function getClassName(propValue) {
+    if (!propValue.constructor || !propValue.constructor.name) {
+      return ANONYMOUS;
+    }
+    return propValue.constructor.name;
+  }
+
+  ReactPropTypes.checkPropTypes = checkPropTypes;
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1059 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+if (process.env.NODE_ENV !== 'production') {
+  var invariant = __webpack_require__(1027);
+  var warning = __webpack_require__(1030);
+  var ReactPropTypesSecret = __webpack_require__(1028);
+  var loggedTypeFailures = {};
+}
+
+/**
+ * Assert that the values match with the type specs.
+ * Error messages are memorized and will only be shown once.
+ *
+ * @param {object} typeSpecs Map of name to a ReactPropType
+ * @param {object} values Runtime values that need to be type-checked
+ * @param {string} location e.g. "prop", "context", "child context"
+ * @param {string} componentName Name of the component for error messages.
+ * @param {?Function} getStack Returns the component stack.
+ * @private
+ */
+function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+  if (process.env.NODE_ENV !== 'production') {
+    for (var typeSpecName in typeSpecs) {
+      if (typeSpecs.hasOwnProperty(typeSpecName)) {
+        var error;
+        // Prop type validation may throw. In case they do, we don't want to
+        // fail the render phase where it didn't fail before. So we log it.
+        // After these have been cleaned up, we'll let them throw.
+        try {
+          // This is intentionally an invariant that gets caught. It's the same
+          // behavior as without this statement except with a better message.
+          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'the `prop-types` package, but received `%s`.', componentName || 'React class', location, typeSpecName, typeof typeSpecs[typeSpecName]);
+          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
+        } catch (ex) {
+          error = ex;
+        }
+        warning(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
+        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+          // Only monitor this failure once because there tends to be a lot of the
+          // same error.
+          loggedTypeFailures[error.message] = true;
+
+          var stack = getStack ? getStack() : '';
+
+          warning(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
+        }
+      }
+    }
+  }
+}
+
+module.exports = checkPropTypes;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1060 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var emptyFunction = __webpack_require__(1026);
+var invariant = __webpack_require__(1027);
+var ReactPropTypesSecret = __webpack_require__(1028);
+
+module.exports = function() {
+  function shim(props, propName, componentName, location, propFullName, secret) {
+    if (secret === ReactPropTypesSecret) {
+      // It is still safe when called from React.
+      return;
+    }
+    invariant(
+      false,
+      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+      'Use PropTypes.checkPropTypes() to call them. ' +
+      'Read more at http://fb.me/use-check-prop-types'
+    );
+  };
+  shim.isRequired = shim;
+  function getShim() {
+    return shim;
+  };
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+  var ReactPropTypes = {
+    array: shim,
+    bool: shim,
+    func: shim,
+    number: shim,
+    object: shim,
+    string: shim,
+    symbol: shim,
+
+    any: shim,
+    arrayOf: getShim,
+    element: shim,
+    instanceOf: getShim,
+    node: shim,
+    objectOf: getShim,
+    oneOf: getShim,
+    oneOfType: getShim,
+    shape: getShim,
+    exact: getShim
+  };
+
+  ReactPropTypes.checkPropTypes = emptyFunction;
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+
+
+/***/ }),
+/* 1061 */
+/***/ (function(module, exports) {
+
+
+module.exports = function chain(){
+  var len = arguments.length
+  var args = [];
+
+  for (var i = 0; i < len; i++)
+    args[i] = arguments[i]
+
+  args = args.filter(function(fn){ return fn != null })
+
+  if (args.length === 0) return undefined
+  if (args.length === 1) return args[0]
+
+  return args.reduce(function(current, next){
+    return function chainedFunction() {
+      current.apply(this, arguments);
+      next.apply(this, arguments);
+    };
+  })
+}
+
+
+/***/ }),
+/* 1062 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.getChildMapping = getChildMapping;
+exports.mergeChildMappings = mergeChildMappings;
+
+var _react = __webpack_require__(0);
+
+/**
+ * Given `this.props.children`, return an object mapping key to child.
+ *
+ * @param {*} children `this.props.children`
+ * @return {object} Mapping of key to child
+ */
+function getChildMapping(children) {
+  if (!children) {
+    return children;
+  }
+  var result = {};
+  _react.Children.map(children, function (child) {
+    return child;
+  }).forEach(function (child) {
+    result[child.key] = child;
+  });
+  return result;
+}
+
+/**
+ * When you're adding or removing children some may be added or removed in the
+ * same render pass. We want to show *both* since we want to simultaneously
+ * animate elements in and out. This function takes a previous set of keys
+ * and a new set of keys and merges them with its best guess of the correct
+ * ordering. In the future we may expose some of the utilities in
+ * ReactMultiChild to make this easy, but for now React itself does not
+ * directly have this concept of the union of prevChildren and nextChildren
+ * so we implement it here.
+ *
+ * @param {object} prev prev children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @param {object} next next children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @return {object} a key set that contains all keys in `prev` and all keys
+ * in `next` in a reasonable order.
+ */
+function mergeChildMappings(prev, next) {
+  prev = prev || {};
+  next = next || {};
+
+  function getValueForKey(key) {
+    if (next.hasOwnProperty(key)) {
+      return next[key];
+    }
+
+    return prev[key];
+  }
+
+  // For each key of `next`, the list of keys to insert before that key in
+  // the combined list
+  var nextKeysPending = {};
+
+  var pendingKeys = [];
+  for (var prevKey in prev) {
+    if (next.hasOwnProperty(prevKey)) {
+      if (pendingKeys.length) {
+        nextKeysPending[prevKey] = pendingKeys;
+        pendingKeys = [];
+      }
+    } else {
+      pendingKeys.push(prevKey);
+    }
+  }
+
+  var i = void 0;
+  var childMapping = {};
+  for (var nextKey in next) {
+    if (nextKeysPending.hasOwnProperty(nextKey)) {
+      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+        var pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+      }
+    }
+    childMapping[nextKey] = getValueForKey(nextKey);
+  }
+
+  // Finally, add the keys which didn't appear before any key in `next`
+  for (i = 0; i < pendingKeys.length; i++) {
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  }
+
+  return childMapping;
+}
+
+/***/ }),
+/* 1063 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _addClass = __webpack_require__(403);
+
+var _addClass2 = _interopRequireDefault(_addClass);
+
+var _removeClass = __webpack_require__(404);
+
+var _removeClass2 = _interopRequireDefault(_removeClass);
+
+var _requestAnimationFrame = __webpack_require__(1064);
+
+var _requestAnimationFrame2 = _interopRequireDefault(_requestAnimationFrame);
+
+var _properties = __webpack_require__(200);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1022);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(17);
+
+var _PropTypes = __webpack_require__(1032);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var events = [];
+if (_properties.transitionEnd) events.push(_properties.transitionEnd);
+if (_properties.animationEnd) events.push(_properties.animationEnd);
+
+function addEndListener(node, listener) {
+  if (events.length) {
+    events.forEach(function (e) {
+      return node.addEventListener(e, listener, false);
+    });
+  } else {
+    setTimeout(listener, 0);
+  }
+
+  return function () {
+    if (!events.length) return;
+    events.forEach(function (e) {
+      return node.removeEventListener(e, listener, false);
+    });
+  };
+}
+
+var propTypes = {
+  children: _propTypes2.default.node,
+  name: _PropTypes.nameShape.isRequired,
+
+  // Once we require timeouts to be specified, we can remove the
+  // boolean flags (appear etc.) and just accept a number
+  // or a bool for the timeout flags (appearTimeout etc.)
+  appear: _propTypes2.default.bool,
+  enter: _propTypes2.default.bool,
+  leave: _propTypes2.default.bool,
+  appearTimeout: _propTypes2.default.number,
+  enterTimeout: _propTypes2.default.number,
+  leaveTimeout: _propTypes2.default.number
+};
+
+var CSSTransitionGroupChild = function (_React$Component) {
+  _inherits(CSSTransitionGroupChild, _React$Component);
+
+  function CSSTransitionGroupChild() {
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, CSSTransitionGroupChild);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.componentWillAppear = function (done) {
+      if (_this.props.appear) {
+        _this.transition('appear', done, _this.props.appearTimeout);
+      } else {
+        done();
+      }
+    }, _this.componentWillEnter = function (done) {
+      if (_this.props.enter) {
+        _this.transition('enter', done, _this.props.enterTimeout);
+      } else {
+        done();
+      }
+    }, _this.componentWillLeave = function (done) {
+      if (_this.props.leave) {
+        _this.transition('leave', done, _this.props.leaveTimeout);
+      } else {
+        done();
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  CSSTransitionGroupChild.prototype.componentWillMount = function componentWillMount() {
+    this.classNameAndNodeQueue = [];
+    this.transitionTimeouts = [];
+  };
+
+  CSSTransitionGroupChild.prototype.componentWillUnmount = function componentWillUnmount() {
+    this.unmounted = true;
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.transitionTimeouts.forEach(function (timeout) {
+      clearTimeout(timeout);
+    });
+
+    this.classNameAndNodeQueue.length = 0;
+  };
+
+  CSSTransitionGroupChild.prototype.transition = function transition(animationType, finishCallback, timeout) {
+    var node = (0, _reactDom.findDOMNode)(this);
+
+    if (!node) {
+      if (finishCallback) {
+        finishCallback();
+      }
+      return;
+    }
+
+    var className = this.props.name[animationType] || this.props.name + '-' + animationType;
+    var activeClassName = this.props.name[animationType + 'Active'] || className + '-active';
+    var timer = null;
+    var removeListeners = void 0;
+
+    (0, _addClass2.default)(node, className);
+
+    // Need to do this to actually trigger a transition.
+    this.queueClassAndNode(activeClassName, node);
+
+    // Clean-up the animation after the specified delay
+    var finish = function finish(e) {
+      if (e && e.target !== node) {
+        return;
+      }
+
+      clearTimeout(timer);
+      if (removeListeners) removeListeners();
+
+      (0, _removeClass2.default)(node, className);
+      (0, _removeClass2.default)(node, activeClassName);
+
+      if (removeListeners) removeListeners();
+
+      // Usually this optional callback is used for informing an owner of
+      // a leave animation and telling it to remove the child.
+      if (finishCallback) {
+        finishCallback();
+      }
+    };
+
+    if (timeout) {
+      timer = setTimeout(finish, timeout);
+      this.transitionTimeouts.push(timer);
+    } else if (_properties.transitionEnd) {
+      removeListeners = addEndListener(node, finish);
+    }
+  };
+
+  CSSTransitionGroupChild.prototype.queueClassAndNode = function queueClassAndNode(className, node) {
+    var _this2 = this;
+
+    this.classNameAndNodeQueue.push({
+      className: className,
+      node: node
+    });
+
+    if (!this.rafHandle) {
+      this.rafHandle = (0, _requestAnimationFrame2.default)(function () {
+        return _this2.flushClassNameAndNodeQueue();
+      });
+    }
+  };
+
+  CSSTransitionGroupChild.prototype.flushClassNameAndNodeQueue = function flushClassNameAndNodeQueue() {
+    if (!this.unmounted) {
+      this.classNameAndNodeQueue.forEach(function (obj) {
+        // This is for to force a repaint,
+        // which is necessary in order to transition styles when adding a class name.
+        /* eslint-disable no-unused-expressions */
+        obj.node.scrollTop;
+        /* eslint-enable no-unused-expressions */
+        (0, _addClass2.default)(obj.node, obj.className);
+      });
+    }
+    this.classNameAndNodeQueue.length = 0;
+    this.rafHandle = null;
+  };
+
+  CSSTransitionGroupChild.prototype.render = function render() {
+    var props = _extends({}, this.props);
+    delete props.name;
+    delete props.appear;
+    delete props.enter;
+    delete props.leave;
+    delete props.appearTimeout;
+    delete props.enterTimeout;
+    delete props.leaveTimeout;
+    delete props.children;
+    return _react2.default.cloneElement(_react2.default.Children.only(this.props.children), props);
+  };
+
+  return CSSTransitionGroupChild;
+}(_react2.default.Component);
+
+CSSTransitionGroupChild.displayName = 'CSSTransitionGroupChild';
+
+
+CSSTransitionGroupChild.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
+
+exports.default = CSSTransitionGroupChild;
+module.exports = exports['default'];
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1064 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _inDOM = __webpack_require__(43);
+
+var _inDOM2 = _interopRequireDefault(_inDOM);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var vendors = ['', 'webkit', 'moz', 'o', 'ms'];
+var cancel = 'clearTimeout';
+var raf = fallback;
+var compatRaf = void 0;
+
+var getKey = function getKey(vendor, k) {
+  return vendor + (!vendor ? k : k[0].toUpperCase() + k.substr(1)) + 'AnimationFrame';
+};
+
+if (_inDOM2.default) {
+  vendors.some(function (vendor) {
+    var rafKey = getKey(vendor, 'request');
+
+    if (rafKey in window) {
+      cancel = getKey(vendor, 'cancel');
+      return raf = function raf(cb) {
+        return window[rafKey](cb);
+      };
+    }
+  });
+}
+
+/* https://github.com/component/raf */
+var prev = new Date().getTime();
+function fallback(fn) {
+  var curr = new Date().getTime(),
+      ms = Math.max(0, 16 - (curr - prev)),
+      req = setTimeout(fn, ms);
+
+  prev = curr;
+  return req;
+}
+
+compatRaf = function compatRaf(cb) {
+  return raf(cb);
+};
+compatRaf.cancel = function (id) {
+  window[cancel] && typeof window[cancel] === 'function' && window[cancel](id);
+};
+exports.default = compatRaf;
+module.exports = exports['default'];
+
+/***/ }),
+/* 1065 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(3);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Notification = function (_React$Component) {
+  _inherits(Notification, _React$Component);
+
+  function Notification() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Notification);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Notification.__proto__ || Object.getPrototypeOf(Notification)).call.apply(_ref, [this].concat(args))), _this), _this.componentDidMount = function () {
+      var timeOut = _this.props.timeOut;
+
+      if (timeOut !== 0) {
+        _this.timer = setTimeout(_this.requestHide, timeOut);
+      }
+    }, _this.componentWillUnmount = function () {
+      if (_this.timer) {
+        clearTimeout(_this.timer);
+      }
+    }, _this.handleClick = function () {
+      var onClick = _this.props.onClick;
+
+      if (onClick) {
+        onClick();
+      }
+      _this.requestHide();
+    }, _this.requestHide = function () {
+      var onRequestHide = _this.props.onRequestHide;
+
+      if (onRequestHide) {
+        onRequestHide();
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Notification, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          type = _props.type,
+          message = _props.message;
+      var title = this.props.title;
+
+      var className = (0, _classnames2.default)(['notification', 'notification-' + type]);
+      title = title ? _react2.default.createElement(
+        'h4',
+        { className: 'title' },
+        title
+      ) : null;
+      return _react2.default.createElement(
+        'div',
+        { className: className, onClick: this.handleClick },
+        _react2.default.createElement(
+          'div',
+          { className: 'notification-message', role: 'alert' },
+          title,
+          _react2.default.createElement(
+            'div',
+            { className: 'message' },
+            message
+          )
+        )
+      );
+    }
+  }]);
+
+  return Notification;
+}(_react2.default.Component);
+
+Notification.propTypes = {
+  type: _propTypes2.default.oneOf(['info', 'success', 'warning', 'error']),
+  title: _propTypes2.default.node,
+  message: _propTypes2.default.node.isRequired,
+  timeOut: _propTypes2.default.number,
+  onClick: _propTypes2.default.func,
+  onRequestHide: _propTypes2.default.func
+};
+Notification.defaultProps = {
+  type: 'info',
+  title: null,
+  message: null,
+  timeOut: 5000,
+  onClick: function onClick() {},
+  onRequestHide: function onRequestHide() {}
+};
+exports.default = Notification;
+module.exports = exports['default'];
+
+/***/ }),
+/* 1066 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _NotificationManager = __webpack_require__(1033);
+
+var _NotificationManager2 = _interopRequireDefault(_NotificationManager);
+
+var _Notifications = __webpack_require__(1029);
+
+var _Notifications2 = _interopRequireDefault(_Notifications);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NotificationContainer = function (_React$Component) {
+  _inherits(NotificationContainer, _React$Component);
+
+  function NotificationContainer() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, NotificationContainer);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = NotificationContainer.__proto__ || Object.getPrototypeOf(NotificationContainer)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      notifications: []
+    }, _this.componentWillMount = function () {
+      _NotificationManager2.default.addChangeListener(_this.handleStoreChange);
+    }, _this.componentWillUnmount = function () {
+      _NotificationManager2.default.removeChangeListener(_this.handleStoreChange);
+    }, _this.handleStoreChange = function (notifications) {
+      _this.setState({
+        notifications: notifications
+      });
+    }, _this.handleRequestHide = function (notification) {
+      _NotificationManager2.default.remove(notification);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(NotificationContainer, [{
+    key: 'render',
+    value: function render() {
+      var notifications = this.state.notifications;
+      var _props = this.props,
+          enterTimeout = _props.enterTimeout,
+          leaveTimeout = _props.leaveTimeout;
+
+      return _react2.default.createElement(_Notifications2.default, {
+        enterTimeout: enterTimeout,
+        leaveTimeout: leaveTimeout,
+        notifications: notifications,
+        onRequestHide: this.handleRequestHide
+      });
+    }
+  }]);
+
+  return NotificationContainer;
+}(_react2.default.Component);
+
+NotificationContainer.propTypes = {
+  enterTimeout: _propTypes2.default.number,
+  leaveTimeout: _propTypes2.default.number
+};
+NotificationContainer.defaultProps = {
+  enterTimeout: 400,
+  leaveTimeout: 400
+};
+exports.default = NotificationContainer;
+module.exports = exports['default'];
 
 /***/ })
 /******/ ]);

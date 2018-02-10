@@ -11,32 +11,31 @@ fb = firebase.FirebaseApplication(db_url, authentication=None)
 
 
 def get_valid_inactive_mws_accounts():
-    db_url = "https://blinding-heat-2796.firebaseio.com/"
-    fb = firebase.FirebaseApplication(db_url, authentication=None)
-    users = fb.get('/validInactiveMwsAccounts', None)
-    return users
+	db_url = "https://blinding-heat-2796.firebaseio.com/"
+	fb = firebase.FirebaseApplication(db_url, authentication=None)
+	users = fb.get('/validInactiveMwsAccounts', None)
+	return users
+	
+def signup(username, password, email, referrerId=None, customerId=None, plan=None, active=False, isTrialing=False, isDesigner=False, defaults=None):
 
+	data = {
+		"username": username,
+		"password": password,
+		"email": email,
+		"role": "user",
+		"confirmed": False,
+		"referrerId": referrerId,
+		"plan": plan,
+		"active": active,
+		"isTrialing": isTrialing,
+		"customerId": customerId,
+		"defaults": defaults,
+		"isDesigner": isDesigner,
+		"authProfile": "travis"
+	}
 
-def signup(username, password, email, referrerId=None, customerId=None, plan=None, active=False, isTrialing=False,
-           defaults=None):
-    data = {
-        "username": username,
-        "password": password,
-        "email": email,
-        "role": "user",
-        "confirmed": False,
-        "referrerId": referrerId,
-        "plan": plan,
-        "active": active,
-        "isTrialing": isTrialing,
-        "customerId": customerId,
-        "defaults": defaults,
-        "authProfile": "travis"
-    }
-
-    user_result = save_object('users', data)
-    return user_result
-
+	user_result = save_object('users', data)
+	return user_result
 
 def va_signup(username, password, email):
 	data = {

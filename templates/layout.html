@@ -308,7 +308,7 @@
 <body class="fixed-navbar">
 
 <!-- Header -->
-<div id="header">
+<div id="header" style="z-index:0">
     <div>
     </div>
     <div id="logo" class="light-version">
@@ -327,7 +327,43 @@
     </nav>
 </div>
 
+{% if current_user.is_designer %}
 
+<!-- Navigation -->
+<aside id="menu">
+    <div id="navigation">
+        <br/><br/>
+
+        <ul class="nav" id="side-menu">
+
+            {% if request.path == '/' %}
+            <li class="sidebar-li active">
+                <a href="/home/" role="button" data-toggle="modal"> <span class="nav-label"><i class="pull-left pe-7s-user" style="margin-right:10px; margin-top:1px" ></i> Home</span></a>
+            </li>
+            {% else %}
+            <li class="sidebar-li">
+                <a href="/home/" role="button" data-toggle="modal"> <span class="nav-label"><i class="pull-left pe-7s-user" style="margin-right:10px; margin-top:1px" ></i> Home</span></a>
+            </li>
+            {% endif %}
+
+            {% if '/settings/' in request.path %}
+            <li class="active sidebar-li">
+                <a href="/settings/"> <span class="nav-label"><i class="pull-left pe-7s-tools" style="margin-right:10px; margin-top:1px"></i> Settings</span></a>
+            </li>
+            {% else %}
+            <li class="sidebar-li">
+                <a href="/settings/"> <span class="nav-label"><i class="pull-left pe-7s-tools" style="margin-right:10px; margin-top:1px"></i> Settings</span></a>
+            </li>  
+            {% endif %}
+
+            <li class="sidebar-li">
+                <a href="/logout/"> <span class="nav-label"><i class="pull-left fa fa-sign-out"  style="margin-right:10px; margin-top:1px; color:#D3D3D3"></i> Logout</span> </a>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+{% else %}
 
 <!-- Navigation -->
 <aside id="menu">
@@ -469,6 +505,7 @@
     </div>
 </aside>
 
+{% endif %}
 
 <!-- Vendor script -->
 <script src="/static/vendor/jquery/dist/jquery.min.js"></script>

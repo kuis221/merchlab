@@ -4,7 +4,7 @@
 
 {% block body %}
 <link rel="stylesheet" href="/static/vendor/sweetalert/lib/sweet-alert.css" />
-<script src="/static/vendor/sweetalert/lib/sweet-alert.min.js"></script>
+<link rel="stylesheet" href="/static/vendor/react-notifications/react-notifications.css"></link>
 
 <style>
 
@@ -20,6 +20,55 @@
     font-weight:300;
     font-family:'Open Sans';
 }
+
+.react-bs-container-body {
+    overflow-y: visible;
+    overflow-x: visible;
+}
+
+.react-bootstrap-table-page-btns-ul {
+    margin-top:0px;
+    float:right;
+}
+
+
+.react-bs-table table td {
+    overflow:visible;
+    overflow-y: visible;
+    overflow-x: visible;
+}
+
+.table-button {
+    width:100%;
+    margin-bottom:5px;
+    font-weight:300;
+    font-family:'Open Sans';
+}
+
+.btn {
+    font-weight:300;
+    font-family: 'Open Sans';
+}
+
+.modal-header {
+    padding:10px;
+    padding-left:10px;  
+}
+
+.modal-title {
+    font-size:24px;
+}
+
+
+.react-bs-container-body tr td {
+    font-size:12px;
+}
+
+
+.modal-dialog {
+    margin-top:50px;
+}
+
 </style>
 
 <!-- Main Wrapper -->
@@ -80,105 +129,7 @@
                 </div>
             </div>
             <br />
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="hpanel">
-                        <div class="panel-heading hbuilt">
-                            <div class="panel-tools">
-                                <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                            </div>
-                            <span style="margin-left:10px">Designers</span>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row ">
-                                <div class="col-lg-12 text-left">
-                                    <table class="table table-hover table-bordered text-center" style="margin-top:10px">
-                                        <tbody>
-                                        <th class="text-center">Designer Name</th>
-                                        <th class="text-center">Email</th>
-                                        <th class="text-center">Rate</th>
-                                        <th class="text-center">Unpaid Commissions</th>
-                                        <th class="text-center">Assignments</th>
-                                        <th class="text-center">Actions</th>
-
-                                        <tr>
-                                            <td>
-                                                Bob Riley
-                                            </td>
-                                            <td>
-                                                bobriley@gmail.com
-                                            </td>
-                                            <td>$35/hr</td>
-
-                                            <td>
-                                                $889.50
-                                            </td>
-                                            <td>
-                                                <small><b>38</b> in progress</small>
-                                                <br />
-                                                <small><b>42</b> completed</small>
-                                            </td>
-                                            <td class="text-center">
-                                                <button class="btn btn-primary btn-xs table-button">PAYOUT</button>
-                                                <button class="btn btn-default btn-xs table-button">REMOVE</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Joe Bob
-                                            </td>
-
-                                            <td>
-                                                joe.bob19230123@gmail.com
-                                            </td>
-                                            <td>$25/hr</td>
-                                            <td>
-                                                $220.00
-                                            </td>
-                                            <td>
-                                                <small><b>38</b> in progress</small>
-                                                <br />
-                                                <small><b>42</b> completed</small>
-                                            </td>
-                                            <td class="text-center">
-                                                <button class="btn btn-primary btn-xs table-button">PAYOUT</button>
-                                                <button class="btn btn-default btn-xs table-button">REMOVE</button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="hpanel">
-                        <div class="panel-heading hbuilt">
-                            <div class="panel-tools">
-                                <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                            </div>
-                            <span style="margin-left:10px">New Designer</span>
-                        </div>
-                        <div class="panel-body" style="text-align:left">
-                            <div class="form-group"><label class="control-label">Designer Name</label>
-                                <div><input type="text" class="form-control input-sm"></div>
-                            </div>
-                            <div class="form-group"><label class="control-label">Email</label>
-                                <div><input type="text" class="form-control input-sm"></div>
-                            </div>
-                            <div class="form-group"><label class="control-label">Rate</label>
-                                <div><input type="text" class="form-control input-sm"></div>
-                            </div>
-
-                            <div class="text-center">
-                                <button class="btn btn-success" style="font-weight:300; font-family: 'Open Sans'">ADD DESIGNER</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="designers-page"></div>
         </div>
         <br />
     </div>
@@ -196,6 +147,7 @@
 
 <!-- App scripts -->
 <script src="/static/scripts/homer.js"></script>
+<script src="/static/bundle/designers.js"></script>
 
 
 

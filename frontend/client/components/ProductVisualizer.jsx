@@ -28,7 +28,7 @@ export default class ProductVisualizer extends React.Component {
         var selectedTshirtInfo;
         if (this.props.selectedProduct) {
             var tshirt = this.props.selectedProduct;
-            var image = tshirt.image;
+            var image = tshirt.image || "";
             image = image.replace("._SL75", "._SL200");
 
             selectedTshirtInfo = (

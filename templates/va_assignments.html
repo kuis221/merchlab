@@ -43,25 +43,6 @@
     font-family: 'Open Sans';
 }
 
-.modal-header {
-    padding:10px;
-    padding-left:10px;  
-}
-
-.modal-title {
-    font-size:24px;
-}
-
-
-.react-bs-container-body tr td {
-    font-size:12px;
-}
-
-
-.modal-dialog {
-    margin-top:50px;
-}
-
 </style>
 
 <!-- Main Wrapper -->
@@ -77,8 +58,8 @@
                 </div>
             </div>
             <br />
-            <div id="client-username" style="display:none">{{current_user.username}}</div>
-            <div id='assignments-page'>
+            <div id='client-username' style="display:none">{{client_username}}</div>
+            <div id='designer-assignments-page'>
             </div>
         </div>
         <br />
@@ -97,7 +78,7 @@
 
 <!-- App scripts -->
 <script src="/static/scripts/homer.js"></script>
-<script src="/static/bundle/assignments.js"></script>
+<script src="/static/bundle/designer_assignments.js"></script>
 
 
 

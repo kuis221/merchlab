@@ -20,6 +20,7 @@ class User(UserMixin):
         self.auth_token = userDetails.get("authToken")
         self.auth_profile = userDetails.get("authProfile") or "jeff"
         self.user_details = userDetails
+        self.is_designer = userDetails.get("isDesigner")
         self.addresses=addresses
  
     def get_auth_token(self):
