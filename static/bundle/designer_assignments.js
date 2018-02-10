@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1044);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1046);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -56013,7 +56013,9 @@ exports.default = NewAssignmentModal;
 /* 1041 */,
 /* 1042 */,
 /* 1043 */,
-/* 1044 */
+/* 1044 */,
+/* 1045 */,
+/* 1046 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56027,16 +56029,16 @@ var _reactDom = __webpack_require__(17);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AssignmentsPage = __webpack_require__(1045);
+var _DesignerAssignmentsPage = __webpack_require__(1047);
 
-var _AssignmentsPage2 = _interopRequireDefault(_AssignmentsPage);
+var _DesignerAssignmentsPage2 = _interopRequireDefault(_DesignerAssignmentsPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_AssignmentsPage2.default, null), document.getElementById('assignments-page'));
+_reactDom2.default.render(_react2.default.createElement(_DesignerAssignmentsPage2.default, null), document.getElementById('designer-assignments-page'));
 
 /***/ }),
-/* 1045 */
+/* 1047 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56068,113 +56070,35 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AssignmentsPage = function (_React$Component) {
-    _inherits(AssignmentsPage, _React$Component);
+var DesignerAssignmentsPage = function (_React$Component) {
+    _inherits(DesignerAssignmentsPage, _React$Component);
 
-    function AssignmentsPage(props) {
-        _classCallCheck(this, AssignmentsPage);
+    function DesignerAssignmentsPage(props) {
+        _classCallCheck(this, DesignerAssignmentsPage);
 
-        var _this = _possibleConstructorReturn(this, (AssignmentsPage.__proto__ || Object.getPrototypeOf(AssignmentsPage)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (DesignerAssignmentsPage.__proto__ || Object.getPrototypeOf(DesignerAssignmentsPage)).call(this, props));
 
         _this.state = {
             loaded: false,
-            assignments: [],
-            designers: [],
-            showNewAssignmentModal: false
+            assignments: []
         };
         return _this;
     }
 
-    _createClass(AssignmentsPage, [{
+    _createClass(DesignerAssignmentsPage, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.serverRequest = $.get('/get_assignments/', function (result) {
+            var clientUsername = $("#client-username").text();
+            console.log(clientUsername);
+            console.log("/va_assignments/" + clientUsername + "/data/");
+            this.serverRequest = $.get('/va_assignments/' + clientUsername + '/data/', function (result) {
                 var data = JSON.parse(result);
                 console.log(data);
                 this.setState({
                     assignments: data.assignments,
-                    designers: data.designers,
                     loaded: true
                 });
             }.bind(this));
-        }
-    }, {
-        key: 'updateTable',
-        value: function updateTable(assignment) {
-            var assignments = this.state.assignments;
-            console.log("this is the assignment", assignment);
-            assignments.push(assignment);
-            this.setState({ assignments: assignments });
-        }
-    }, {
-        key: 'assignDesigner',
-        value: function assignDesigner(id, designerUsername) {
-            console.log(id, designerUsername, "being assigned");
-            var assignments = this.state.assignments;
-            for (var c = 0; c < assignments.length; c++) {
-                var assignment = assignments[c];
-                console.log(assignment);
-                if (assignment.id === id) {
-                    assignments[c].designer_username = designerUsername;
-                    assignments[c].status = "assigned";
-                    var data = {
-                        designer_username: designerUsername,
-                        assignment_id: id,
-                        client_username: $("#client-username").text()
-                    };
-                    this.serverRequest = $.post('/assign_designer_to_assignment/', data, function (result) {
-                        var data = JSON.parse(result);
-                        console.log(data);
-                    }.bind(this));
-                    c = assignments.length;
-                }
-            }
-            this.setState({ assignments: assignments });
-        }
-    }, {
-        key: 'unassignDesigner',
-        value: function unassignDesigner(id) {
-            console.log(id, "unassigning");
-            var assignments = this.state.assignments;
-            for (var c = 0; c < assignments.length; c++) {
-                var assignment = assignments[c];
-                console.log(assignment);
-                if (assignment.id === id) {
-                    assignments[c].designer_username = null;
-                    assignments[c].status = "unassigned";
-                    var data = {
-                        assignment_id: id,
-                        client_username: $("#client-username").text()
-                    };
-                    this.serverRequest = $.post('/unassign_designer_from_assignment/', data, function (result) {
-                        var data = JSON.parse(result);
-                        console.log(data);
-                    }.bind(this));
-                    c = assignments.length;
-                }
-            }
-            this.setState({ assignments: assignments });
-        }
-    }, {
-        key: 'deleteAssignment',
-        value: function deleteAssignment(id) {
-            this.serverRequest = $.post('/delete_assignment/', data, function (result) {
-                var data = JSON.parse(result);
-                console.log(data);
-            }.bind(this));
-            c = assignments.length;
-
-            console.log(id, "unassigning");
-            var assignments = this.state.assignments;
-            var assignmentsLeft = [];
-            for (var c = 0; c < assignments.length; c++) {
-                var assignment = assignments[c];
-                console.log(assignment);
-                if (assignment.id !== id) {
-                    assignmentsLeft.push(assignment);
-                }
-            }
-            this.setState({ assignments: assignmentsLeft });
         }
     }, {
         key: 'render',
@@ -56190,10 +56114,7 @@ var AssignmentsPage = function (_React$Component) {
                         { className: 'col-lg-12' },
                         _react2.default.createElement(_AssignmentsTable2.default, {
                             assignments: this.state.assignments,
-                            designers: this.state.designers,
-                            assignDesigner: this.assignDesigner.bind(this),
-                            unassignDesigner: this.unassignDesigner.bind(this),
-                            updateTable: this.updateTable.bind(this)
+                            isDesignerView: true
                         })
                     )
                 )
@@ -56201,10 +56122,10 @@ var AssignmentsPage = function (_React$Component) {
         }
     }]);
 
-    return AssignmentsPage;
+    return DesignerAssignmentsPage;
 }(_react2.default.Component);
 
-exports.default = AssignmentsPage;
+exports.default = DesignerAssignmentsPage;
 
 /***/ })
 /******/ ]);

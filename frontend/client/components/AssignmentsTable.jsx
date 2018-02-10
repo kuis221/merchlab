@@ -1,10 +1,14 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import NewAssignmentModal from './NewAssignmentModal.jsx';
 
 export default class AssignmentsTable extends React.Component {
     
     constructor(props) {
         super(props);
+        this.state = {
+            showNewAssignmentModal: false
+        }
     }
 
     componentDidMount() {
@@ -15,7 +19,7 @@ export default class AssignmentsTable extends React.Component {
         var statusNode;
         if (status.toLocaleLowerCase() === "unassigned") {
             statusNode = <span className="label label-danger">{status}</span>
-        } else if (status.toLocaleLowerCase() === "complete") {
+        } else if (status.toLocaleLowerCase() === "completed") {
             statusNode = <span className="label label-success">{status}</span>
         } else {
             statusNode = <span className="label label-warning">{status}</span>
@@ -45,13 +49,27 @@ export default class AssignmentsTable extends React.Component {
         )
     }
 
+
     designerFormatter(cell, row) {
-        if (row.designer_username) {
+        var designers = this.props.designers;
+        var designerNames = [];
+        for (var c=0; c<designers.length;c++) {
+            designerNames.push(designers[c].designer_username)
+        }
+        var designerNodes = designerNames.map(function(name) {
+            return (
+                <li><a href="#a" onClick={this.props.assignDesigner.bind(null, row.id, name)}>{name}</a></li>
+            )
+        }.bind(this));
+
+        if (row.status.toLocaleLowerCase() === "completed") {
+            return row.designer_username;      
+        } else if (row.designer_username) {
             return (
                 <div>
                     {row.designer_username}
                     <br />
-                    <button className="btn btn-default btn-xs" style={{width:'90%', marginBottom:'5px'}}>UNASSIGN</button>
+                    <button className="btn btn-default btn-xs" style={{width:'90%', marginBottom:'5px'}} onClick={this.props.unassignDesigner.bind(null, row.id)}>UNASSIGN</button>
                 </div>            
             )
         } else {
@@ -62,10 +80,7 @@ export default class AssignmentsTable extends React.Component {
                         <span className="margin-right">Choose</span> 
                         <span className="caret"></span></button>
                         <ul className="dropdown-menu dropdown-menu-left">
-                            <li><a href="#a">Adrian</a></li>
-                            <li><a href="#a">Bob</a></li>
-                            <li><a href="#a">Joe</a></li>
-                            <li><a href="#a">Jim</a></li>
+                            {designerNodes}
                         </ul>
                     </div>
                 </div>
@@ -74,69 +89,131 @@ export default class AssignmentsTable extends React.Component {
     }
 
     actionsFormatter(cell, row) {
-        return (
-            <div>
-                <a href={"/assignment/" + row.id}><button className="btn btn-primary btn-xs table-button">VIEW</button></a>
-                <button className="btn btn-default btn-xs table-button">PING</button>
-                <button className="btn btn-default btn-xs table-button">DELETE</button>
+        var clientUsername = $("#client-username").text();
+        if (this.props.isDesignerView || row.status.toLocaleLowerCase() === "completed") {
+            return (
+                <div>
+                    <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-primary btn-xs table-button">VIEW</button></a>
+                </div>
+            )        
+        } else {
 
-            </div>
-        )
+            return (
+                <div>
+                    <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-primary btn-xs table-button">VIEW</button></a>
+                    <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-default btn-xs table-button">PING</button></a>
+                    <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-default btn-xs table-button">DELETE</button></a>
+                </div>
+            )        
+        }
+
+    }
+
+    showNewAssignmentModal() {
+        this.setState({
+            showNewAssignmentModal: true
+        })
+    }
+
+    onHideNewAssignmentModal() {
+        this.setState({
+            showNewAssignmentModal: false
+        })
     }
 
     render() {
-        var table = (
-            <BootstrapTable
-                    data={this.props.assignments} 
-                    exportCSV={false} 
-                    striped={false} 
-                    bordered={false} 
-                    hover={false} 
-                    pagination={true}
-                    search={true}
-                >
+        let options = {
+            defaultSortName: 'created_at',
+            defaultSortOrder: 'desc'
+        }
 
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="status" editable={false} dataFormat={this.statusFormatter}>STATUS</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="created_at" editable={false}>CREATED ON</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="thumbnail" editable={false} dataFormat={this.inspirationFormatter}>INSPIRATION</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="notes" editable={false} dataFormat={this.notesFormatter}>NOTES</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="designer_username" editable={false} dataFormat={this.designerFormatter} isKey={true}>DESIGNER</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} editable={false} dataFormat={this.actionsFormatter}>ACTIONS</TableHeaderColumn>
+        var table;
+        var newAssignmentBtn;
+        if (this.props.isDesignerView) {
+            table = (
+                <BootstrapTable
+                        data={this.props.assignments} 
+                        exportCSV={false} 
+                        striped={false} 
+                        bordered={false} 
+                        hover={false} 
+                        pagination={true}
+                        search={true}
+                        options={options}
+                    >
 
-            </BootstrapTable>
-        )
+                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="status" editable={false} dataFormat={this.statusFormatter}>STATUS</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="created_at" editable={false} isKey={true}>CREATED ON</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="thumbnail" editable={false} dataFormat={this.inspirationFormatter}>INSPIRATION</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="notes" editable={false} dataFormat={this.notesFormatter}>NOTES</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign="center" dataSort={true} editable={false} dataFormat={this.actionsFormatter.bind(this)}>ACTIONS</TableHeaderColumn>
+
+                </BootstrapTable>
+            )
+        } else {
+            table = (
+                <BootstrapTable
+                        data={this.props.assignments} 
+                        exportCSV={false} 
+                        striped={false} 
+                        bordered={false} 
+                        hover={false} 
+                        pagination={true}
+                        search={true}
+                        options={options}
+                    >
+
+                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="status" editable={false} dataFormat={this.statusFormatter}>STATUS</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="created_at" editable={false} isKey={true}>CREATED ON</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="thumbnail" editable={false} dataFormat={this.inspirationFormatter}>INSPIRATION</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="notes" editable={false} dataFormat={this.notesFormatter}>NOTES</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="designer_username" editable={false} dataFormat={this.designerFormatter.bind(this)}>DESIGNER</TableHeaderColumn>
+                    <TableHeaderColumn dataAlign="center" dataSort={true} editable={false} dataFormat={this.actionsFormatter.bind(this)}>ACTIONS</TableHeaderColumn>
+
+                </BootstrapTable>
+            )        
+            newAssignmentBtn = <button className="btn btn-primary" style={{marginLeft: '10px'}} onClick={this.showNewAssignmentModal.bind(this)}>NEW ASSIGNMENT</button>
+        }
+
 
         return (
-        <div className="hpanel">
-            <div className="panel-heading hbuilt">
-                <div className="panel-tools">
-                    <a className="showhide"><i className="fa fa-chevron-up"></i></a>
+            <div className="hpanel">
+                <NewAssignmentModal 
+                    designers={this.props.designers} 
+                    show={this.state.showNewAssignmentModal} 
+                    onHide={this.onHideNewAssignmentModal.bind(this)} 
+                    updateTable={this.props.updateTable} 
+                />
+
+                <div className="panel-heading hbuilt">
+                    <div className="panel-tools">
+                        <a className="showhide"><i className="fa fa-chevron-up"></i></a>
+                    </div>
+                    <span style={{marginLeft:'10px'}}>Assignments</span>
                 </div>
-                <span style={{marginLeft:'10px'}}>Assignments</span>
-            </div>
-            <div className="panel-body">
-                <div className="row ">
-                    <div className="col-lg-12 text-left">
-                        <label style={{marginRight:'5px'}}>Currently Viewing: </label>
-                        <div className="input-group-btn" style={{display:'inline'}}>
-                            <button className="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
-                            <span className="margin-right">Unassigned Assignments</span> 
-                            <span className="caret"></span></button>
-                            <ul className="dropdown-menu dropdown-menu-left" style={{marginTop:'17.5px'}}>
-                                <li><a href="#a">Complete</a></li>
-                                <li><a href="#a">Assigned</a></li>
-                                <li><a href="#a">Unassigned</a></li>
-                                <li><a href="#a">In Progress</a></li>
-                                <li><a href="#a">Deleted</a></li>
-                            </ul>
+                <div className="panel-body">
+                    <div className="row ">
+                        <div className="col-lg-12 text-left">
+                            <label style={{marginRight:'5px'}}>Currently Viewing: </label>
+                            <div className="input-group-btn" style={{display:'inline'}}>
+                                <button className="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+                                <span className="margin-right">Unassigned Assignments</span> 
+                                <span className="caret"></span></button>
+                                <ul className="dropdown-menu dropdown-menu-left" style={{marginTop:'17.5px'}}>
+                                    <li><a href="#a">Complete</a></li>
+                                    <li><a href="#a">Assigned</a></li>
+                                    <li><a href="#a">Unassigned</a></li>
+                                    <li><a href="#a">In Progress</a></li>
+                                    <li><a href="#a">Deleted</a></li>
+                                </ul>
+                            </div>
+                            {newAssignmentBtn}
+                            <br />
+                            {table}
                         </div>
-                        <div className="btn btn-primary" style={{marginLeft: '10px'}} >NEW ASSIGNMENT</div>
-                        <br />
-                        {table}
                     </div>
                 </div>
             </div>
-        </div>
         )
     }
 }

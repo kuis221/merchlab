@@ -10,6 +10,7 @@ export default class DesignUploader extends React.Component {
 	}
 
 	onDrop(accepted ,rejected) {
+		var clientUsername = $("#client-username").text();
 		var callback = function(err, res) {
 			if (err || !res.ok) {
 					//alert('Oh no! error');
@@ -38,7 +39,7 @@ export default class DesignUploader extends React.Component {
 				})
 			}
 		}
-		var req = request.post('/assignment/' + this.props.assignment_id + '/upload/');
+		var req = request.post('/assignment/' + clientUsername + '/' + this.props.assignment_id + '/upload/');
 		accepted.forEach(file => {
 				req.attach(file.name, file);
 		});

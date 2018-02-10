@@ -15,7 +15,7 @@ def get_valid_inactive_mws_accounts():
 	users = fb.get('/validInactiveMwsAccounts', None)
 	return users
 	
-def signup(username, password, email, referrerId=None, customerId=None, plan=None, active=False, isTrialing=False, defaults=None):
+def signup(username, password, email, referrerId=None, customerId=None, plan=None, active=False, isTrialing=False, isDesigner=False, defaults=None):
 
 	data = {
 		"username": username,
@@ -29,6 +29,7 @@ def signup(username, password, email, referrerId=None, customerId=None, plan=Non
 		"isTrialing": isTrialing,
 		"customerId": customerId,
 		"defaults": defaults,
+		"isDesigner": isDesigner,
 		"authProfile": "travis"
 	}
 
