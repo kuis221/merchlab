@@ -687,6 +687,7 @@ def get_trending_tshirts_by_metric(metric, query=None, asc=False, filter_zeroes=
 			"image": row[11],
 			"discovery_timestamp": row[12]
 		})
+	result = sorted(result, lambda x: x["salesrank"])
 	print("processed {} search results".format(len(result)))
 	return result
 
