@@ -150,13 +150,12 @@ def remove_duplicate_shirts(shirts):
 		asin_to_shirt[asin] = shirt
 	return asin_to_shirt.values()
 
-def get_tshirt_products_for_keyword(keyword, search_index="Apparel", browse_node="9056987011"):
+def get_tshirt_products_for_keyword(keyword, search_index="Apparel", browse_node="9056987011", postfix_variants=["tshirt"]):
 
 	# @TODO make this load accounts dynamically
 	random.shuffle(ACCOUNTS)
 	api = AmazonSearchWithRotatingAccounts(ACCOUNTS)
 
-	postfix_variants = ["tshirt"]
 	all_items = []
 	# iterate through first 10 pages
 

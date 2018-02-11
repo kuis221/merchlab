@@ -240,8 +240,8 @@ def scrape_from_homepage(search_index="Apparel", browse_node="9056987011"):
 
 	# The first argument is supposed to be today_str, but this is deprecated and unused
 	# so temporarily hacking through this code by adding None
-	scrape_merch_asins_task(None, further_keywords, search_index=search_index, browse_node=browse_node)
-
+	#scrape_merch_asins_task(None, further_keywords, search_index=search_index, browse_node=browse_node)
+	return further_keywords
 
 def update_keyword_metadata(keyword):
 	try:
@@ -279,7 +279,7 @@ def update_keyword_metadata(keyword):
 		print(e)
 		print("failed to update keyword metadata")
 
-def scrape_merch_asins_task(datestr, keywords_to_use, search_index="Apparel", browse_node="9056987011"):
+def scrape_merch_asins_task(datestr, keywords_to_use, search_index="Apparel", browse_node="9056987011", postfix_variants=["tshirt"]):
 
 	rotating_data_collector = DataCollectorWithRotatingAccounts()
 	print("finished initializing")
@@ -310,7 +310,7 @@ def scrape_merch_asins_task(datestr, keywords_to_use, search_index="Apparel", br
 		keyword = keyword.strip()
 		keyword = pattern.sub('', keyword)
 
-		all_items = get_tshirt_products_for_keyword(keyword, search_index=search_index, browse_node=browse_node)
+		all_items = get_tshirt_products_for_keyword(keyword, search_index=search_index, browse_node=browse_node, postfix_variants=postfix_variants)
 		print(str(len(all_items)) + " products discovered for '" + keyword + "' keyword")
 		
 		update_keyword_metadata(keyword)

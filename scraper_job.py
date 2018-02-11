@@ -55,7 +55,11 @@ def choose_keywords(num_keywords, max_last_indexed_date=None):
 		})
 	return result
 
-def create_scraper_job(browse_node, method="random", num_keywords=200):
+def create_scraper_job(browse_node, search_index="Apparel", method="random", keywords_to_use=None, num_keywords=200, postfix_variants=["tshirt"]):
+	if keywords_to_use and num_keywords:
+		print("You cannot specify 'keywords_to_use' argument AND 'num_keywords' argument at the same time. Please specify one or the other.")
+		return
+
 	data = {
 		"status": "queued",
 		"created_at": datetime.datetime.utcnow().isoformat()
@@ -64,7 +68,6 @@ def create_scraper_job(browse_node, method="random", num_keywords=200):
 	#result = firebase_api.save_object("scrape_merch_asin_task/" + today_str, data)
 
 	#job_id = result["name"]
-	search_index = "Apparel"
 	if method == "hot_keywords":
 		max_staleness = (datetime.datetime.utcnow() - datetime.timedelta(days=30)).isoformat()
 		indexed_keywords = choose_keywords(num_keywords, max_staleness)
@@ -76,7 +79,7 @@ def create_scraper_job(browse_node, method="random", num_keywords=200):
 	while curr_batch*batch_size < len(keywords):
 		start = curr_batch*batch_size
 		end = (curr_batch+1)*batch_size
-		args = (today_str, keywords[start:end], search_index, browse_node)
+		args = (today_str, keywords[start:end], search_index, browse_node, postfix_variants)
 		q.enqueue_call(scrape_merch_asins_task, args=args, timeout=7200)		
 		curr_batch += 1
 
@@ -87,15 +90,19 @@ def create_scraper_job(browse_node, method="random", num_keywords=200):
 #get_tshirt_products_for_keyword("dog")
 
 
+further_keywords = scrape_from_homepage(search_index=None, browse_node="9302388011")
+create_scraper_job("9302388011", search_index=None, method="random", keywords_to_use=further_keywords, postfix_variants=["mug"])
+
+
 #scrape_from_homepage(browse_node="9056987011")
 #scrape_from_homepage(browse_node="9056923011")
 #q.enqueue_call(scrape_from_homepage, args=("9056987011",), timeout=7200)
 #q.enqueue_call(scrape_from_homepage, args=("9056923011",), timeout=7200)
-create_scraper_job("9056987011", method="random", num_keywords=30000)
-create_scraper_job("9056923011", method="random", num_keywords=30000)
+#create_scraper_job("9056987011", search_index="Apparel", method="random", num_keywords=30000)
+#create_scraper_job("9056923011", search_index="Apparel", method="random", num_keywords=30000)
 
-create_scraper_job("9056987011", method="hot_keywords", num_keywords=5000)
-create_scraper_job("9056923011", method="hot_keywords", num_keywords=5000)
+#create_scraper_job("9056987011", search_index="Apparel", method="hot_keywords", num_keywords=5000)
+#create_scraper_job("9056923011", search_index="Apparel", method="hot_keywords", num_keywords=5000)
 
 
 """
