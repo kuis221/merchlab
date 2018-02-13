@@ -103,6 +103,7 @@ class AmazonSearch:
 
 
 def parse_item_search_response(response):
+	print(response)
 	root = ET.fromstring(response)
 	total_pages = int(root[1][2].text)
 	print(total_pages)

@@ -56,7 +56,7 @@ def choose_keywords(num_keywords, max_last_indexed_date=None):
 	return result
 
 def create_scraper_job(browse_node, search_index="Apparel", method="random", keywords_to_use=None, num_keywords=200, postfix_variants=["tshirt"]):
-	if keywords_to_use and num_keywords:
+	if keywords_to_use and (method or num_keywords):
 		print("You cannot specify 'keywords_to_use' argument AND 'num_keywords' argument at the same time. Please specify one or the other.")
 		return
 
@@ -68,12 +68,17 @@ def create_scraper_job(browse_node, search_index="Apparel", method="random", key
 	#result = firebase_api.save_object("scrape_merch_asin_task/" + today_str, data)
 
 	#job_id = result["name"]
-	if method == "hot_keywords":
-		max_staleness = (datetime.datetime.utcnow() - datetime.timedelta(days=30)).isoformat()
-		indexed_keywords = choose_keywords(num_keywords, max_staleness)
-		keywords = [k["keyword"] for k in indexed_keywords]
-	elif method == "random":
-		keywords = choose_random_keywords(num_keywords)
+
+	if keywords_to_use:
+		keywords = keywords_to_use
+	else:
+		if method == "hot_keywords":
+			max_staleness = (datetime.datetime.utcnow() - datetime.timedelta(days=30)).isoformat()
+			indexed_keywords = choose_keywords(num_keywords, max_staleness)
+			keywords = [k["keyword"] for k in indexed_keywords]
+		elif method == "random":
+			keywords = choose_random_keywords(num_keywords)
+
 	curr_batch = 0
 	batch_size = 50
 	while curr_batch*batch_size < len(keywords):
@@ -90,8 +95,8 @@ def create_scraper_job(browse_node, search_index="Apparel", method="random", key
 #get_tshirt_products_for_keyword("dog")
 
 
-further_keywords = scrape_from_homepage(search_index=None, browse_node="9302388011")
-create_scraper_job("9302388011", search_index=None, method="random", keywords_to_use=further_keywords, postfix_variants=["mug"])
+further_keywords = scrape_from_homepage(search_index="Kitchen", browse_node="9302388011") # MUG NICHE
+create_scraper_job("9302388011", search_index=None, method=None, keywords_to_use=further_keywords, num_keywords=None, postfix_variants=["mug"]) # MUG NICHE
 
 
 #scrape_from_homepage(browse_node="9056987011")
