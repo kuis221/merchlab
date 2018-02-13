@@ -48,6 +48,7 @@ class DataCollectorWithRotatingAccounts:
 	def remove_current_account(self):
 		print("num available accounts for mws", len(self.users), self.users)
 		self.users.pop(0)
+		self.data_collector = DataCollector(self.users[0])
 
 
 
