@@ -241,7 +241,7 @@ def scrape_from_homepage(search_index="Apparel", browse_node="9056987011"):
 	# The first argument is supposed to be today_str, but this is deprecated and unused
 	# so temporarily hacking through this code by adding None
 	#scrape_merch_asins_task(None, further_keywords, search_index=search_index, browse_node=browse_node)
-	return further_keywords
+	return list(further_keywords)
 
 def update_keyword_metadata(keyword):
 	try:
