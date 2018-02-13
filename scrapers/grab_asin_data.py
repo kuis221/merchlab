@@ -25,6 +25,7 @@ def convert_xml_to_json(root):
 
 
 class DataCollectorWithRotatingAccounts:
+	# num_accounts is legacy - we should deprecate it if we get the chance
 	def __init__(self, num_accounts=25):
 
 		users = firebase_api.get_valid_inactive_mws_accounts()
@@ -45,7 +46,7 @@ class DataCollectorWithRotatingAccounts:
 		self.data_collector = DataCollector(self.users[0])
 
 	def remove_current_account(self):
-		print("num available accounts for mws", len(self.users))
+		print("num available accounts for mws", len(self.users), self.users)
 		self.users.pop(0)
 
 
