@@ -234,7 +234,7 @@ def update_seller_id(username, seller_id):
 def create_password_reset_token(email):
     user = find_user_by_email(email)
     token = str(uuid.uuid4())
-    update_object('password_reset_tokens', user['objectId'], {'token': token, 'expirationDate': (datetime.datetime.utcnow() + datetime.timedelta(hours=1)).isoformat()})
+    update_object('password_reset_tokens', user['objectId'], {'token': token, 'expiration_date': (datetime.datetime.utcnow() + datetime.timedelta(hours=1)).isoformat()})
     return token
 
 
@@ -264,9 +264,9 @@ def get_user_by_password_reset_token(token):
     for user_object_id in results:
         db_token = results[user_object_id].get('token')
         if db_token and db_token == token:
-            if "expirationDate" not in results[user_object_id] or datetime.datetime.utcnow() > results[user_object_id]["expirationDate"]:
+            if "expiration_date" not in results[user_object_id] or datetime.datetime.utcnow() > results[user_object_id]["expiration_date"]:
                 return None
-                
+
             return find_user_by_object_id(user_object_id)
 
     return None
