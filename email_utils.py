@@ -10,7 +10,7 @@
 import requests
 
 API_URL = "https://api.mailgun.net/v3/"
-DOMAIN_NAME = "sandbox0a49d5be1b694fefb5a955ce4f1cae94.mailgun.org"
+DOMAIN_NAME = "mail.merchlab.io"
 PRIVATE_API_KEY = "key-b499f1d67458d49cb86237d8fdfa69dd"
 FROM_NAME = "Admin"
 FROM_ADDRESS = "admin@sandbox0a49d5be1b694fefb5a955ce4f1cae94.mailgun.org"
@@ -62,6 +62,7 @@ def send_email(to, subject, text, html=None, attachments=tuple(), from_name=FROM
                 ("attachment", (attachment['filename'], attachment_file.read()))
             )
 
+    print(url)
     return requests.post(url, auth=("api", PRIVATE_API_KEY), files=files, data=data)
 
 
@@ -249,5 +250,5 @@ def send_reset_password_email(address, token):
     text = 'Please, follow this link to reset your password: ' \
            'http://merchlab.herokuapp.com/reset_password/?token={0}'.format(token)
 
-    send_email(address, subject, text)
+    return send_email(address, subject, text)
 

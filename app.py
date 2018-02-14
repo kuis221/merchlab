@@ -1165,8 +1165,10 @@ def forgot_password():
             return render_template("forgot_password.html", user_error=True)
 
         token = firebase_api.create_password_reset_token(email)
+        print("is testing?", app.testing)
         if not app.testing:
-            email_utils.send_reset_password_email(email, token)
+            response = email_utils.send_reset_password_email(email, token)
+            print(response.content)
         return render_template("forgot_password.html", sent=True)
 
 
