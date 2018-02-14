@@ -12,8 +12,8 @@ import requests
 API_URL = "https://api.mailgun.net/v3/"
 DOMAIN_NAME = "mail.merchlab.io"
 PRIVATE_API_KEY = "key-b499f1d67458d49cb86237d8fdfa69dd"
-FROM_NAME = "Admin"
-FROM_ADDRESS = "admin@sandbox0a49d5be1b694fefb5a955ce4f1cae94.mailgun.org"
+FROM_NAME = "MerchLab"
+FROM_ADDRESS = "noreply@mail.merchlab.io"
 
 
 def send_email(to, subject, text, html=None, attachments=tuple(), from_name=FROM_NAME,
@@ -246,7 +246,7 @@ def send_reset_password_email(address, token):
     :param str token: reset password UUID token;
     :return:
     """
-    subject = "Merchlab password reset"
+    subject = "Reset your MerchLab password!"
     text = 'Please, follow this link to reset your password: ' \
            'http://merchlab.herokuapp.com/reset_password/?token={0}'.format(token)
 
