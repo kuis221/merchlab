@@ -96,7 +96,7 @@ def create_scraper_job(browse_node, search_index="Apparel", method="random", key
 
 
 further_keywords = scrape_from_homepage(search_index="Kitchen", browse_node="9302388011") # MUG NICHE
-create_scraper_job("9302388011", search_index=None, method=None, keywords_to_use=further_keywords, num_keywords=None, postfix_variants=["mug"]) # MUG NICHE
+create_scraper_job("9302388011", search_index="Kitchen", method=None, keywords_to_use=further_keywords, num_keywords=None, postfix_variants=["mug"]) # MUG NICHE
 
 
 #scrape_from_homepage(search_index="Apparel", browse_node="9056987011")
