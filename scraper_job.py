@@ -95,20 +95,20 @@ def create_scraper_job(browse_node, search_index="Apparel", method="random", key
 #get_tshirt_products_for_keyword("dog")
 
 
-further_keywords = scrape_from_homepage(search_index="Kitchen", browse_node="9302388011") # MUG NICHE
-create_scraper_job("9302388011", search_index="Kitchen", method=None, keywords_to_use=further_keywords, num_keywords=None, postfix_variants=["mug"]) # MUG NICHE
+#further_keywords = scrape_from_homepage(search_index="Kitchen", browse_node="9302388011") # MUG NICHE
+#create_scraper_job("9302388011", search_index="Kitchen", method=None, keywords_to_use=further_keywords, num_keywords=None, postfix_variants=["mug"]) # MUG NICHE
 
-create_scraper_job("9302388011", search_index="Kitchen", method="random", num_keywords=30000)
+create_scraper_job("9302388011", search_index="Kitchen", method="random", num_keywords=60000)
 
 #scrape_from_homepage(search_index="Apparel", browse_node="9056987011")
 #scrape_from_homepage(search_index="Apparel", browse_node="9056923011")
 #q.enqueue_call(scrape_from_homepage, args=("9056987011",), timeout=7200)
 #q.enqueue_call(scrape_from_homepage, args=("9056923011",), timeout=7200)
-create_scraper_job("9056987011", search_index="Apparel", method="random", num_keywords=30000)
-create_scraper_job("9056923011", search_index="Apparel", method="random", num_keywords=30000)
+#create_scraper_job("9056987011", search_index="Apparel", method="random", num_keywords=30000)
+#create_scraper_job("9056923011", search_index="Apparel", method="random", num_keywords=30000)
 
-create_scraper_job("9056987011", search_index="Apparel", method="hot_keywords", num_keywords=5000)
-create_scraper_job("9056923011", search_index="Apparel", method="hot_keywords", num_keywords=5000)
+#create_scraper_job("9056987011", search_index="Apparel", method="hot_keywords", num_keywords=5000)
+#create_scraper_job("9056923011", search_index="Apparel", method="hot_keywords", num_keywords=5000)
 
 
 """
