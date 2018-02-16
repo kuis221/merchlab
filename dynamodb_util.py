@@ -28,11 +28,12 @@ def write_asin_keywords(keyword, position_mapping):
     TABLE_NAME = "asin_keywords"
     table = dynamodb.Table(TABLE_NAME)
 
+    ts = datetime.datetime.utcnow().isoformat()
     # Minimum expected keys in keyword_snapshot:
     # 'keyword' key, 'timestamp' key, and 'position_mapping' key
     for position in position_mapping:
         asin = position_mapping[position]
-        data = {'asin': asin, 'keyword': keyword, 'position': position}
+        data = {'asin': asin, 'keyword': keyword, 'position': position, 'timestamp': ts}
         response = table.put_item(Item=data)
     return "success"
 
