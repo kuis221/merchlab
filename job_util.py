@@ -205,7 +205,8 @@ def scrape_from_homepage(search_index="Apparel", browse_node="9056987011"):
 			"discovery_keyword": "",
 			"search_index": search_index.encode('ascii', 'ignore'),
 			"browse_node": browse_node.encode('ascii', 'ignore'),
-			"discovery_timestamp": timestamp
+			"discovery_timestamp": timestamp,
+			"last_indexed_date": timestamp
 		}
 
 		item = AsinMetadata(data=final_data)
@@ -229,6 +230,7 @@ def scrape_from_homepage(search_index="Apparel", browse_node="9056987011"):
 			"salesrank_category": main_salesrank_category_id,
 			"salesrank": salesrank,
 			"timestamp": timestamp,
+			"last_indexed_date": timestamp,
 			"asin": asin
 		}
 		snapshot = AsinSnapshot(snapshot_data)
