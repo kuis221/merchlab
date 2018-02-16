@@ -25,6 +25,7 @@ def convert_xml_to_json(root):
 
 
 class DataCollectorWithRotatingAccounts:
+	# num_accounts is legacy - we should deprecate it if we get the chance
 	def __init__(self, num_accounts=25):
 
 		users = firebase_api.get_valid_inactive_mws_accounts()
@@ -45,7 +46,9 @@ class DataCollectorWithRotatingAccounts:
 		self.data_collector = DataCollector(self.users[0])
 
 	def remove_current_account(self):
+		print("num available accounts for mws", len(self.users), self.users)
 		self.users.pop(0)
+		self.data_collector = DataCollector(self.users[0])
 
 
 
@@ -117,9 +120,11 @@ def reliable_grab_asin_data(rotating_data_collector, asin, max_tries=5):
 		product, error = rotating_data_collector.data_collector.grab_data_for_asin(asin)
 		if error and "Access to Products.GetMatchingProductForId is denied".lower() in error.get("errorMessage").lower():
 			curr += 1
+			print("removing", error, rotating_data_collector.data_collector.username)
 			rotating_data_collector.remove_current_account()
 		elif error and "The seller does not have an eligible Amazon account to call Amazon MWS".lower() in error.get("errorMessage").lower():
 			curr += 1
+			print("removing", error, rotating_data_collector.data_collector.username)
 			rotating_data_collector.remove_current_account()
 		elif error:
 			print("unhandled error", error, rotating_data_collector.data_collector.username)
