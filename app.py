@@ -644,7 +644,7 @@ def get_trending_tshirts_by_metric(metric, query=None, asc=False, filter_zeroes=
 	if asc:
 		order_sql = "ASC"
 
-	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=4)).isoformat()
+	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=7)).isoformat()
 
 	sql = """
 	SELECT asin_analytics.id, asin_analytics.salesrank, asin_analytics.last_7d_salesrank, 
@@ -700,7 +700,7 @@ def get_trending_tshirts_last_7d(query=None):
 		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(query.lower())
 		salesrank_threshold = 1000000
 
-	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=4)).isoformat()
+	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=7)).isoformat()
 
 	sql = """
 	SELECT asin_analytics.id, asin_analytics.salesrank, asin_analytics.last_7d_salesrank, asin_analytics.list_price,
@@ -751,7 +751,7 @@ def get_trending_tshirts(query=None):
 		query_sql = "and lower(asin_metadata.title) like '%%{}%%'".format(query.lower())
 		salesrank_threshold = 1000000
 
-	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=4)).isoformat()
+	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=7)).isoformat()
 
 	'''
 	sql = """
@@ -1107,7 +1107,7 @@ def execute_backup_query_search(query):
 		# let it be 1mil
 		salesrank_threshold = 1000000
 
-	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=2)).isoformat()
+	min_last_indexed_date = (datetime.datetime.utcnow() - timedelta(days=7)).isoformat()
 
 	sql = """
 	SELECT asin_analytics.id, asin_analytics.salesrank, asin_analytics.last_7d_salesrank, asin_analytics.list_price,
