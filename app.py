@@ -218,7 +218,7 @@ def stripe_hooks():
 
 @app.route("/", methods=["GET", "POST"])
 def landing():
-	return redirect(url_for("register"))
+	return render_template('landing.html')
 
 
 @app.route("/login/", methods=["GET", "POST"])
@@ -332,7 +332,7 @@ def register_wordcandy():
 						'chgarr@aol.com', 'joeybonacia@comcast.net', 'eclixirllc@gmail.com', 'jetzmarket@gmail.com',
 						'lillian_dueiri@yahoo.com', 'zhenurik@hotmail.com', 'monicawatson@yahoo.com',
 						'solteq@gmail.com', 'nhowse@sympatico.ca', 'kentburns@kmkbsales.com', 'jcthreetimes@gmail.com',
-						'cwoodson28@yahoo.com', 'tlstuff@cox.net', 'bggivens@gmail.com'])
+						'cwoodson28@yahoo.com', 'tlstuff@cox.net', 'bggivens@gmail.com', 'mamorumiyano1008@gmail.com'])
 	other_valid_emails = ['bokov.danil@gmail.com', 'mayraamazon1881@gmail.com', 'stephen.dalchow@outbreakca.com', 'support@wiggmanscoaching.com',
 						  'perpetual360@gmail.com', 'mrdata2001@gmail.com', 'joann@bubbadahsbuys.com',
 						  'jd.lloyd@yahoo.com', 'admin@good4businesses.co.uk', 'carl@good4businesses.co.uk',

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="layout_ipad_pricing" transform="translate(-184.000000, -1443.000000)" fill="#85C242">
+            <g id="price-1-copy" transform="translate(104.000000, 1168.000000)">
+                <g id="1" transform="translate(80.000000, 275.000000)">
+                    <g id="good">
+                        <g id="Group">
+                            <rect id="Rectangle-17" opacity="0.200000003" x="0" y="0" width="24" height="24" rx="4"></rect>
+                            <path d="M14.7219808,8.41516288 C15.3211212,7.843042 16.270616,7.86494562 16.8427369,8.464086 C17.4148578,9.06322638 17.3929542,10.0127212 16.7938138,10.5848421 L11.8333783,15.3215763 C11.195572,15.9306195 10.1725139,15.8606734 9.62353504,15.1704904 L7.32613114,12.2821654 C6.81043324,11.6338235 6.91796242,10.6901829 7.56630429,10.174485 C8.21464615,9.65878706 9.15828683,9.76631624 9.67398473,10.4146581 L10.9491672,12.0178335 L14.7219808,8.41516288 Z" id="Path-9-Copy-6" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
