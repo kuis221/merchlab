@@ -162,7 +162,7 @@ def compute_analytics_data_for_asins(asins):
 			"weighted_escore_v3": weighted_escore_v3,
 			"streak_score_v1": streak_score_v1,
 			"streak_score_v2": streak_score_v2,
-
+			"last_indexed_date": datetime.datetime.utcnow(),
 			#"last_7d_list_price": last_7d_list_price,
 			#"last_1mo_list_price": last_1m_list_price,
 			#"last_3mo_list_price": last_3m_list_price,

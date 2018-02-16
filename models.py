@@ -123,6 +123,7 @@ class AsinMetadata(db.Model):
     weighted_escore_v3 = db.Column(db.Float())
     streak_score_v1 = db.Column(db.Float())
     streak_score_v2 = db.Column(db.Float())
+    last_indexed_date = db.Column(db.String())
 
 
     def __init__(self, data):
@@ -167,6 +168,7 @@ class AsinMetadata(db.Model):
         self.weighted_escore_v3 = data.get("weighted_escore_v3", None)
         self.streak_score_v1 = data.get("streak_score_v1", None)
         self.streak_score_v2 = data.get("streak_score_v2", None)
+        self.last_indexed_date = data.get("last_indexed_date", None)
 
 Index('product_title_case_insensitive', func.lower(AsinMetadata.title))
 
