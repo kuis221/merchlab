@@ -47,7 +47,7 @@ export default class AssignmentsTable extends React.Component {
 
     notesFormatter(cell, row) {
         return (
-            <div className="text-left"><small>{row.notes}</small></div>
+            <div className="text-left">{row.notes}</div>
         )
     }
 

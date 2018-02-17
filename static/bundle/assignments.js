@@ -91733,11 +91733,7 @@ var AssignmentsTable = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'text-left' },
-                _react2.default.createElement(
-                    'small',
-                    null,
-                    row.notes
-                )
+                row.notes
             );
         }
     }, {
