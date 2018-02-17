@@ -96,7 +96,6 @@ export default class AssignmentsTable extends React.Component {
             return (
                 <div>
                     <a href="#a" onClick={this.showUploadedDesignsVisualizer.bind(this, row.id)}><button className="btn btn-primary btn-xs table-button">VIEW</button></a>
-                    <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-default btn-xs table-button">PING</button></a>
                     <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-default btn-xs table-button">DELETE</button></a>
                 </div>
             )        

@@ -91826,15 +91826,6 @@ var AssignmentsTable = function (_React$Component) {
                         _react2.default.createElement(
                             'button',
                             { className: 'btn btn-default btn-xs table-button' },
-                            'PING'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'a',
-                        { href: "/assignment/" + clientUsername + "/" + row.id },
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'btn btn-default btn-xs table-button' },
                             'DELETE'
                         )
                     )
