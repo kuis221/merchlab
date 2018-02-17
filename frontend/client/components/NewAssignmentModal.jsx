@@ -16,14 +16,12 @@ export default class NewAssignmentModal extends React.Component {
         var designer_username = this.state.designer;
         var asin = $("#asin").val();
         var rate = parseFloat($("#rate").val()) || 0;
-        var estimated_hours = parseInt($("#estimated-hours").val()) || 0;
         var num_variations = parseInt($("#num-variations").val()) || 0;
         var notes = $("#notes").val();
         var assignment = JSON.stringify({
             designer_username: designer_username,
             asin: asin,
             rate: rate,
-            estimated_hours: estimated_hours, 
             num_variations: num_variations,
             status: "assigned",
             notes: notes
@@ -39,7 +37,6 @@ export default class NewAssignmentModal extends React.Component {
             this.props.updateTable(assignment);
             $("#asin").val("");
             $("#rate").val("");
-            $("#estimated-hours").val("");
             $("#num-variations").val("");
             $("#notes").val("");
             this.setState({designer:null});
@@ -82,7 +79,7 @@ export default class NewAssignmentModal extends React.Component {
                     <div className="form-group"><label className="control-label">Designer Username</label>
                         {chooseDesignerNode}
                     </div>
-                    <div className="form-group"><label className="control-label">Rate</label>
+                    <div className="form-group"><label className="control-label">Rate/Design</label>
                         <input type="text" className="form-control input-sm" id="rate"></input>
                     </div>
 
@@ -90,10 +87,7 @@ export default class NewAssignmentModal extends React.Component {
                         <input type="text" className="form-control input-sm" id="asin"></input>
                     </div>
 
-                    <div className="form-group"><label className="control-label">Estimated Hours</label>
-                        <input type="text" className="form-control input-sm" id="estimated-hours"></input>
-                    </div>
-                    <div className="form-group"><label className="control-label"># Variations</label>
+                    <div className="form-group"><label className="control-label">Quantity</label>
                         <input type="text" className="form-control input-sm" id="num-variations"></input>
                     </div>
                     <div className="form-group"><label className="control-label">Notes</label>

@@ -1,13 +1,15 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import NewAssignmentModal from './NewAssignmentModal.jsx';
+import UploadedDesignsVisualizer from './UploadedDesignsVisualizer.jsx';
 
 export default class AssignmentsTable extends React.Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            showNewAssignmentModal: false
+            showNewAssignmentModal: false,
+            showUploadedDesignsVisualizer: false
         }
     }
 
@@ -18,11 +20,11 @@ export default class AssignmentsTable extends React.Component {
         var status = row.status || "";
         var statusNode;
         if (status.toLocaleLowerCase() === "unassigned") {
-            statusNode = <span className="label label-danger">{status}</span>
+            statusNode = <span className="label label-danger" style={{fontWeight: 400, fontSize:'13px'}}>{status}</span>
         } else if (status.toLocaleLowerCase() === "completed") {
-            statusNode = <span className="label label-success">{status}</span>
+            statusNode = <span className="label label-success" style={{fontWeight: 400, fontSize:'13px'}}>{status}</span>
         } else {
-            statusNode = <span className="label label-warning">{status}</span>
+            statusNode = <span className="label label-warning" style={{fontWeight: 400, fontSize:'13px'}}>{status}</span>
         }
         return statusNode;
     }
@@ -45,7 +47,7 @@ export default class AssignmentsTable extends React.Component {
 
     notesFormatter(cell, row) {
         return (
-            <small>{row.notes}</small>
+            <div className="text-left"><small>{row.notes}</small></div>
         )
     }
 
@@ -64,20 +66,12 @@ export default class AssignmentsTable extends React.Component {
 
         if (row.status.toLocaleLowerCase() === "completed") {
             return row.designer_username;      
-        } else if (row.designer_username) {
-            return (
-                <div>
-                    {row.designer_username}
-                    <br />
-                    <button className="btn btn-default btn-xs" style={{width:'90%', marginBottom:'5px'}} onClick={this.props.unassignDesigner.bind(null, row.id)}>UNASSIGN</button>
-                </div>            
-            )
         } else {
             return (
                 <div>
                     <div className="input-group-btn">
                         <button className="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button" style={{width:'100%'}}>
-                        <span className="margin-right">Choose</span> 
+                        <span className="margin-right">{row.designer_username || "Choose"}</span> 
                         <span className="caret"></span></button>
                         <ul className="dropdown-menu dropdown-menu-left">
                             {designerNodes}
@@ -87,6 +81,7 @@ export default class AssignmentsTable extends React.Component {
             )        
         }
     }
+
 
     actionsFormatter(cell, row) {
         var clientUsername = $("#client-username").text();
@@ -100,7 +95,7 @@ export default class AssignmentsTable extends React.Component {
 
             return (
                 <div>
-                    <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-primary btn-xs table-button">VIEW</button></a>
+                    <a href="#a" onClick={this.showUploadedDesignsVisualizer.bind(this, row.id)}><button className="btn btn-primary btn-xs table-button">VIEW</button></a>
                     <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-default btn-xs table-button">PING</button></a>
                     <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-default btn-xs table-button">DELETE</button></a>
                 </div>
@@ -121,6 +116,42 @@ export default class AssignmentsTable extends React.Component {
         })
     }
 
+    showUploadedDesignsVisualizer(assignmentId) {
+        var client_username = $("#client-username").text();
+        this.serverRequest = $.get('/assignment/' + client_username + '/' + assignmentId + '/data/', function (result) {
+            var result = JSON.parse(result);
+            var assignment = result.assignment;
+            var isDesigner = result.is_designer;
+            var designers = result.designers; // this field won't exist if user is designer
+            console.log(assignment);
+            this.setState({
+                assignment: assignment,
+                assignmentId: assignmentId,
+                showUploadedDesignsVisualizer: true
+            });
+        }.bind(this));
+    }
+
+    onHideUploadedDesignsVisualizer() {
+        this.setState({
+            showUploadedDesignsVisualizer: false
+        })
+    }
+    dateFormatter(cell, row) {
+        console.log("hello")
+        var date = new Date(cell);
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        date = date.toLocaleDateString("en-US",options);
+
+        var status = this.statusFormatter(cell, row);
+        return (
+            <div style={{marginBottom: '10px'}}>
+                <div style={{marginBottom: '10px'}}>{date}</div>
+                {status}
+            </div>
+        )
+    }
+
     render() {
         let options = {
             defaultSortName: 'created_at',
@@ -129,51 +160,38 @@ export default class AssignmentsTable extends React.Component {
 
         var table;
         var newAssignmentBtn;
-        if (this.props.isDesignerView) {
-            table = (
-                <BootstrapTable
-                        data={this.props.assignments} 
-                        exportCSV={false} 
-                        striped={false} 
-                        bordered={false} 
-                        hover={false} 
-                        pagination={true}
-                        search={true}
-                        options={options}
-                    >
 
-                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="status" editable={false} dataFormat={this.statusFormatter}>STATUS</TableHeaderColumn>
-                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="created_at" editable={false} isKey={true}>CREATED ON</TableHeaderColumn>
-                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="thumbnail" editable={false} dataFormat={this.inspirationFormatter}>INSPIRATION</TableHeaderColumn>
-                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="notes" editable={false} dataFormat={this.notesFormatter}>NOTES</TableHeaderColumn>
-                    <TableHeaderColumn dataAlign="center" dataSort={true} editable={false} dataFormat={this.actionsFormatter.bind(this)}>ACTIONS</TableHeaderColumn>
 
-                </BootstrapTable>
-            )
-        } else {
-            table = (
-                <BootstrapTable
-                        data={this.props.assignments} 
-                        exportCSV={false} 
-                        striped={false} 
-                        bordered={false} 
-                        hover={false} 
-                        pagination={true}
-                        search={true}
-                        options={options}
-                    >
+        var designerColumn;
 
-                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="status" editable={false} dataFormat={this.statusFormatter}>STATUS</TableHeaderColumn>
-                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="created_at" editable={false} isKey={true}>CREATED ON</TableHeaderColumn>
-                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="thumbnail" editable={false} dataFormat={this.inspirationFormatter}>INSPIRATION</TableHeaderColumn>
-                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="notes" editable={false} dataFormat={this.notesFormatter}>NOTES</TableHeaderColumn>
-                    <TableHeaderColumn dataAlign="center" dataSort={true} dataField="designer_username" editable={false} dataFormat={this.designerFormatter.bind(this)}>DESIGNER</TableHeaderColumn>
-                    <TableHeaderColumn dataAlign="center" dataSort={true} editable={false} dataFormat={this.actionsFormatter.bind(this)}>ACTIONS</TableHeaderColumn>
-
-                </BootstrapTable>
-            )        
-            newAssignmentBtn = <button className="btn btn-primary" style={{marginLeft: '10px'}} onClick={this.showNewAssignmentModal.bind(this)}>NEW ASSIGNMENT</button>
+        if (!this.props.isDesignerView) {
+            designerColumn = (<TableHeaderColumn dataAlign="center" dataSort={true} dataField="designer_username" editable={false} dataFormat={this.designerFormatter.bind(this)}>DESIGNER</TableHeaderColumn>);
+            newAssignmentBtn = <button className="btn btn-primary" style={{marginLeft: '10px'}} onClick={this.showNewAssignmentModal.bind(this)}>NEW ASSIGNMENT</button>            
         }
+
+        table = (
+            <BootstrapTable
+                    data={this.props.assignments} 
+                    exportCSV={false} 
+                    striped={false} 
+                    bordered={false} 
+                    hover={false} 
+                    pagination={true}
+                    search={true}
+                    options={options}
+                >
+                {designerColumn}
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="created_at" editable={false} isKey={true} dataFormat={this.dateFormatter.bind(this)} >CREATED ON</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="thumbnail" editable={false} dataFormat={this.inspirationFormatter}>INSPIRATION</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="notes" editable={false} dataFormat={this.notesFormatter}>NOTES</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="num_variations" editable={false}>QUANTITY</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="gender" editable={false}>GENDER</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="niche" editable={false}>NICHE</TableHeaderColumn>
+
+                <TableHeaderColumn dataAlign="center" dataSort={true} editable={false} dataFormat={this.actionsFormatter.bind(this)} width='12%'>ACTIONS</TableHeaderColumn>
+
+            </BootstrapTable>
+        )        
 
 
         return (
@@ -184,6 +202,7 @@ export default class AssignmentsTable extends React.Component {
                     onHide={this.onHideNewAssignmentModal.bind(this)} 
                     updateTable={this.props.updateTable} 
                 />
+                <UploadedDesignsVisualizer assignment={this.state.assignment} show={this.state.showUploadedDesignsVisualizer} onHide={this.onHideUploadedDesignsVisualizer.bind(this)} />
 
                 <div className="panel-heading hbuilt">
                     <div className="panel-tools">

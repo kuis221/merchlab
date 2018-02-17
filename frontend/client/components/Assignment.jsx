@@ -117,12 +117,12 @@ export default class Assignment extends React.Component {
     completeAssignment() {
         var assignment = this.state.assignment;
         assignment.status = "completed"
-        assignment.actual_hours = 10000000
+        //assignment.actual_hours = 0
 
         var data = {
             assignment_id: $("#assignment-id").text(),
             client_username: $("#client-username").text(),
-            actual_hours: 10000000
+            //actual_hours: 0
         }
 
         this.serverRequest = $.post('/complete_assignment/', data, function (result) {

@@ -17,7 +17,7 @@ export default class DesignersTable extends React.Component {
     actionsFormatter(cell, row) {
         return (
             <div>
-                <button className="btn btn-primary btn-xs table-button">GENERATE PAYOUT</button>
+                <button className="btn btn-primary btn-xs table-button">MARK PAID</button>
                 <button className="btn btn-default btn-xs table-button" onClick={this.props.unassignDesignerFromClient.bind(null, row.designer_username)}>REMOVE</button>
 
             </div>
@@ -45,6 +45,14 @@ export default class DesignersTable extends React.Component {
         return <div>{nodes}</div>
     }
 
+    dateFormatter(cell, row) {
+        console.log("hello")
+        var date = new Date(cell);
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        date = date.toLocaleDateString("en-US",options);
+        return date;
+    }
+
     render() {
         var table = (
             <BootstrapTable
@@ -57,10 +65,10 @@ export default class DesignersTable extends React.Component {
                     search={false}
                 >
                 <TableHeaderColumn dataAlign="center" dataSort={true} dataField="designer_username" editable={false} isKey={true}>DESIGNER NAME</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="assigned_on" editable={false}>ADDED ON</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="rate" editable={false}>RATE</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="approved_commission_amount" editable={false}>APPROVED</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="unapproved_commission_amount" editable={false}>UNAPPROVED</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="assigned_on" editable={false} dataFormat={this.dateFormatter}>ADDED ON</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="rate" editable={false}>PER DESIGN RATE</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="approved_commission_amount" editable={false}>APPROVED PENDING PAYOUT</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="unapproved_commission_amount" editable={false}>WAITING APPROVAL</TableHeaderColumn>
                 <TableHeaderColumn dataAlign="center" dataSort={true} dataField="status_breakdown" editable={false} dataFormat={this.formatStatusBreakdown}>ASSIGNMENTS</TableHeaderColumn>
                 <TableHeaderColumn dataAlign="center" dataSort={false} editable={false} dataFormat={this.actionsFormatter.bind(this)}>ACTIONS</TableHeaderColumn>
 

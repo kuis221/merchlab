@@ -56091,7 +56091,7 @@ var DesignersTable = function (_React$Component) {
                 _react2.default.createElement(
                     'button',
                     { className: 'btn btn-primary btn-xs table-button' },
-                    'GENERATE PAYOUT'
+                    'MARK PAID'
                 ),
                 _react2.default.createElement(
                     'button',
@@ -56135,6 +56135,15 @@ var DesignersTable = function (_React$Component) {
             );
         }
     }, {
+        key: 'dateFormatter',
+        value: function dateFormatter(cell, row) {
+            console.log("hello");
+            var date = new Date(cell);
+            var options = { year: 'numeric', month: 'long', day: 'numeric' };
+            date = date.toLocaleDateString("en-US", options);
+            return date;
+        }
+    }, {
         key: 'render',
         value: function render() {
             var table = _react2.default.createElement(
@@ -56155,23 +56164,23 @@ var DesignersTable = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     _reactBootstrapTable.TableHeaderColumn,
-                    { dataAlign: 'center', dataSort: true, dataField: 'assigned_on', editable: false },
+                    { dataAlign: 'center', dataSort: true, dataField: 'assigned_on', editable: false, dataFormat: this.dateFormatter },
                     'ADDED ON'
                 ),
                 _react2.default.createElement(
                     _reactBootstrapTable.TableHeaderColumn,
                     { dataAlign: 'center', dataSort: true, dataField: 'rate', editable: false },
-                    'RATE'
+                    'PER DESIGN RATE'
                 ),
                 _react2.default.createElement(
                     _reactBootstrapTable.TableHeaderColumn,
                     { dataAlign: 'center', dataSort: true, dataField: 'approved_commission_amount', editable: false },
-                    'APPROVED'
+                    'APPROVED PENDING PAYOUT'
                 ),
                 _react2.default.createElement(
                     _reactBootstrapTable.TableHeaderColumn,
                     { dataAlign: 'center', dataSort: true, dataField: 'unapproved_commission_amount', editable: false },
-                    'UNAPPROVED'
+                    'WAITING APPROVAL'
                 ),
                 _react2.default.createElement(
                     _reactBootstrapTable.TableHeaderColumn,
@@ -56319,7 +56328,7 @@ var NewDesignerPanel = function (_React$Component) {
                         _react2.default.createElement(
                             'h4',
                             { className: 'modal-title', style: { fontWeight: 300, fontFamily: 'Open Sans' } },
-                            'New Assignment'
+                            'New Designer'
                         )
                     ),
                     _react2.default.createElement(
@@ -56344,7 +56353,7 @@ var NewDesignerPanel = function (_React$Component) {
                                 _react2.default.createElement(
                                     'label',
                                     { className: 'control-label' },
-                                    'Rate'
+                                    'Per Design Rate'
                                 ),
                                 _react2.default.createElement('input', { type: 'text', className: 'form-control input-sm', id: 'rate' })
                             ),

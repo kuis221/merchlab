@@ -41,14 +41,14 @@ export default class NewDesignerPanel extends React.Component {
                 <NotificationContainer/>
                 <Modal show={this.props.show} onHide={this.props.onHide}>
                     <Modal.Header closeButton>
-                        <h4 className="modal-title" style={{fontWeight:300, fontFamily:'Open Sans'}}>New Assignment</h4>
+                        <h4 className="modal-title" style={{fontWeight:300, fontFamily:'Open Sans'}}>New Designer</h4>
                     </Modal.Header>
                     <Modal.Body>
                         <div className="panel-body" style={{textAlign:'left'}}>
                             <div className="form-group"><label className="control-label">Designer Username</label>
                                 <input type="text" className="form-control input-sm" id="designer-username"></input>
                             </div>
-                            <div className="form-group"><label className="control-label">Rate</label>
+                            <div className="form-group"><label className="control-label">Per Design Rate</label>
                                 <input type="text" className="form-control input-sm" id="rate"></input>
                             </div>
                             <div className="text-center">

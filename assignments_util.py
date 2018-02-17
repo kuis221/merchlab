@@ -215,18 +215,19 @@ def update_assignment(username, assignment_id, assignment_data):
 def update_assignment_progress(username, assignment_id, status):
 	update_assignment(username, assignment_id, {"status": status})
 
-def mark_assignment_as_completed(username, assignment_id, actual_hours):
+def mark_assignment_as_completed(username, assignment_id, actual_hours=0):
 	assignment = get_assignment(username, assignment_id)
 	designer_username = assignment.get("designer_username") or "unassigned" # If user completes it while it is unassigned, then we need to guard against that state
 	rate = assignment["rate"]
+	num_variations = assignment["num_variations"]
 	data = {
 		"status": "completed",
-		"actual_hours": actual_hours,
+		#"actual_hours": actual_hours,
 		"completed_on": datetime.datetime.utcnow().isoformat()
 	}
 	update_assignment(username, assignment_id, data)
 
-	commission_amount = actual_hours * rate
+	commission_amount = num_variations * rate
 	create_va_commission(username, designer_username, assignment_id, actual_hours, commission_amount)
 
 def mark_assignment_as_in_progress(username, assignment_id):
@@ -338,7 +339,7 @@ def mark_commission_as_paid_out(username, commission_id):
 def get_payout(username, designer_username, payout_id):
 	return firebase_api.query_objects("payouts/" + username + "/" + designer_username + "/" + payout_id)
 
-def generate_payout(username, designer_username):
+def generate_payout_and_mark_as_paid(username, designer_username):
 	commissions = get_commissions_for_user(username, is_paid_out=False, is_approved=True, designer_username=designer_username)
 	included_in_payout = []
 	for commission_id in commissions:
@@ -355,7 +356,7 @@ def generate_payout(username, designer_username):
 		"included_commissions": included_in_payout,
 		"total_amount": total,
 		"created_at": datetime.datetime.utcnow().isoformat(),
-		"paid_out": False
+		"paid_out": True
 	}
 
 	# @TODO: Double check through all previously generated payouts, to double confirm that commission ids aren't paid out multiple times
@@ -370,6 +371,7 @@ def generate_payout(username, designer_username):
 
 	return payout
 
+"""
 def mark_payout_as_paid(username, designer_username, payout_id):
 	payout = firebase_api.get_payout(username, designer_username, pyout_id)
 	commissions = payout["included_commissions"]
@@ -382,4 +384,4 @@ def mark_payout_as_paid(username, designer_username, payout_id):
 			"paid_out": True, 
 			"paid_on": datetime.datetime.utcnow().isoformat()
 		})
-
+"""
