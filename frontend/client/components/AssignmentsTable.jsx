@@ -151,6 +151,11 @@ export default class AssignmentsTable extends React.Component {
         )
     }
 
+    quantityFormatter(cell, row) {
+        var completed_work = row.completed_work || [];
+        return completed_work.length + "/" + cell "uploaded"
+    }
+
     render() {
         let options = {
             defaultSortName: 'created_at',
@@ -183,7 +188,7 @@ export default class AssignmentsTable extends React.Component {
                 <TableHeaderColumn dataAlign="center" dataSort={true} dataField="created_at" editable={false} isKey={true} dataFormat={this.dateFormatter.bind(this)} >CREATED ON</TableHeaderColumn>
                 <TableHeaderColumn dataAlign="center" dataSort={true} dataField="thumbnail" editable={false} dataFormat={this.inspirationFormatter}>INSPIRATION</TableHeaderColumn>
                 <TableHeaderColumn dataAlign="center" dataSort={true} dataField="notes" editable={false} dataFormat={this.notesFormatter}>NOTES</TableHeaderColumn>
-                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="num_variations" editable={false}>QUANTITY</TableHeaderColumn>
+                <TableHeaderColumn dataAlign="center" dataSort={true} dataField="num_variations" editable={false} dataFormat={this.quantityFormatter}>QUANTITY</TableHeaderColumn>
                 <TableHeaderColumn dataAlign="center" dataSort={true} dataField="gender" editable={false}>GENDER</TableHeaderColumn>
                 <TableHeaderColumn dataAlign="center" dataSort={true} dataField="niche" editable={false}>NICHE</TableHeaderColumn>
 
