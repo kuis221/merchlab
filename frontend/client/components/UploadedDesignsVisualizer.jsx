@@ -32,6 +32,23 @@ export default class UploadedDesignsVisualizer extends React.Component {
         }.bind(this));   
     }
 
+    disapproveDesign(id) {
+        var assignmentId = this.props.assignmentId;
+        var data = {
+            "upload_uuid": id
+        }
+        this.serverRequest = $.post('/assignment/' + assignment_id + '/disapprove/', data, function (result) {
+            var assignment = this.state.assignment;
+            var completed_work = assignment.completed_work;
+            completed_work[id].approved = false;
+            assignment.completed_work = completed_work;
+
+            this.setState({
+                assignment: assignment,
+                loaded: true
+            });
+        }.bind(this));   
+    }
 
     render() {
         console.log("hehehe this is assignment", this.props.assignment);
