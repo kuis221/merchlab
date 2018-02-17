@@ -92464,8 +92464,8 @@ var UploadedDesignsVisualizer = function (_React$Component) {
                         }
                         return _react2.default.createElement(
                             'div',
-                            { className: 'col-lg-6 text-center design-image-div' },
-                            _react2.default.createElement('img', { src: url, className: 'design-image', style: { maxWidth: "100%", height: '200px', marginBottom: '10px' } }),
+                            { className: 'col-lg-4 text-center design-image-div' },
+                            _react2.default.createElement('img', { src: url, className: 'design-image', style: { maxWidth: "100%", height: '150px', marginBottom: '10px' } }),
                             _react2.default.createElement('br', null),
                             btn
                         );

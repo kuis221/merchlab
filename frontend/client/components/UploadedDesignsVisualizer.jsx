@@ -102,8 +102,8 @@ export default class UploadedDesignsVisualizer extends React.Component {
                         btn = <button className="btn btn-sm btn-danger" onClick={this.disapproveDesign.bind(this, design.id)}>DISAPPROVE</button>                    
                     }
                     return (
-                        <div className="col-lg-6 text-center design-image-div">
-                            <img src={url} className="design-image" style={{maxWidth:"100%", height:'200px', marginBottom:'10px'}}></img>
+                        <div className="col-lg-4 text-center design-image-div">
+                            <img src={url} className="design-image" style={{maxWidth:"100%", height:'150px', marginBottom:'10px'}}></img>
                             <br />
                             {btn}
                         </div>)
