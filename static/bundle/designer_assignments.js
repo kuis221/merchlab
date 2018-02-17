@@ -91756,6 +91756,9 @@ var AssignmentsTable = function (_React$Component) {
                 );
             }.bind(this));
 
+            if (!row.status) {
+                row.status = "unassigned";
+            }
             if (row.status.toLocaleLowerCase() === "completed") {
                 return row.designer_username;
             } else {
