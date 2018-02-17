@@ -152,8 +152,8 @@ export default class AssignmentsTable extends React.Component {
     }
 
     quantityFormatter(cell, row) {
-        var completed_work = row.completed_work || [];
-        return completed_work.length + "/" + cell +  " uploaded"
+        var completed_work = row.completed_work || {};
+        return Object.keys(completed_work).length + "/" + cell +  " uploaded"
     }
 
     render() {

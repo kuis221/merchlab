@@ -91893,8 +91893,8 @@ var AssignmentsTable = function (_React$Component) {
     }, {
         key: 'quantityFormatter',
         value: function quantityFormatter(cell, row) {
-            var completed_work = row.completed_work || [];
-            return completed_work.length + "/" + cell + " uploaded";
+            var completed_work = row.completed_work || {};
+            return Object.keys(completed_work).length + "/" + cell + " uploaded";
         }
     }, {
         key: 'render',
