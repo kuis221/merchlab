@@ -218,7 +218,8 @@ def stripe_hooks():
 
 @app.route("/", methods=["GET", "POST"])
 def landing():
-	return render_template('landing.html')
+	return redirect(url_for('register'))
+	#return render_template('landing.html')
 
 
 @app.route("/login/", methods=["GET", "POST"])
@@ -1304,6 +1305,7 @@ def disapprove_assignment(assignment_id):
 @app.route('/designers/', methods=["GET"])
 def designers():
 	return render_template("designers.html")
+
 
 @app.route('/get_designers/', methods=["GET"])
 def designers_data():
