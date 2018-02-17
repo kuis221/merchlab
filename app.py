@@ -710,14 +710,18 @@ def get_trending_tshirts_last_7d(query=None):
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	
-	WHERE asin_analytics.last_7d_salesrank < {} and asin_analytics.salesrank < {} and asin_analytics.last_1mo_salesrank < 1000000000 
-	and asin_analytics.last_7d_salesrank > 0 and asin_analytics.salesrank > 0 and asin_analytics.last_1mo_salesrank > 0
-	and asin_analytics.list_price > 0
-	and asin_metadata.product_type_name='ORCA_SHIRT'
-	and asin_analytics.last_1mo_salesrank/asin_analytics.last_7d_salesrank >= 1.2
-	and asin_analytics.last_indexed_date > '{}'
-
-	{}
+	WHERE 
+		asin_analytics.last_7d_salesrank < {} 
+		and asin_analytics.salesrank < {} 
+		and asin_analytics.salesrank > 0 
+		and asin_analytics.last_1mo_salesrank < 1000000000 
+		and asin_analytics.last_7d_salesrank > 0 
+		and asin_analytics.last_1mo_salesrank > 0
+		and asin_analytics.list_price > 0
+		and asin_metadata.product_type_name='ORCA_SHIRT'
+		and asin_analytics.last_1mo_salesrank/asin_analytics.last_7d_salesrank >= 1.2
+		and asin_analytics.last_indexed_date > '{}'
+		{}
 
 	ORDER BY asin_analytics.last_1mo_salesrank/((1+(asin_analytics.last_7d_salesrank/100000))*asin_analytics.last_7d_salesrank) DESC 
 	LIMIT 500;
@@ -782,7 +786,10 @@ def get_trending_tshirts(query=None):
 	FROM asin_analytics 
 	INNER JOIN asin_metadata ON asin_analytics.id=asin_metadata.id
 	
-	WHERE asin_analytics.salesrank < {} and asin_analytics.last_7d_salesrank < 1000000000
+	WHERE 
+	asin_analytics.salesrank < {} 
+	and asin_analytics.salesrank > 0 
+	and asin_analytics.last_7d_salesrank < 1000000000
 	and asin_analytics.list_price > 0
 	and asin_analytics.last_7d_salesrank/asin_analytics.salesrank >= 1.2
 	and asin_metadata.product_type_name='ORCA_SHIRT'
