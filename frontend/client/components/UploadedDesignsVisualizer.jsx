@@ -103,7 +103,7 @@ export default class UploadedDesignsVisualizer extends React.Component {
                     }
                     return (
                         <div className="col-lg-4 text-center design-image-div">
-                            <img src={url} className="design-image" style={{maxWidth:"100%", height:'150px', marginBottom:'10px'}}></img>
+                            <img src={url} className="design-image" style={{maxWidth:"100%", height:'150px', marginBottom:'25px'}}></img>
                             <br />
                             {btn}
                         </div>)
