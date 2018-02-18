@@ -97019,19 +97019,7 @@ var ProductVisualizer = function (_React$Component) {
                                 'PRODUCT DETAILS'
                             ),
                             _react2.default.createElement('hr', { style: { marginTop: "0px" } }),
-                            selectedTshirtInfo,
-                            _react2.default.createElement('hr', null),
-                            _react2.default.createElement(
-                                'button',
-                                { className: 'btn btn-primary', style: { marginLeft: '10px' }, onClick: this.showNewAssignmentModal.bind(this) },
-                                'NEW ASSIGNMENT'
-                            ),
-                            _react2.default.createElement(_NewAssignmentModal2.default, {
-                                designers: this.props.designers,
-                                show: this.state.showNewAssignmentModal,
-                                onHide: this.onHideNewAssignmentModal.bind(this),
-                                asin: (this.props.selectedProduct || {}).asin
-                            })
+                            selectedTshirtInfo
                         )
                     )
                 )
