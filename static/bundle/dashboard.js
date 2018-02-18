@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1038);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1040);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -93851,7 +93851,9 @@ exports.default = LoadingIndicator;
 /* 1035 */,
 /* 1036 */,
 /* 1037 */,
-/* 1038 */
+/* 1038 */,
+/* 1039 */,
+/* 1040 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -93865,7 +93867,7 @@ var _reactDom = __webpack_require__(19);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Dashboard = __webpack_require__(1039);
+var _Dashboard = __webpack_require__(1041);
 
 var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
@@ -93874,7 +93876,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_Dashboard2.default, null), document.getElementById('wrapper'));
 
 /***/ }),
-/* 1039 */
+/* 1041 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -93890,15 +93892,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _BestSellersView = __webpack_require__(1040);
+var _BestSellersView = __webpack_require__(1042);
 
 var _BestSellersView2 = _interopRequireDefault(_BestSellersView);
 
-var _WhatsHotThisWeekView = __webpack_require__(1041);
+var _WhatsHotThisWeekView = __webpack_require__(1043);
 
 var _WhatsHotThisWeekView2 = _interopRequireDefault(_WhatsHotThisWeekView);
 
-var _KeywordViewer = __webpack_require__(1042);
+var _KeywordViewer = __webpack_require__(1044);
 
 var _KeywordViewer2 = _interopRequireDefault(_KeywordViewer);
 
@@ -94264,7 +94266,7 @@ var Dashboard = function (_React$Component) {
 exports.default = Dashboard;
 
 /***/ }),
-/* 1040 */
+/* 1042 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94452,7 +94454,7 @@ var BestSellersView = function (_React$Component) {
 exports.default = BestSellersView;
 
 /***/ }),
-/* 1041 */
+/* 1043 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94688,7 +94690,7 @@ var WhatsHotThisWeekView = function (_React$Component) {
 exports.default = WhatsHotThisWeekView;
 
 /***/ }),
-/* 1042 */
+/* 1044 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

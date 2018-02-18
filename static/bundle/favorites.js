@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1043);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1045);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -93856,7 +93856,9 @@ exports.default = LoadingIndicator;
 /* 1040 */,
 /* 1041 */,
 /* 1042 */,
-/* 1043 */
+/* 1043 */,
+/* 1044 */,
+/* 1045 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -93870,7 +93872,7 @@ var _reactDom = __webpack_require__(19);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Favorites = __webpack_require__(1044);
+var _Favorites = __webpack_require__(1046);
 
 var _Favorites2 = _interopRequireDefault(_Favorites);
 
@@ -93879,7 +93881,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_Favorites2.default, null), document.getElementById('wrapper'));
 
 /***/ }),
-/* 1044 */
+/* 1046 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

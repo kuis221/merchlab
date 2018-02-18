@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1049);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1051);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -94824,7 +94824,9 @@ module.exports = exports['default'];
 /* 1046 */,
 /* 1047 */,
 /* 1048 */,
-/* 1049 */
+/* 1049 */,
+/* 1050 */,
+/* 1051 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94838,7 +94840,7 @@ var _reactDom = __webpack_require__(19);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Assignment = __webpack_require__(1050);
+var _Assignment = __webpack_require__(1052);
 
 var _Assignment2 = _interopRequireDefault(_Assignment);
 
@@ -94847,7 +94849,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_Assignment2.default, null), document.getElementById('assignment'));
 
 /***/ }),
-/* 1050 */
+/* 1052 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94863,7 +94865,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _DesignUploader = __webpack_require__(1051);
+var _DesignUploader = __webpack_require__(1053);
 
 var _DesignUploader2 = _interopRequireDefault(_DesignUploader);
 
@@ -95510,7 +95512,7 @@ var Assignment = function (_React$Component) {
 exports.default = Assignment;
 
 /***/ }),
-/* 1051 */
+/* 1053 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
