@@ -95797,6 +95797,8 @@ var AssignmentsPage = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'col-lg-12' },
+                        _react2.default.createElement(_AssignmentsSummary2.default, null),
+                        _react2.default.createElement('br', null),
                         _react2.default.createElement(_AssignmentsTable2.default, {
                             assignments: this.state.assignments,
                             designers: this.state.designers,
