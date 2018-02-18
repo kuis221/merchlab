@@ -240,7 +240,7 @@ def login():
 			user = firebase_api.find_user_by_username(username)
 
 		if not user:
-			return render_template("login.html", error="credentials_error")
+			return render_template("loginTemp.html", error="credentials_error")
 
 		object_id = user.get("objectId")
 		# NOTE: Users are now allowed to sign in through their email
@@ -250,7 +250,7 @@ def login():
 		if user and hash_pass(request.form['password']) == user.password:
 			login_user(user, remember=True)
 			return redirect(request.args.get("next") or url_for("index"))
-	return render_template("login.html")
+	return render_template("loginTemp.html")
 
 
 @app.route("/logout/")
@@ -456,7 +456,7 @@ def register():
 	num_seats_left = min(50, num_seats_left)
 
 	if request.method == 'GET':
-		return render_template('register.html', num_seats_left=num_seats_left)
+		return render_template('registerTemp.html', num_seats_left=num_seats_left)
 
 	print("here")
 	referrerId = request.form.get("referrerId")
@@ -468,10 +468,10 @@ def register():
 	print(username, password, email, stripeToken)
 
 	if username == "" or password == "" or email == "":
-		return render_template('register.html', num_seats_left=num_seats_left, error="required_field_missing")
+		return render_template('registerTemp.html', num_seats_left=num_seats_left, error="required_field_missing")
 
 	if "mail.ru" in email or "163.com" in email or "yeah.net" in email:
-		return render_template('register.html', num_seats_left=num_seats_left,
+		return render_template('registerTemp.html', num_seats_left=num_seats_left,
 							   error="We cannot process your email address. Please use a different email provider.")
 
 	usersDict = firebase_api.query_objects('users')
@@ -481,10 +481,10 @@ def register():
 			user = usersDict[objectId]
 			if user["username"].lower() == username.lower():
 				result = {"error": "username_exists"}
-				return render_template('register.html', num_seats_left=num_seats_left, error=result["error"])
+				return render_template('registerTemp.html', num_seats_left=num_seats_left, error=result["error"])
 			elif user["email"] == email:
 				result = {"error": "email_exists"}
-				return render_template('register.html', num_seats_left=num_seats_left, error=result["error"])
+				return render_template('registerTemp.html', num_seats_left=num_seats_left, error=result["error"])
 
 	try:
 		# Create a Customer
@@ -504,7 +504,7 @@ def register():
 		plan = "lifetime_plan"
 	except Exception as e:
 		print(e)
-		return render_template('register.html', num_seats_left=num_seats_left,
+		return render_template('registerTemp.html', num_seats_left=num_seats_left,
 							   error="We had an error processing your card. Please check your CVC and Expiration Date again.")
 
 	try:
@@ -520,7 +520,7 @@ def register():
 		)
 
 		if "error" in result:
-			return render_template('register.html', num_seats_left=num_seats_left, error=result["error"])
+			return render_template('registerTemp.html', num_seats_left=num_seats_left, error=result["error"])
 
 		user = firebase_api.find_user_by_username(username)
 		user = models.User(user, [])
@@ -528,7 +528,7 @@ def register():
 		return redirect(url_for('thankyou'))
 	except Exception as e:
 		print(e)
-		return render_template('register.html', num_seats_left=num_seats_left,
+		return render_template('registerTemp.html', num_seats_left=num_seats_left,
 							   error="Something unexpected went wrong. Please contact us via our Zendesk email on the top right corner for customer support.")
 
 

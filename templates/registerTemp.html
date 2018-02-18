@@ -1,0 +1,260 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700" rel="stylesheet">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- styles -->
+        <link rel="stylesheet" href="/static/styles/vendor.min.css"/>
+        <link rel="stylesheet" href="/static/styles/main.css"/>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+        <!-- Begin Inspectlet Embed Code -->
+        <script type="text/javascript" id="inspectletjs">
+        window.__insp = window.__insp || [];
+        __insp.push(['wid', 1355144002]);
+        (function() {
+        function ldinsp(){if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+        setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
+        })();
+        </script>
+        <!-- End Inspectlet Embed Code -->
+
+        <!-- Intercom Integration Code -->
+        <script>
+          window.intercomSettings = {
+            app_id: "zj7fd4cy"
+          };
+        </script>
+        <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/zj7fd4cy';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+        <!-- End Intercom Integration Code -->
+
+    </head>
+    <body>
+      <div class="main-form register">
+        <div class="container">
+          <div class="row">
+            <div class="col-10 offset-md-1">
+              <div class="logo"><img src="dist/img/logo2.svg" alt=""></div>
+              <div class="f-card">
+                <p class="title">Please Register</p>
+                <p class="subtitle">Just a few details away from amazing research<br>
+                 data for Merch By Amazon!</p>
+
+                 {% if error == "username_exists" %}
+
+                      <div class="alert alert-danger" role="alert">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <b>Oh snap</b>, that username already exists!
+                      </div>
+                      <br>
+
+                    {% elif error == "email_exists" %}
+
+                      <div class="alert alert-danger" role="alert">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <b>Oh snap</b>, that email already exists!
+                      </div>
+                      <br>
+
+                    {% elif error == "required_field_missing" %}
+
+                      <div class="alert alert-danger" role="alert">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <b>Oh snap</b>, one of the fields has not been filled out!
+                      </div>
+                      <br>
+
+                    {% elif error == "wrong_access_code" %}
+
+                      <div class="alert alert-danger" role="alert">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <b>Oh snap</b>, your access code is wrong!
+                      </div>
+                      <br>
+
+                    {% elif error and error != "" %}
+                      <div class="alert alert-danger" role="alert">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <b>Oh snap</b>, {{error}}
+                      </div>           
+                      <br>
+
+                    {% endif %}
+
+                    <form method="post" id="registrationForm">
+                     <div class="inline-row">
+                       <div class="f-container">
+                         <label for="#">Username</label>
+                         <div class="f-row">
+                           <input type="text" placeholder="username" id="username" value="" name="username">
+                           <i class="far fa-user-circle"></i>
+                         </div>
+                       </div>
+                       <div class="f-container">
+                         <label for="#">Email Address</label>
+                         <div class="f-row">
+                           <input type="text" placeholder="email address" value="" id="email" name="email">
+                           <i class="far fa-envelope"></i>
+                         </div>
+                       </div>
+                     </div>
+
+
+                     <div class="inline-row">
+                       <div class="f-container">
+                         <label for="#">Password</label>
+                         <div class="f-row">
+                           <input type="password" placeholder="Password" id="password" value="" name="password">
+                           <i class="fas fa-lock"></i>
+                         </div>
+                       </div>
+                       <div class="f-container">
+                         <label for="#">Confirm Password</label>
+                         <div class="f-row">
+                           <input type="password" placeholder="Password">
+                           <i class="fas fa-lock"></i>
+                         </div>
+                       </div>
+                     </div>
+
+
+
+
+                     <div class="inline-row cards-n">
+                       <div class="f-container card-n">
+                         <label for="#">Card Number</label>
+                         <div class="f-row">
+                           <input type="number" placeholder="3452 3452 3452 3452" autocomplete="off" id="" data-stripe="number" class="cc-num">
+                           <i class="far fa-credit-card"></i>
+                         </div>
+                       </div>
+                       <div class="card-secondary">
+                         <div class="f-container date">
+                           <label for="#">Exp Month</label>
+                           <div class="f-row without-icon">
+                             <input type="number" placeholder="05" data-stripe="exp-month">
+                           </div>
+                         </div>
+                         <div class="f-container date">
+                           <label for="#">Exp Year</label>
+                           <div class="f-row without-icon">
+                             <input type="number" placeholder="2020" data-stripe="exp-year">
+                           </div>
+                         </div>
+                         <div class="f-container date">
+                           <label for="#">CVV/CVV2</label>
+                           <div class="f-row without-icon">
+                             <input type="number" placeholder="000" autocomplete="off" id="" data-stripe="cvc" class="cc-cvc">
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                     <button class="button dark">REGISTER</button>
+                   </form>
+                 <a href="{{url_for('login')}}" class="new-account">Already a member? <span class="bold">Click to Login.</span></a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          2018 Copyright <span>MERCHLAB</span>.
+        </div>
+      </div>
+      <!-- Scripts -->
+      <script type="text/javascript">
+
+        $('input.cc-num').payment('formatCardNumber');
+        //$('input.cc-exp').payment('formatCardExpiry');
+        $('input.cc-cvc').payment('formatCardCVC');    
+        // This identifies your website in the createToken call below
+        Stripe.setPublishableKey('pk_live_UyHYEEzZeMgveaVgPX8SFGvP');
+        // ...
+
+        function stripeResponseHandler(status, response) {
+          var $form = $('#registrationForm');
+          console.log("here, supposed to log...")
+          if (response.error) {
+            // Show the errors on the form
+            swal({
+                title: "Something's not right with your card info!",
+                text: response.error.message,
+                type: "error"
+            }); 
+
+            $form.find('button').prop('disabled', false);
+          } else {
+            // response contains id and card, which contains additional card details
+            var token = response.id;
+            // Insert the token into the form so it gets submitted to the server
+            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+
+            if (location.search != "") {
+                var rawParamsList = location.search.slice(1).split('&')
+                var paramsList = [];
+                for (var c=0; c<rawParamsList.length; c++) {
+                    var paramName = rawParamsList[c].split('=')[0];
+                    var paramVal = rawParamsList[c].split('=')[1];
+                    if (paramName == "ref" || paramName == "referrer") {
+                        $form.append($('<input type="hidden" name="referrerId" />').val(paramVal));
+                        break;
+                    }
+                } 
+            }
+
+            // and submit
+            console.log("this is token: " + token)
+
+            $form.get(0).submit();
+          }
+        };
+
+
+        $(function(){
+
+            jQuery.validator.addMethod("alphanumeric", function(value, element) {
+                return this.optional(element) || /^\w+$/i.test(value);
+            }, "Letters, numbers, and underscores only please.");
+
+            $("#registrationForm").validate({
+                rules: {
+                    password: {
+                        required: true,
+                        minlength: 3
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    username: {
+                        required: true,
+                        minlength: 3,
+                        alphanumeric: true
+                    }
+                },
+                submitHandler: function(form) {
+                    //form.submit();
+
+                    var $form = $("#registrationForm");
+
+                    // Disable the submit button to prevent repeated clicks
+                    $form.find('button').prop('disabled', true);
+
+                    Stripe.card.createToken($form, stripeResponseHandler);
+
+                    // Prevent the form from submitting with the default action
+                    return false;
+                }
+            });
+        });
+
+      </script>
+
+      <script src="/static/scripts/vendor.min.js"></script>
+      <script src="/static/scripts/main.js"></script>
+    </body>
+</html>

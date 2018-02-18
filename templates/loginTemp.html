@@ -1,0 +1,138 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700" rel="stylesheet">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- styles -->
+        <link rel="stylesheet" href="/static/styles/vendor.min.css"/>
+        <link rel="stylesheet" href="/static/styles/main.css"/>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <!-- Begin Inspectlet Embed Code -->
+        <script type="text/javascript" id="inspectletjs">
+          window.__insp = window.__insp || [];
+          __insp.push(['wid', 1355144002]);
+          (function () {
+            function ldinsp() {
+              if (typeof window.__inspld != "undefined") return;
+              window.__inspld = 1;
+              var insp = document.createElement('script');
+              insp.type = 'text/javascript';
+              insp.async = true;
+              insp.id = "inspsync";
+              insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js';
+              var x = document.getElementsByTagName('script')[0];
+              x.parentNode.insertBefore(insp, x);
+            };
+            setTimeout(ldinsp, 500);
+            document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
+          })();
+        </script>
+        <!-- End Inspectlet Embed Code -->
+
+        <!-- Intercom Integration Code -->
+        <script>
+          window.intercomSettings = {
+            app_id: "zj7fd4cy"
+          };
+        </script>
+        <script>(function () {
+          var w = window;
+          var ic = w.Intercom;
+          if (typeof ic === "function") {
+            ic('reattach_activator');
+            ic('update', intercomSettings);
+          } else {
+            var d = document;
+            var i = function () {
+              i.c(arguments)
+            };
+            i.q = [];
+            i.c = function (args) {
+              i.q.push(args)
+            };
+            w.Intercom = i;
+
+            function l() {
+              var s = d.createElement('script');
+              s.type = 'text/javascript';
+              s.async = true;
+              s.src = 'https://widget.intercom.io/widget/zj7fd4cy';
+              var x = d.getElementsByTagName('script')[0];
+              x.parentNode.insertBefore(s, x);
+            }
+
+            if (w.attachEvent) {
+              w.attachEvent('onload', l);
+            } else {
+              w.addEventListener('load', l, false);
+            }
+          }
+        })()</script>
+        <!-- End Intercom Integration Code -->
+    </head>
+    <body>
+      <div class="main-form">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 offset-md-3">
+              <div class="logo"><img src="/static/images/logo2.svg" alt=""></div>
+              <div class="f-card">
+                <p class="title">Please login</p>
+                <p class="subtitle">Just a few details away from amazing research<br>
+                 data for Merch By Amazon!</p>
+                {% if error=="credentials_error" %}
+                  <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <b>Oh snap</b>, we don't have that username/password combo in our database!
+                  </div>
+                  <br>
+                {% endif %}
+                <form id="loginForm" method="post">
+                  <div class="f-container">
+                    <label for="username">Use your username or email</label>
+                    <div class="f-row">
+                      <input type="text" placeholder="username" required="" value="" name="username" id="username">
+                      <i class="far fa-user-circle"></i>
+                    </div>
+                    <p class="f-text">*The username OR email you used to sign up for MERCHLAB.</p>
+                  </div>
+                  <div class="f-container">
+                    <label for="password">Password</label>
+                    <div class="f-row">
+                      <input type="password" required="" value="" name="password" id="password" placeholder="password">
+                      <i class="fas fa-lock"></i>
+                    </div>
+                  </div>
+                  <div class="check">
+                    <label class="container-check">remember me
+                      <input type="checkbox" checked="checked" name="remember">
+                      <span class="checkmark"></span>
+                    </label>
+                    <p class="check-text">
+                      *if this is a private computer.
+                    </p>
+                  </div>
+                  <button class="button green">LOGIN</button>
+                  <div class="forgot">
+                    Forgot your password? <a href="/forgot_password/">Change it here.</a>
+                  </div>
+                </form>
+                 <a href="/register/" class="new-account">Don't have an account?</a>
+                 <a href="/register/" class="button dark">REGISTER</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          2018 Copyright <span>MERCHLAB</span>.
+        </div>
+      </div>
+      <!-- Scripts -->
+      <script src="/static/scripts/vendor.min.js"></script>
+      <script src="/static/scripts/main.js"></script>
+    </body>
+</html>

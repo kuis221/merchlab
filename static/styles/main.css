@@ -576,19 +576,22 @@ footer {
         align-items: center; } }
 
 .main-form {
-  background-image: url("../img/form.jpg");
+  background-image: url("../images/form.jpg");
   min-height: 100vh;
   background-position: top center;
   background-size: cover;
   background-repeat: no-repeat;
   padding: 90px 0 130px;
   position: relative; }
+  .main-form form button{
+    width: 100%;
+  }
   @media (max-width: 1024px) {
     .main-form {
-      background-image: url("../img/form2.jpg"); } }
+      background-image: url("../images/form2.jpg"); } }
   @media (max-width: 1024px) {
     .main-form.register {
-      background-image: url("../img/form2.jpg"); } }
+      background-image: url("../images/form2.jpg"); } }
   @media (max-width: 767px) {
     .main-form.register {
       background-image: none !important; } }
@@ -659,7 +662,7 @@ footer {
     width: 100%; }
     @media (max-width: 767px) {
       .main-form .logo {
-        background-image: url(../img/mobbg.png);
+        background-image: url(../images/mobbg.png);
         height: 72px;
         background-size: cover;
         background-position: center center;
@@ -1203,7 +1206,7 @@ header {
     .pricing .p-card.last {
       float: right; }
     .pricing .p-card:before {
-      background-image: url(../img/card.svg);
+      background-image: url(../images/card.svg);
       position: absolute;
       content: '';
       width: 100%;
@@ -1229,7 +1232,7 @@ header {
       line-height: 22px;
       padding: 20px 55px 0; }
     .pricing .p-card .p-badge {
-      background: url("../img/123.svg");
+      background: url("../images/123.svg");
       color: #0158CA;
       font-size: 14px;
       text-align: center;
@@ -1302,7 +1305,7 @@ header {
         width: 100%;
         max-width: 100%; } }
   .under-pricing:after {
-    background: url(../img/map.png);
+    background: url(../images/map.png);
     position: absolute;
     content: '';
     width: 60%;
