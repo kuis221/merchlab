@@ -3,9 +3,30 @@ import { Modal, OverlayTrigger, Popover, Button,
     FormGroup, FormControl, ControlLabel, Alert } from 'react-bootstrap';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import NewAssignmentModal from './NewAssignmentModal.jsx';
 
 export default class ProductVisualizer extends React.Component {
-	render() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showNewAssignmentModal: false,
+        }
+    }
+
+    showNewAssignmentModal() {
+        this.setState({
+            showNewAssignmentModal: true
+        })
+    }
+
+    onHideNewAssignmentModal() {
+        this.setState({
+            showNewAssignmentModal: false
+        })
+    }
+
+
+    render() {
         var modalChart;
         if (this.props.productData) {
                 modalChart = (<ResponsiveContainer width="100%" height={240}>
