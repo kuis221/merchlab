@@ -88,18 +88,22 @@ export default class AssignmentsTable extends React.Component {
 
     actionsFormatter(cell, row) {
         var clientUsername = $("#client-username").text();
-        if (this.props.isDesignerView || row.status.toLocaleLowerCase() === "completed") {
+        if (this.props.isDesignerView) {
             return (
                 <div>
                     <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-primary btn-xs table-button">VIEW</button></a>
                 </div>
             )        
         } else {
+            var deleteButton;
+            if (row.status.toLocaleLowerCase() !== "completed") {
+                deleteButton = <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-default btn-xs table-button">DELETE</button></a>;
+            }
 
             return (
                 <div>
                     <a href="#a" onClick={this.showUploadedDesignsVisualizer.bind(this, row.id)}><button className="btn btn-primary btn-xs table-button">VIEW</button></a>
-                    <a href={"/assignment/" + clientUsername + "/" + row.id}><button className="btn btn-default btn-xs table-button">DELETE</button></a>
+                    {deleteButton}
                 </div>
             )        
         }

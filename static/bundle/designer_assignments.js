@@ -91791,7 +91791,7 @@ var AssignmentsTable = function (_React$Component) {
         key: 'actionsFormatter',
         value: function actionsFormatter(cell, row) {
             var clientUsername = $("#client-username").text();
-            if (this.props.isDesignerView || row.status.toLocaleLowerCase() === "completed") {
+            if (this.props.isDesignerView) {
                 return _react2.default.createElement(
                     'div',
                     null,
@@ -91806,6 +91806,18 @@ var AssignmentsTable = function (_React$Component) {
                     )
                 );
             } else {
+                var deleteButton;
+                if (row.status.toLocaleLowerCase() !== "completed") {
+                    deleteButton = _react2.default.createElement(
+                        'a',
+                        { href: "/assignment/" + clientUsername + "/" + row.id },
+                        _react2.default.createElement(
+                            'button',
+                            { className: 'btn btn-default btn-xs table-button' },
+                            'DELETE'
+                        )
+                    );
+                }
 
                 return _react2.default.createElement(
                     'div',
@@ -91819,15 +91831,7 @@ var AssignmentsTable = function (_React$Component) {
                             'VIEW'
                         )
                     ),
-                    _react2.default.createElement(
-                        'a',
-                        { href: "/assignment/" + clientUsername + "/" + row.id },
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'btn btn-default btn-xs table-button' },
-                            'DELETE'
-                        )
-                    )
+                    deleteButton
                 );
             }
         }
