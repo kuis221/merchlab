@@ -583,6 +583,9 @@ footer {
   background-repeat: no-repeat;
   padding: 90px 0 130px;
   position: relative; }
+  .main-form form button{
+    width: 100%;
+  }
   @media (max-width: 1024px) {
     .main-form {
       background-image: url("../images/form2.jpg"); } }
