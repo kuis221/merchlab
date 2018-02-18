@@ -1248,6 +1248,19 @@ def add_assignment():
 @app.route('/get_assignments/', methods=["GET"])
 def get_assignments():
 	designers = assignments_util.get_vas_for_user(current_user.username)
+	designers_by_username = {}
+	for designer in designers:
+		designers_by_username[designer["designer_username"]] = designer
+	breakdown_by_va = assignments_util.get_breakdown_by_va_for_user(current_user.username, is_paid_out=False)
+
+	designers = []
+	for designer_username in breakdown_by_va:
+		breakdown = breakdown_by_va[designer_username]
+		breakdown["designer_username"] = designer_username
+		designer_meta = designers_by_username.get(designer_username, {})
+		designer_meta.update(breakdown)
+		designers.append(designer_meta)
+
 	assignments = assignments_util.get_assignments_for_user(current_user.username, status=None, designer_username=None)
 	asins = [a["asin"] for a in assignments if a.get("asin")]
 	thumbnails_raw = models.AsinMetadata.query.filter(

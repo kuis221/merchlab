@@ -11,6 +11,7 @@ export default class InventoryTable extends React.Component {
     	super(props);
 	  this.state = {
 		items: [],
+		designers: [],
 		loaded: false,
         "showModal": false,
         "productData": null,
@@ -36,6 +37,15 @@ export default class InventoryTable extends React.Component {
 			this.setState({
 				recentSearches: response,
 				recentSearchesLoaded: true
+			});
+		}.bind(this));	
+
+		this.searchWithQuery("");
+
+		this.serverRequest = $.get('/get_designers/', function (result) {
+			var response = JSON.parse(result);
+			this.setState({
+				designers: response,
 			});
 		}.bind(this));	
 
@@ -280,7 +290,7 @@ export default class InventoryTable extends React.Component {
 
 			<div>
                 <ProductVisualizer 
-                    show={this.state.showModal} productData={this.state.productData} 
+                    show={this.state.showModal} productData={this.state.productData} designers={this.state.designers}
                     selectedProduct={this.state.selectedProduct} onHide={this.closeModal.bind(this)}>
                 </ProductVisualizer>
 				<div className="row">

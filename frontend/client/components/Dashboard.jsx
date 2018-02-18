@@ -12,7 +12,8 @@ export default class Dashboard extends React.Component {
             data: null,
             query: "",
             dashboardView: "whats_hot_24_hrs",
-            cache: {}
+            cache: {},
+            designers: []
         }
     }
 
@@ -40,6 +41,15 @@ export default class Dashboard extends React.Component {
                     cache: cache
                 })
             }.bind(this));
+
+        var req = request
+            .get('/get_designers/')
+            .end(function(err, res) {
+                this.setState({
+                    designers: JSON.parse(res.text),
+                })
+            }.bind(this));
+
     }
 
     showBestSellers() {
@@ -185,15 +195,15 @@ export default class Dashboard extends React.Component {
         var dashboardToDisplay;
         if (this.state.dashboardView === "whats_hot_24_hrs") {
             dashboardToDisplay = (
-                <WhatsHotThisWeekView loaded={this.state.loaded} data={this.state.data} dataKey="whats_hot_this_week" toggleAsin={this.toggleAsin.bind(this)} showBestSellers={this.showBestSellers.bind(this)}/>
+                <WhatsHotThisWeekView loaded={this.state.loaded} data={this.state.data} dataKey="whats_hot_this_week" toggleAsin={this.toggleAsin.bind(this)} showBestSellers={this.showBestSellers.bind(this)} designers={this.state.designers} />
             ) 
         } else if (this.state.dashboardView === "whats_hot_last_7d") {
             dashboardToDisplay = (
-                <WhatsHotThisWeekView loaded={this.state.loaded} data={this.state.data} dataKey="whats_hot_last_7d" toggleAsin={this.toggleAsin.bind(this)} showBestSellers={this.showBestSellers.bind(this)}/>
+                <WhatsHotThisWeekView loaded={this.state.loaded} data={this.state.data} dataKey="whats_hot_last_7d" toggleAsin={this.toggleAsin.bind(this)} showBestSellers={this.showBestSellers.bind(this)} designers={this.state.designers} />
             ) 
         } else if (this.state.dashboardView === "best_sellers") {
             dashboardToDisplay = (
-                <BestSellersView loaded={this.state.loaded} data={this.state.data} />
+                <BestSellersView loaded={this.state.loaded} data={this.state.data} designers={this.state.designers} />
             )
         } else if (this.state.dashboardView === "whats_hot_escore") {
             dashboardToDisplay = (
@@ -202,6 +212,7 @@ export default class Dashboard extends React.Component {
                     data={this.state.data} 
                     dataKey="whats_hot_escore"
                     showBestSellers={this.showBestSellers.bind(this)}
+                    designers={this.state.designers}
                 />
             )             
         } else if (this.state.dashboardView === "whats_hot_weighted_escore_v1") {
@@ -211,6 +222,8 @@ export default class Dashboard extends React.Component {
                     data={this.state.data} 
                     dataKey="whats_hot_weighted_escore_v1"
                     showBestSellers={this.showBestSellers.bind(this)}
+                    designers={this.state.designers}
+
                 />
             )                         
         } else if (this.state.dashboardView === "whats_hot_weighted_escore_v2") {
@@ -220,6 +233,7 @@ export default class Dashboard extends React.Component {
                     data={this.state.data} 
                     dataKey="whats_hot_weighted_escore_v2"
                     showBestSellers={this.showBestSellers.bind(this)}
+                    designers={this.state.designers}
                 />
             )                         
         } else if (this.state.dashboardView === "whats_hot_streak_score_v1") {
@@ -229,6 +243,8 @@ export default class Dashboard extends React.Component {
                     data={this.state.data} 
                     dataKey="whats_hot_streak_score_v1"
                     showBestSellers={this.showBestSellers.bind(this)}
+                    designers={this.state.designers}
+
                 />
             )                         
         } else if (this.state.dashboardView === "whats_hot_streak_score_v2") {
@@ -238,6 +254,7 @@ export default class Dashboard extends React.Component {
                     data={this.state.data} 
                     dataKey="whats_hot_streak_score_v2"
                     showBestSellers={this.showBestSellers.bind(this)}
+                    designers={this.state.designers}
                 />
             )                         
         } else if (this.state.dashboardView === "consistent_winners") {
@@ -248,6 +265,7 @@ export default class Dashboard extends React.Component {
                     dataKey="whats_hot_streak_score_v2"
                     toggleAsin={this.toggleAsin.bind(this)}
                     showBestSellers={this.showBestSellers.bind(this)}
+                    designers={this.state.designers}
                 />
             )                  
         } else if (this.state.dashboardView === "recently_discovered_shirts") {
@@ -258,6 +276,7 @@ export default class Dashboard extends React.Component {
                     dataKey="recently_discovered_shirts"
                     toggleAsin={this.toggleAsin.bind(this)}
                     showBestSellers={this.showBestSellers.bind(this)}
+                    designers={this.state.designers}
                 />
             )          
         }

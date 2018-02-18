@@ -135,7 +135,7 @@ export default class WhatsHotThisWeekView extends React.Component {
                     {dataNodes}
                 </div>
                 <ProductVisualizer 
-                    show={this.state.showModal} productData={this.state.productData} 
+                    show={this.state.showModal} productData={this.state.productData} designers={this.props.designers}
                     selectedProduct={this.state.selectedProduct} onHide={this.closeModal.bind(this)}>
                 </ProductVisualizer>
             </div>

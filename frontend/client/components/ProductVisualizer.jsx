@@ -254,6 +254,14 @@ export default class ProductVisualizer extends React.Component {
 	                        <p>PRODUCT DETAILS</p>
 	                        <hr style={{marginTop: "0px"}} />
 	                        {selectedTshirtInfo}
+                            <hr />
+                            <button className="btn btn-primary" style={{marginLeft: '10px'}} onClick={this.showNewAssignmentModal.bind(this)}>NEW ASSIGNMENT</button>
+                            <NewAssignmentModal 
+                                designers={this.props.designers} 
+                                show={this.state.showNewAssignmentModal} 
+                                onHide={this.onHideNewAssignmentModal.bind(this)}
+                                asin={(this.props.selectedProduct || {}).asin} 
+                            />
 	                    </div>
 	                </div>
 	            </Modal.Body>

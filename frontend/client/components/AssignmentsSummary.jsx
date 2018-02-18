@@ -1,7 +1,31 @@
 import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import Select from 'react-select';
 
 export default class AssignmentSummary extends React.Component {
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            uploadAnalyticsDateRange: "This Week",
+            designerBreakdownDateRange: "This Week"
+        }
+    }
+
+    handleChangeUploadAnalyticsDateRange(selectedOption) {
+        this.setState({
+            uploadAnalyticsDateRange: selectedOption
+        })
+    }
+
+    handleChangeDesignerBreakdownDateRange(selectedOption) {
+        this.setState({
+            designerBreakdownDateRange: selectedOption
+        })
+    }
+
     render() {
+        /*
         return (
             <div className="row">
                 <div className="col-lg-4">
@@ -99,5 +123,121 @@ export default class AssignmentSummary extends React.Component {
                 </div>
             </div>
         )
+        */
+
+        var designers = this.props.designers || [];
+        console.log(designers);
+
+        var designerAssignmentsData = [];
+        for (var c=0; c<designers.length; c++) {
+            var designer = designers[c];
+            var currData = {
+                designer_username: designer.designer_username,
+                "Assigned": (designer.status_breakdown || {}).assigned || 0,
+                "Completed": (designer.status_breakdown || {}).completed || 0                
+            }
+            designerAssignmentsData.push(currData);
+        }
+        console.log("this is state", )
+        var analyticsRangeSelect = (<Select
+            name="upload-analytics-date-range"
+            value={this.state.uploadAnalyticsDateRange}
+            onChange={this.handleChangeUploadAnalyticsDateRange.bind(this)}
+            searchable={false}
+            options={[
+                { value: 'This Week', label: 'This Week' },
+                { value: 'Last Week', label: 'Last Week' },
+                { value: 'This Month', label: 'This Month' },
+            ]}
+        />)
+
+        var designerBreakdownRangeSelect = (<Select
+            name="upload-analytics-date-range"
+            value={this.state.designerBreakdownDateRange}
+            onChange={this.handleChangeUploadAnalyticsDateRange.bind(this)}
+            searchable={false}
+            options={[
+                { value: 'This Week', label: 'This Week' },
+                { value: 'Last Week', label: 'Last Week' },
+                { value: 'This Month', label: 'This Month' },
+            ]}
+        />)
+
+        var chart = (<ResponsiveContainer width="100%" height={243}>
+            <BarChart data={designerAssignmentsData}
+                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                <XAxis dataKey="designer_username"/>
+                <YAxis/>
+                <CartesianGrid strokeDasharray="3 3"/>
+                <Tooltip/>
+                <Legend />
+                <Bar dataKey="Assigned" fill="#8884d8" />
+                <Bar dataKey="Completed" fill="#82ca9d" />
+            </BarChart>
+        </ResponsiveContainer>)
+
+        return (
+            <div className="row">
+                <div className="col-lg-4">
+                    <div className="hpanel">
+                        <div className="panel-heading hbuilt">
+                            <div className="panel-tools">
+                                <a className="showhide">
+                                    <i className="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                            <span style={{marginLeft: '10px'}}>Upload Analytics</span>
+                        </div>
+                        <div className="panel-body list">
+                            {analyticsRangeSelect}
+                            <div className="list-item-container">
+                                <div className="list-item">
+                                    <h3 className="no-margins font-extra-bold">34</h3>
+                                    <small>Completed Assignments</small>
+                                    <div className="pull-right font-bold">98% <i className="fa fa-level-up text-success"></i></div>
+                                </div>
+                                <div className="list-item">
+                                    <h3 className="no-margins font-extra-bold">2,773</h3>
+                                    <small>Total Uploads</small>
+                                    <div className="pull-right font-bold">98% <i className="fa fa-level-up text-success"></i></div>
+                                </div>
+                                <div className="list-item">
+                                    <h3 className="no-margins font-extra-bold text-success">4,422</h3>
+                                    <small>Approved Uploads</small>
+                                    <div className="pull-right font-bold">13% <i className="fa fa-level-down text-color3"></i></div>
+                                </div>
+                                <div className="list-item">
+                                    <h3 className="no-margins font-extra-bold text-danger">9,180</h3>
+                                    <small>Rejected Uploads</small>
+                                    <div className="pull-right font-bold">22% <i className="fa fa-bolt text-color3"></i></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div className="col-lg-8">
+                    <div className="hpanel">
+                        <div className="panel-heading hbuilt">
+                            <div className="panel-tools">
+                                <a className="showhide">
+                                    <i className="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                            <span style={{marginLeft: '10px'}}>Breakdown By Designer</span>
+                        </div>
+                        <div className="panel-body text-center">
+                            <div className="row">
+                                <div className="col-lg-3" style={{float: 'right', marginRight: '28.5px', marginBottom:'20px'}}>
+                                    {designerBreakdownRangeSelect}
+                                </div>
+                            </div>
+                            {chart}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+
     }
 }

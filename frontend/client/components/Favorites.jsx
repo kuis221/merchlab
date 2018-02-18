@@ -7,6 +7,7 @@ export default class Favorites extends React.Component {
     constructor() {
         super()
         this.state = {
+            designers: []
         }
     }
 
@@ -18,6 +19,14 @@ export default class Favorites extends React.Component {
                 this.setState({
                     loaded: true,
                     data: JSON.parse(res.text),
+                })
+            }.bind(this));
+
+        var req = request
+            .get('/get_designers/')
+            .end(function(err, res) {
+                this.setState({
+                    designers: JSON.parse(res.text),
                 })
             }.bind(this));
     }
@@ -183,7 +192,7 @@ export default class Favorites extends React.Component {
                     </div>
                 </div>
                 <ProductVisualizer 
-                    show={this.state.showModal} productData={this.state.productData} 
+                    show={this.state.showModal} productData={this.state.productData} designers={this.state.designers} 
                     selectedProduct={this.state.selectedProduct} onHide={this.closeModal.bind(this)}>
                 </ProductVisualizer>
             </div>

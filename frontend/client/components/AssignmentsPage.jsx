@@ -108,7 +108,7 @@ export default class AssignmentsPage extends React.Component {
             <div>
                 <div className="row">
                     <div className="col-lg-12">
-                        <AssignmentsSummary />
+                        <AssignmentsSummary designers={this.state.designers} />
                         <br />
                         <AssignmentsTable 
                             assignments={this.state.assignments}  

@@ -29,6 +29,86 @@ def unassign_va_from_user(username, designer_username):
 	firebase_api.patch_object("virtual_assistants/" + username + "/" + designer_username, None)
 	return firebase_api.patch_object("clients/" + designer_username + "/" + username, None)
 
+
+def create_assignment(username, assignment_data):
+	created_at = datetime.datetime.utcnow().isoformat()
+	assignment_data["created_at"] = created_at
+	return firebase_api.save_object("assignments/" + username, assignment_data)
+
+def update_assignment(username, assignment_id, assignment_data):
+	updated_on = datetime.datetime.utcnow().isoformat()
+	assignment_data["updated_on"] = updated_on
+	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id, assignment_data)
+
+
+def add_inspiration_asin_to_assignment(username, assignment_id, asin):
+	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/inspiration_asins/" + asin, True)
+
+def delete_inspiration_asin_from_assignment(username, assignment_id, asin):
+	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/inspiration_asins/" + asin, False)
+
+def add_upload_to_assignment(username, assignment_id, upload_uuid):
+	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/inspiration_uploads/" + upload_uuid, {"s3_url": s3_url})
+
+def delete_upload_from_assignment(username, assignment_id, upload_uuid):
+	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/inspiration_uploads/" + upload_uuid, None)
+
+def add_completed_work_to_assignment(username, assignment_id, upload_uuid, s3_url, added_by):
+	return firebase_api.patch_object(
+		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
+		{
+			"s3_url": s3_url,
+			"approved": False,
+			"added_by": added_by,
+			"created_at": datetime.datetime.utcnow().isoformat()
+		}
+	)
+
+def approve_completed_work(username, assignment_id, upload_uuid):
+	return firebase_api.patch_object(
+		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
+		{
+			"approved": True,
+			"approved_on": datetime.datetime.utcnow().isoformat()
+		}
+	)	
+
+def disapprove_completed_work(username, assignment_id, upload_uuid):
+	return firebase_api.patch_object(
+		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
+		{
+			"approved": False,
+			"disapproved_on": datetime.datetime.utcnow().isoformat()
+		}
+	)	
+
+def delete_completed_work_from_assignment(username, assignment_id, s3_url):
+	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, None)
+ 
+def create_va_commission(username, designer_username, assignment_id, actual_hours, commission_amount):
+	created_at = datetime.datetime.utcnow().isoformat()
+	data = {
+		"username": username,
+		"designer_username": designer_username,
+		"assignment_id": assignment_id,
+		"actual_hours": actual_hours,
+		"commission_amount": commission_amount,
+		"created_at": created_at,
+		"approved": True,
+		"paid_out": False
+	}
+	return firebase_api.save_object("commissions/" + username, data)
+
+def disapprove_va_commission(username, commission_id):
+	return firebase_api.patch_object("commissions/" + username + "/" + commission_id + "/approved", False)
+
+def assign_payout_id(username, commission_id, payout_id):
+	return firebase_api.patch_object("commissions/" + username + "/" + commission_id + "/payout_id", payout_id)
+
+def mark_commission_as_paid_out(username, commission_id):
+	return firebase_api.patch_object("commissions/" + username + "/" + commission_id + "/paid_out", True)
+
+
 def get_clients_for_va(designer_username):
 	clients = firebase_api.query_objects("clients/" + designer_username) or {}
 	for user_id in clients:
@@ -202,16 +282,6 @@ def get_commissions_for_va(designer_username, is_paid_out=None, is_approved=None
 	return all_commisions
 
 
-def create_assignment(username, assignment_data):
-	created_at = datetime.datetime.utcnow().isoformat()
-	assignment_data["created_at"] = created_at
-	return firebase_api.save_object("assignments/" + username, assignment_data)
-
-def update_assignment(username, assignment_id, assignment_data):
-	updated_on = datetime.datetime.utcnow().isoformat()
-	assignment_data["updated_on"] = updated_on
-	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id, assignment_data)
-
 def update_assignment_progress(username, assignment_id, status):
 	update_assignment(username, assignment_id, {"status": status})
 
@@ -268,73 +338,6 @@ def update_assignment_description(username, assignment_id, assignment_descriptio
 
 def update_estimated_hours(username, assignment_id, estimated_hours):
 	update_assignment(username, assignment_id, {"estimated_hours": estimated_hours})
-
-def add_inspiration_asin_to_assignment(username, assignment_id, asin):
-	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/inspiration_asins/" + asin, True)
-
-def delete_inspiration_asin_from_assignment(username, assignment_id, asin):
-	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/inspiration_asins/" + asin, False)
-
-def add_upload_to_assignment(username, assignment_id, upload_uuid):
-	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/inspiration_uploads/" + upload_uuid, {"s3_url": s3_url})
-
-def delete_upload_from_assignment(username, assignment_id, upload_uuid):
-	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/inspiration_uploads/" + upload_uuid, None)
-
-def add_completed_work_to_assignment(username, assignment_id, upload_uuid, s3_url, added_by):
-	return firebase_api.patch_object(
-		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
-		{
-			"s3_url": s3_url,
-			"approved": False,
-			"added_by": added_by,
-			"created_at": datetime.datetime.utcnow().isoformat()
-		}
-	)
-
-def approve_completed_work(username, assignment_id, upload_uuid):
-	return firebase_api.patch_object(
-		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
-		{
-			"approved": True,
-			"approved_on": datetime.datetime.utcnow().isoformat()
-		}
-	)	
-
-def disapprove_completed_work(username, assignment_id, upload_uuid):
-	return firebase_api.patch_object(
-		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
-		{
-			"approved": False,
-			"disapproved_on": datetime.datetime.utcnow().isoformat()
-		}
-	)	
-
-def delete_completed_work_from_assignment(username, assignment_id, s3_url):
-	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, None)
- 
-def create_va_commission(username, designer_username, assignment_id, actual_hours, commission_amount):
-	created_at = datetime.datetime.utcnow().isoformat()
-	data = {
-		"username": username,
-		"designer_username": designer_username,
-		"assignment_id": assignment_id,
-		"actual_hours": actual_hours,
-		"commission_amount": commission_amount,
-		"created_at": created_at,
-		"approved": True,
-		"paid_out": False
-	}
-	return firebase_api.save_object("commissions/" + username, data)
-
-def disapprove_va_commission(username, commission_id):
-	return firebase_api.patch_object("commissions/" + username + "/" + commission_id + "/approved", False)
-
-def assign_payout_id(username, commission_id, payout_id):
-	return firebase_api.patch_object("commissions/" + username + "/" + commission_id + "/payout_id", payout_id)
-
-def mark_commission_as_paid_out(username, commission_id):
-	return firebase_api.patch_object("commissions/" + username + "/" + commission_id + "/paid_out", True)
 
 def get_payout(username, designer_username, payout_id):
 	return firebase_api.query_objects("payouts/" + username + "/" + designer_username + "/" + payout_id)

@@ -1,5 +1,6 @@
 import React from 'react';
 import DesignersTable from './DesignersTable.jsx';
+import DesignersSummary from './DesignersSummary.jsx';
 
 export default class DesignersPage extends React.Component {
     constructor(props) {
@@ -48,6 +49,8 @@ export default class DesignersPage extends React.Component {
             <div>
                 <div class="row">
                     <div className="col-lg-12" style={{padding:'0px'}}>
+                        <DesignersSummary designers={this.state.designers} />
+                        <br />
                         <DesignersTable 
                             designers={this.state.designers} 
                             updateTable={this.updateTable.bind(this)}
