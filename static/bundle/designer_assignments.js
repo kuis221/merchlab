@@ -92146,13 +92146,16 @@ var NewAssignmentModal = function (_React$Component) {
             var rate = parseFloat($("#rate").val()) || 0;
             var num_variations = parseInt($("#num-variations").val()) || 0;
             var notes = $("#notes").val();
+            var niche_category = $("#niche-category").val();
             var assignment = JSON.stringify({
                 designer_username: designer_username,
                 asin: asin,
                 rate: rate,
                 num_variations: num_variations,
                 status: "assigned",
-                notes: notes
+                notes: notes,
+                gender_preference: this.state.genderPreference,
+                niche_category: niche_category
             });
             var data = { assignment: assignment };
             $.post("/add_assignment/", data, function (result) {
@@ -92167,6 +92170,7 @@ var NewAssignmentModal = function (_React$Component) {
                 $("#rate").val("");
                 $("#num-variations").val("");
                 $("#notes").val("");
+                $("#niche-category").val("");
                 this.setState({ designer: null });
                 this.props.onHide();
             }.bind(this));
