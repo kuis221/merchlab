@@ -47,7 +47,6 @@ export default class DesignersSummary extends React.Component {
             searchable={false}
             options={[
                 { value: 'This Week', label: 'This Week' },
-                { value: 'Last Week', label: 'Last Week' },
                 { value: 'This Month', label: 'This Month' },
             ]}
         />)
@@ -59,7 +58,6 @@ export default class DesignersSummary extends React.Component {
             searchable={false}
             options={[
                 { value: 'This Week', label: 'This Week' },
-                { value: 'Last Week', label: 'Last Week' },
                 { value: 'This Month', label: 'This Month' },
             ]}
         />)
@@ -87,7 +85,7 @@ export default class DesignersSummary extends React.Component {
                                     <i className="fa fa-chevron-up"></i>
                                 </a>
                             </div>
-                            <span style={{marginLeft: '10px'}}>Upload Analytics</span>
+                            <span style={{marginLeft: '10px'}}>Commission Analytics</span>
                         </div>
                         <div className="panel-body">
                             <div style={{marginBottom: '10px'}}>{analyticsRangeSelect}</div>

@@ -186,7 +186,7 @@ export default class AssignmentSummary extends React.Component {
                                     <i className="fa fa-chevron-up"></i>
                                 </a>
                             </div>
-                            <span style={{marginLeft: '10px'}}>Upload Analytics</span>
+                            <span style={{marginLeft: '10px'}}>Designer Analytics</span>
                         </div>
                         <div className="panel-body list">
                             {analyticsRangeSelect}

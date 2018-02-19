@@ -97207,7 +97207,7 @@ var DesignersSummary = function (_React$Component) {
                 value: this.state.uploadAnalyticsDateRange,
                 onChange: this.handleChangeUploadAnalyticsDateRange.bind(this),
                 searchable: false,
-                options: [{ value: 'This Week', label: 'This Week' }, { value: 'Last Week', label: 'Last Week' }, { value: 'This Month', label: 'This Month' }]
+                options: [{ value: 'This Week', label: 'This Week' }, { value: 'This Month', label: 'This Month' }]
             });
 
             var designerBreakdownRangeSelect = _react2.default.createElement(_reactSelect2.default, {
@@ -97215,7 +97215,7 @@ var DesignersSummary = function (_React$Component) {
                 value: this.state.designerBreakdownDateRange,
                 onChange: this.handleChangeUploadAnalyticsDateRange.bind(this),
                 searchable: false,
-                options: [{ value: 'This Week', label: 'This Week' }, { value: 'Last Week', label: 'Last Week' }, { value: 'This Month', label: 'This Month' }]
+                options: [{ value: 'This Week', label: 'This Week' }, { value: 'This Month', label: 'This Month' }]
             });
 
             var chart = _react2.default.createElement(
@@ -97259,7 +97259,7 @@ var DesignersSummary = function (_React$Component) {
                             _react2.default.createElement(
                                 'span',
                                 { style: { marginLeft: '10px' } },
-                                'Upload Analytics'
+                                'Commission Analytics'
                             )
                         ),
                         _react2.default.createElement(

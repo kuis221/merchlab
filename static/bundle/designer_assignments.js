@@ -94818,7 +94818,7 @@ var AssignmentSummary = function (_React$Component) {
                             _react2.default.createElement(
                                 'span',
                                 { style: { marginLeft: '10px' } },
-                                'Upload Analytics'
+                                'Designer Analytics'
                             )
                         ),
                         _react2.default.createElement(
