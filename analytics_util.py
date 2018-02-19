@@ -240,7 +240,7 @@ def compute_average_salesrank_for_asin(snapshots):
 	return statistics.mean(values)
 
 def compute_escore(snapshots):
-	print("input", len(snapshots))
+	#print("input", len(snapshots))
 	sorted_snapshots = sorted(snapshots, key=lambda k: k.timestamp)
 	score = 0
 	i = 0
