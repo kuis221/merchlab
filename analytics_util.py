@@ -139,7 +139,7 @@ def compute_analytics_data_for_asins(asins):
 			#"last_3mo_volatility": last_3m_volatility,
 		}
 
-		print("this is the data we snapshotted", data)
+		#print("this is the data we snapshotted", data)
 
 		asin_analytics_entry = models.AsinAnalytics.query.filter_by(id=asin).first()
 		if not asin_analytics_entry:
