@@ -459,7 +459,7 @@ def register():
 	num_seats_left = min(50, num_seats_left)
 
 	if request.method == 'GET':
-		return render_template('register.html', num_seats_left=num_seats_left)
+		return render_template('registerTemp.html', num_seats_left=num_seats_left)
 
 	print("here")
 	referrerId = request.form.get("referrerId")
@@ -471,10 +471,10 @@ def register():
 	print(username, password, email, stripeToken)
 
 	if username == "" or password == "" or email == "":
-		return render_template('register.html', num_seats_left=num_seats_left, error="required_field_missing")
+		return render_template('registerTemp.html', num_seats_left=num_seats_left, error="required_field_missing")
 
 	if "mail.ru" in email or "163.com" in email or "yeah.net" in email:
-		return render_template('register.html', num_seats_left=num_seats_left,
+		return render_template('registerTemp.html', num_seats_left=num_seats_left,
 							   error="We cannot process your email address. Please use a different email provider.")
 
 	usersDict = firebase_api.query_objects('users')
@@ -484,10 +484,10 @@ def register():
 			user = usersDict[objectId]
 			if user["username"].lower() == username.lower():
 				result = {"error": "username_exists"}
-				return render_template('register.html', num_seats_left=num_seats_left, error=result["error"])
+				return render_template('registerTemp.html', num_seats_left=num_seats_left, error=result["error"])
 			elif user["email"] == email:
 				result = {"error": "email_exists"}
-				return render_template('register.html', num_seats_left=num_seats_left, error=result["error"])
+				return render_template('registerTemp.html', num_seats_left=num_seats_left, error=result["error"])
 
 	try:
 		# Create a Customer

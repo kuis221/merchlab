@@ -244,7 +244,6 @@ def get_breakdown_by_va_for_user(username, is_paid_out=None, start_date=None, en
 			breakdown["designs_uploaded"] = designs_uploaded
 			breakdown_by_va[designer_username] = breakdown
 
-	print(commission, approved_commission_amount, unapproved_commission_amount, is_approved)
 
 
 	status_breakdown_by_va = {}
