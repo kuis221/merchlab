@@ -220,6 +220,9 @@ def stripe_hooks():
 def landing():
 	return render_template('landing.html')
 
+@app.route("/pricing", methods=["GET", "POST"])
+def pricing():
+	return render_template('pricing.html')
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
@@ -1153,23 +1156,23 @@ def forgot_password():
     On POST, system generates reset password token and sends it to the email user specified.
     """
     if request.method == "GET":
-        return render_template("forgot_password.html", sent=request.args.get('sent'))
+        return render_template("forgot_password_temp.html", sent=request.args.get('sent'))
 
     if request.method == "POST":
         email = request.form.get('email')
         if not email:
-            return render_template("forgot_password.html", email_error=True)
+            return render_template("forgot_password_temp.html", email_error=True)
 
         user = firebase_api.find_user_by_email(email)
         if not user:
-            return render_template("forgot_password.html", user_error=True)
+            return render_template("forgot_password_temp.html", user_error=True)
 
         token = firebase_api.create_password_reset_token(email)
         print("is testing?", app.testing)
         if not app.testing:
             response = email_utils.send_reset_password_email(email, token)
             print(response.content)
-        return render_template("forgot_password.html", sent=True)
+        return render_template("forgot_password_temp.html", sent=True)
 
 
 @app.route('/reset_password/', methods=["GET", "POST"])

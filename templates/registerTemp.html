@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- styles -->
         <link rel="stylesheet" href="/static/styles/vendor.min.css"/>
+        <link rel="stylesheet" href="/static/vendor/sweetalert/lib/sweet-alert.css" />
         <link rel="stylesheet" href="/static/styles/main.css"/>
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
@@ -128,7 +129,7 @@
                        <div class="f-container card-n">
                          <label for="#">Card Number</label>
                          <div class="f-row">
-                           <input type="number" placeholder="3452 3452 3452 3452" autocomplete="off" id="" data-stripe="number" class="cc-num">
+                           <input type="text" class="cc-num" placeholder="3452 3452 3452 3452" autocomplete="off" id="" data-stripe="number">
                            <i class="far fa-credit-card"></i>
                          </div>
                        </div>
@@ -148,7 +149,7 @@
                          <div class="f-container date">
                            <label for="#">CVV/CVV2</label>
                            <div class="f-row without-icon">
-                             <input type="number" placeholder="000" autocomplete="off" id="" data-stripe="cvc" class="cc-cvc">
+                             <input type="text" placeholder="000" autocomplete="off" id="" data-stripe="cvc" class="cc-cvc">
                            </div>
                          </div>
                        </div>
@@ -165,7 +166,15 @@
           2018 Copyright <span>MERCHLAB</span>.
         </div>
       </div>
-      <!-- Scripts -->
+
+      <!-- Vendor scripts -->
+      <script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+      <script src="/static/vendor/jquery-validation/jquery.validate.min.js"></script>
+      <script src="/static/vendor/jquery-payments/jquery.payment.min.js"></script>
+      <script src="/static/vendor/sweetalert/lib/sweet-alert.min.js"></script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+      <!-- App scripts -->
       <script type="text/javascript">
 
         $('input.cc-num').payment('formatCardNumber');
@@ -253,8 +262,5 @@
         });
 
       </script>
-
-      <script src="/static/scripts/vendor.min.js"></script>
-      <script src="/static/scripts/main.js"></script>
     </body>
 </html>
