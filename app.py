@@ -106,7 +106,7 @@ def save_file_in_s3(bucket_name, filename, canned_acl=None):
 db = SQLAlchemy(app)
 import models
 from dynamodb_util import get_snapshots, get_tracked_keywords_for_asin, get_trademarks_for_asin
-
+import assignments_util_v2
 from keyword_analyzer import get_keywords_from_titles
 
 
@@ -334,7 +334,7 @@ def register_wordcandy():
 						'lillian_dueiri@yahoo.com', 'zhenurik@hotmail.com', 'monicawatson@yahoo.com',
 						'solteq@gmail.com', 'nhowse@sympatico.ca', 'kentburns@kmkbsales.com', 'jcthreetimes@gmail.com',
 						'cwoodson28@yahoo.com', 'tlstuff@cox.net', 'bggivens@gmail.com', 'mamorumiyano1008@gmail.com'])
-	other_valid_emails = ['bokov.danil@gmail.com', 'mayraamazon1881@gmail.com', 'stephen.dalchow@outbreakca.com', 'support@wiggmanscoaching.com',
+	other_valid_emails = ['test_account@gmail.com', 'bokov.danil@gmail.com', 'mayraamazon1881@gmail.com', 'stephen.dalchow@outbreakca.com', 'support@wiggmanscoaching.com',
 						  'perpetual360@gmail.com', 'mrdata2001@gmail.com', 'joann@bubbadahsbuys.com',
 						  'jd.lloyd@yahoo.com', 'admin@good4businesses.co.uk', 'carl@good4businesses.co.uk',
 						  'Mattcolvin@gmail.com', 'mycreativeself365@gmail.com', 'maddmanny@gmail.com',
@@ -1203,6 +1203,84 @@ def reset_password():
         firebase_api.update_object("users/" + user["objectId"], "password", hash_pass(new_password))
         return render_template("reset_password.html", success=True, token=token)
 
+
+# Endpoint for searching Merch Researcher.
+@app.route('/keyword_search/', methods=["POST"])
+def keyword_search():
+	userId = current_user.username
+	query = request.form.get("query")
+	print("executing main query")
+	result = execute_query_search_v2(query)
+	print("finished main query")
+
+	"""
+	if len(result) == 0:
+		print("executing backup query")
+		result = execute_backup_query_search(query)
+		print("finished backup query")
+	"""
+
+	print("constructing keywords from titles")
+	titles = [r.get("title") for r in result if r.get("title")]
+	keywords = get_keywords_from_titles(500, titles)
+	print("finished constructing keywords from titles")
+
+	timestamp = datetime.datetime.utcnow().isoformat()
+
+	print("storing user query results")
+
+	if query and query.strip() != "":
+		user_query_data = {
+			"query_type": "merch_researcher",
+			"username": current_user.username,
+			"timestamp": timestamp,
+			"number_of_merch_shirts_found": len(result),
+			"query": query.strip(),
+			"average_salesrank": None,
+			"lowest_salesrank": None,
+			"bottom_tenth_percentile_salesrank": None,
+			"average_list_price": None,
+			"lowest_price": None,
+			"highest_price": None,
+			"best_product_image": None,
+			"best_product_title": None,
+			"best_product_brand": None,
+		}
+
+		if len(result) > 0:
+			# @TOOD: Make this more complete, lots more summary stats to save and re-display to user
+			user_query_data["best_product_image"] = result[0].get("image")
+			user_query_data["best_product_title"] = result[0].get("title")
+			user_query_data["best_product_brand"] = result[0].get("brand")
+			user_query_data["lowest_salesrank"] = result[0].get("salesrank")
+
+		user_query = models.UserQuery(data=user_query_data)
+		db.session.add(user_query)
+		try:
+			db.session.commit()
+			print("committed")
+		except Exception as e:
+			print(e)
+			print("uh oh rollback")
+			db.session.rollback()
+
+	print("finished storing user query results")
+	print("getting favorites")
+
+	favorites_by_asin = get_favorite_asins(current_user.username) or {}
+
+	print("finished getting favorites")
+
+	# print({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin})
+	return json.dumps({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin},
+					  default=alchemyencoder)
+
+
+
+##################################################################################################################
+
+# VA Segment Only
+
 @app.route('/assignments/', methods=["GET"])
 def assignments():
 	return render_template("assignments.html")
@@ -1452,120 +1530,6 @@ def upload_design(client_username, assignment_id):
 
 		print(data)
 		return json.dumps(data)
-
-
-# Endpoint for searching Merch Researcher.
-@app.route('/keyword_search/', methods=["POST"])
-def keyword_search():
-	userId = current_user.username
-	query = request.form.get("query")
-	print("executing main query")
-	result = execute_query_search_v2(query)
-	print("finished main query")
-
-	"""
-	if len(result) == 0:
-		print("executing backup query")
-		result = execute_backup_query_search(query)
-		print("finished backup query")
-	"""
-
-	print("constructing keywords from titles")
-	titles = [r.get("title") for r in result if r.get("title")]
-	keywords = get_keywords_from_titles(500, titles)
-	print("finished constructing keywords from titles")
-
-	timestamp = datetime.datetime.utcnow().isoformat()
-
-	print("storing user query results")
-
-	if query and query.strip() != "":
-		user_query_data = {
-			"query_type": "merch_researcher",
-			"username": current_user.username,
-			"timestamp": timestamp,
-			"number_of_merch_shirts_found": len(result),
-			"query": query.strip(),
-			"average_salesrank": None,
-			"lowest_salesrank": None,
-			"bottom_tenth_percentile_salesrank": None,
-			"average_list_price": None,
-			"lowest_price": None,
-			"highest_price": None,
-			"best_product_image": None,
-			"best_product_title": None,
-			"best_product_brand": None,
-		}
-
-		if len(result) > 0:
-			# @TOOD: Make this more complete, lots more summary stats to save and re-display to user
-			user_query_data["best_product_image"] = result[0].get("image")
-			user_query_data["best_product_title"] = result[0].get("title")
-			user_query_data["best_product_brand"] = result[0].get("brand")
-			user_query_data["lowest_salesrank"] = result[0].get("salesrank")
-
-		user_query = models.UserQuery(data=user_query_data)
-		db.session.add(user_query)
-		try:
-			db.session.commit()
-			print("committed")
-		except Exception as e:
-			print(e)
-			print("uh oh rollback")
-			db.session.rollback()
-
-	print("finished storing user query results")
-	print("getting favorites")
-
-	favorites_by_asin = get_favorite_asins(current_user.username) or {}
-
-	print("finished getting favorites")
-
-	# print({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin})
-	return json.dumps({"results": result, "keywords": keywords, "favorites_by_asin": favorites_by_asin},
-					  default=alchemyencoder)
-
-@app.route('/mailing/send_email/', methods=["POST"])
-def send_email():
-	"""
-	Sends email to specified address. Accepts POST request, which should contain following keys:
-
-	{
-		"to": "some@email.com",             # email recipient;
-		"subject": "Testing",               # email subject;
-		"text": "This is a test",           # email text;
-		"template_name": "test.html",       # template to render and attach to email (optional);
-	}
-
-	:return: Flask response with according status code
-	"""
-	post_data = request.form
-	response_data = dict()
-
-	to = post_data.get('to')
-	subject = post_data.get('subject')
-	text = post_data.get('text')
-
-	# To send email, we need at least To, Subject and Text
-	if not all((to, subject, text)):
-		response_data["Status"] = "Failed"
-		response_data["Error"] = "Insufficient data"
-		return jsonify(response_data), 400
-
-	# If template name specified, render it and add to email
-	template_name = post_data.get('template_name')
-	if template_name:
-		html = render_template(template_name)
-		response_data["HTML"] = "Rendered {0}".format(template_name)
-	else:
-		html = None
-
-	# Don't send emails if we're in testing env
-	if not app.testing:
-		email_utils.send_email(to=to, subject=subject, text=text, html=html)
-
-	response_data["Status"] = "Email sent"
-	return jsonify(response_data)
 
 
 if __name__ == "__main__":

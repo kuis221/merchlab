@@ -297,3 +297,181 @@ class AsinAnalytics(db.Model):
         self.weighted_escore_v2 = data.get("weighted_escore_v2", self.weighted_escore_v2)
         self.streak_score_v1 = data.get("streak_score_v1", self.streak_score_v1)
         self.streak_score_v2 = data.get("streak_score_v2", self.streak_score_v2)
+
+class CreatedDesign(db.Model):
+    __tablename = 'created_design'
+
+    id = db.Column(db.String(), primary_key=True)
+    username = db.Column(db.String())
+    designer_username = db.Column(db.String())
+    assignment_id = db.Column(db.String())
+    approval_status = db.Column(db.String())
+    created_at = db.Column(db.String())
+    approval_status_updated_at = db.Column(db.String())
+    commission_amount = db.Column(db.Float())
+    payout_id = db.Column(db.String())
+    mockup_s3_path = db.Column(db.String())
+
+    def __init__(self, username, designer_username, assignment_id, approval_status, created_at, 
+        approval_status_updated_at, commission_amount, payout_id, mockup_s3_path):
+        self.username = username
+        self.designer_username = designer_username
+        self.assignment_id = assignment_id
+        self.approval_status = approval_status
+        self.created_at = created_at
+        self.approval_status_updated_at = approval_status_updated_at
+        self.commission_amount = commission_amount
+        self.payout_id = payout_id
+        self.mockup_s3_path = mockup_s3_path
+
+    def add_to_payout(self, payout_id, approval_status_updated_at):
+        self.approval_status = "paid_out"
+        self.payout_id = payout_id
+        self.approval_status_updated_at = approval_status_updated_at
+
+    def update_approval_status(self, approval_status):
+        if approval_status not in ["pending", "approved", "rejected", "paid_out", "revision_requested"]:
+            raise Exception("Approval Status '{}' is not recognized.".format(approval_status))
+
+        self.approved_status = approval_status
+        self.approval_status_updated_at = datetime.datetime.utcnow().isoformat()
+
+    def approve(self):
+        return self.update_approval_status("approved")
+
+    def reject(self):
+        return self.update_approval_status("rejected")
+
+    def request_revision(self):
+        return self.update_approval_status("revision_requested")
+
+    @staticmethod
+    def sum_commission_amounts(username, designer_username, approval_status=None, start_date=None, end_date=None):
+        created_designs = CreatedDesign.query.filter_by(
+            username=username,
+            designer_username=designer_username,
+            approval_status=approval_status
+        )
+
+        if approval_status:
+            created_designs = created_designs.filter_by(approval_status=approval_status)
+
+        if start_date:
+            created_designs = created_designs.filter_by(created_at >= start_date)
+
+        if end_date:
+            created_designs = created_designs.filter_by(created_at <= end_date)
+
+        total = 0
+        for design in created_designs:
+            total += design.commission_amount
+        return total
+
+    @staticmethod
+    def sum_design_counts(username, designer_username, approval_status=None, start_date=None, end_date=None):
+        query = CreatedDesign.query.filter_by(
+            username=username,
+            designer_username=designer_username,
+            approval_status=approval_status
+        )
+
+        if approval_status:
+            query = query.filter_by(approval_status=approval_status)
+
+        if start_date:
+            query = query.filter_by(created_at >= start_date)
+
+        if end_date:
+            query = query.filter_by(created_at <= end_date)
+
+        return query.count()   
+        
+    @staticmethod
+    def generate_commission_summary(username, designer_username, start_date=None, end_date=None):
+        pending_amount = CreatedDesign.sum_commission_amounts(username, designer_username, "pending", start_date, end_date)
+        approved_amount = CreatedDesign.sum_commission_amounts(username, designer_username, "approved", start_date, end_date)
+        rejected_amount = CreatedDesign.sum_commission_amounts(username, designer_username, "rejected", start_date, end_date)
+        paid_out_amount = CreatedDesign.sum_commission_amounts(username, designer_username, "paid_out", start_date, end_date)
+        revision_requested_amount = CreatedDesign.sum_commission_amounts(username, designer_username, "revision_requested", start_date, end_date)
+        designs_uploaded = CreatedDesign.sum_design_counts(username, designer_username, approval_status=None, start_date=start_date, end_date=end_date)
+
+        summary = {
+            "pending_commission_amount": pending_amount,
+            "approved_commission_amount": approved_amount,
+            "rejected_commission_amount": rejected_amount,
+            "paid_out_commission_amount": paid_out_amount,
+            "revision_requested_commission_amount": revision_requested_amount,
+            "designs_uploaded": designs_uploaded
+        }
+        return summary
+
+class Revision(db.Model):
+    __tablename = 'revision'
+
+    id = db.Column(db.String(), primary_key=True)
+    created_design_id = db.Column(db.String())
+    created_at = db.Column(db.String())
+    mockup_s3_path = db.Column(db.String())
+
+    def __init__(self, created_design_id, created_at, mockup_s3_path):
+        self.created_design_id = created_design_id
+        self.created_at = created_at
+        self.mockup_s3_path = mockup_s3_path
+
+class CreatedDesignAsset(db.Model):
+    __tablename = 'created_design_asset'
+
+    id = db.Column(db.String(), primary_key=True)
+    created_design_id = db.Column(db.String())
+    s3_path = db.Column(db.String())
+    revision_id = db.Column(db.String()) # optional
+
+    def __init__(self, created_design_id, s3_path, revision_id=None):
+        self.created_design_id = created_design_id
+        self.s3_path = s3_path
+        self.revision_id = revision_id
+
+class Payout(db.Model):
+    __tablename = 'payout'
+
+    id = db.Column(db.String(), primary_key=True)
+    username = db.Column(db.String())
+    designer_username = db.Column(db.String())
+    total_payout_amount = db.Column(db.Float())
+    created_at = db.Column(db.String())
+
+    def __init__(self, username, designer_username, total_payout_amount, created_at):
+        self.username = username
+        self.designer_username = designer_username
+        self.total_payout_amount = total_payout_amount
+        self.created_at = created_at
+
+    @staticmethod
+    def generate_payout_for_user(username, designer_username):
+        created_at = datetime.datetime.utcnow().isoformat()
+        new_payout = Payout(
+            username=username, 
+            designer_username=designer_username, 
+            total_payout_amount=0, 
+            created_at=created_at
+        )
+        db.session.add(new_payout)
+
+        approved_designs = CreatedDesign.query.filter_by(
+            username=username, 
+            designer_username=designer_username,
+            approval_status="approved"
+        )
+        total_payout_amount = 0
+        for design in approved_designs:
+            total_payout_amount += design.commission_amount
+            design.add_to_payout(payout_id=new_payout.id, approval_status_updated_at=created_at)
+
+        new_payout.total_payout_amount = total_payout_amount
+        try:
+            db.session.commit()
+            return new_payout
+        except Exception as e:
+            print("Failed to generated payout. This was the error: {}".format(str(e)))
+            db.session.rollback()
+            return None

@@ -53,22 +53,30 @@ def add_upload_to_assignment(username, assignment_id, upload_uuid):
 def delete_upload_from_assignment(username, assignment_id, upload_uuid):
 	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/inspiration_uploads/" + upload_uuid, None)
 
-def add_completed_work_to_assignment(username, assignment_id, upload_uuid, s3_url, added_by):
+def add_completed_work_to_assignment(username, assignment_id, upload_uuid, s3_url, designer_username):
 	return firebase_api.patch_object(
 		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
 		{
 			"s3_url": s3_url,
-			"approved": False,
-			"added_by": added_by,
+			"approval_status": "pending",
+			"added_by": designer_username,
 			"created_at": datetime.datetime.utcnow().isoformat()
 		}
 	)
+	designers = get_vas_for_user(username)
+	rate = 0
+	for designer in designers:
+		if designer["username"] == designer_username:
+			rate = designer.get("rate") or 0
+			break
+	commission_amount = rate
+	create_va_commission(username, designer_username, assignment_id, upload_uuid, commission_amount, approval_status="pending")
 
 def approve_completed_work(username, assignment_id, upload_uuid):
 	return firebase_api.patch_object(
 		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
 		{
-			"approved": True,
+			"approval_status": "approved",
 			"approved_on": datetime.datetime.utcnow().isoformat()
 		}
 	)	
@@ -77,7 +85,7 @@ def disapprove_completed_work(username, assignment_id, upload_uuid):
 	return firebase_api.patch_object(
 		"assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, 
 		{
-			"approved": False,
+			"approval_status": "rejected",
 			"disapproved_on": datetime.datetime.utcnow().isoformat()
 		}
 	)	
@@ -85,16 +93,15 @@ def disapprove_completed_work(username, assignment_id, upload_uuid):
 def delete_completed_work_from_assignment(username, assignment_id, s3_url):
 	return firebase_api.patch_object("assignments/" + username + "/" + assignment_id + "/completed_work/" + upload_uuid, None)
  
-def create_va_commission(username, designer_username, assignment_id, actual_hours, commission_amount):
+def create_va_commission(username, designer_username, assignment_id, upload_uuid, commission_amount, approval_status="pending"):
 	created_at = datetime.datetime.utcnow().isoformat()
 	data = {
 		"username": username,
 		"designer_username": designer_username,
 		"assignment_id": assignment_id,
-		"actual_hours": actual_hours,
 		"commission_amount": commission_amount,
 		"created_at": created_at,
-		"approved": True,
+		"approval_status": approval_status,
 		"paid_out": False
 	}
 	return firebase_api.save_object("commissions/" + username, data)
