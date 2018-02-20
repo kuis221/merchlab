@@ -104,8 +104,8 @@ create_scraper_job("9302388011", search_index="Kitchen", method="random", num_ke
 #scrape_from_homepage(search_index="Apparel", browse_node="9056923011")
 #q.enqueue_call(scrape_from_homepage, args=("9056987011",), timeout=7200)
 #q.enqueue_call(scrape_from_homepage, args=("9056923011",), timeout=7200)
-create_scraper_job("9056987011", search_index="Apparel", method="random", num_keywords=30000, postfix_variants=["tshirt", "longsleeve", "hoodie"])
-create_scraper_job("9056923011", search_index="Apparel", method="random", num_keywords=30000, postfix_variants=["tshirt", "longsleeve", "hoodie"])
+create_scraper_job("9056987011", search_index="Apparel", method="random", num_keywords=30000, postfix_variants=["tshirt"])
+create_scraper_job("9056923011", search_index="Apparel", method="random", num_keywords=30000, postfix_variants=["tshirt"])
 
 #create_scraper_job("9056987011", search_index="Apparel", method="hot_keywords", num_keywords=5000, postfix_variants=["tshirt"])
 #create_scraper_job("9056923011", search_index="Apparel", method="hot_keywords", num_keywords=5000, postfix_variants=["mug"])

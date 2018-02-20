@@ -218,8 +218,8 @@ def stripe_hooks():
 
 @app.route("/", methods=["GET", "POST"])
 def landing():
-	#return redirect(url_for('register'))
-	return render_template('landing.html')
+	return redirect(url_for('register'))
+	#return render_template('landing.html')
 
 @app.route("/pricing", methods=["GET", "POST"])
 def pricing():
