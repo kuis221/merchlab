@@ -94,7 +94,7 @@ def snapshot_asins(asins):
 		try:
 			response = write_snapshot_to_dynamodb(snapshot)
 		except Exception as e:
-			print(e, response)
+			print(e)
 
 		compute_analytics_data_for_asins([asin])
 	
