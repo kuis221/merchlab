@@ -490,21 +490,17 @@ def register():
 				return render_template('registerTemp.html', num_seats_left=num_seats_left, error=result["error"])
 
 	try:
+		plan = "merchlab_basic"
+
 		# Create a Customer
 		customer = stripe.Customer.create(
 			source=stripeToken,
 			email=email,
+		  	plan=plan,
+
 		)
 		customerId = customer["id"]
 
-		# Charge 79
-		charge = stripe.Charge.create(
-			customer=customerId,
-			amount=7900,
-			currency='usd',
-			description='MERCHLAB LIFETIME'
-		)
-		plan = "lifetime_plan"
 	except Exception as e:
 		print(e)
 		return render_template('registerTemp.html', num_seats_left=num_seats_left,
