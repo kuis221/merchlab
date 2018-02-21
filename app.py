@@ -221,7 +221,7 @@ def landing():
 	return redirect(url_for('register'))
 	#return render_template('landing.html')
 
-@app.route("/pricing", methods=["GET", "POST"])
+@app.route("/pricing/", methods=["GET", "POST"])
 def pricing():
 	return render_template('pricing.html')
 
