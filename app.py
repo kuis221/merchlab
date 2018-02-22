@@ -74,6 +74,15 @@ stripe.api_key = "sk_live_troL1NlysCarz4MUW1Myyjw8"
 app.config['ALLOWED_EXTENSIONS'] = set(['png', 'jpg', 'jpeg', 'tiff', 'bmp'])
 
 
+@app.before_request
+def enforceHttpsInHeroku():
+  if request.headers.get('X-Forwarded-Proto') == 'http':
+  url = request.url.replace('http://', 'https://', 1)
+  code = 301
+  return redirect(url, code=code)
+
+  
+
 def allowed_file(filename):
 	return '.' in filename and \
 		   filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
