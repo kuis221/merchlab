@@ -1539,5 +1539,9 @@ def upload_design(client_username, assignment_id):
 
 
 if __name__ == "__main__":
-	sslify = SSLify(app)
-	app.run(debug=True)
+	if 'DYNO' in os.environ:
+		sslify = SSLify(app)
+		debug = False
+	else:
+		debug = True
+	app.run(debug=debug)
