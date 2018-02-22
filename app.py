@@ -26,6 +26,7 @@ from flask_login import (
 	current_user,
 	logout_user
 )
+from flask_sslify import SSLify
 
 nltk.download('stopwords')
 from scrapers.keyword_generator import generate_bigrams, turn_ngrams_into_searches
@@ -1538,4 +1539,5 @@ def upload_design(client_username, assignment_id):
 
 
 if __name__ == "__main__":
+	sslify = SSLify(app)
 	app.run(debug=True)
