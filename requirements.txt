@@ -42,7 +42,7 @@ idna==2.6
 ipaddress==1.0.16
 itsdangerous==0.24
 jdatetime==1.7.4
-Jinja2==2.8
+Jinja2==2.11.3
 jmespath==0.9.3
 jws==0.1.3
 mailchimp==2.0.9
